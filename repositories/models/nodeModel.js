@@ -1,5 +1,5 @@
 const itemBase = require('./itemBase');
-class node extends itemBase{
+module.exports = class node extends itemBase{
     constructor(data = null) {
         super(data);
         if(data)
