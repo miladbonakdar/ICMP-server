@@ -1,12 +1,11 @@
-const itemBase = require('./itemBase');
-class area extends itemBase{
+const itemBase = require("./itemBase");
+class area extends itemBase {
     constructor(data = null) {
         super(data);
-        if(data)
-        {
+        if (data) {
             this.name = data.name || null;
             this.nodes = data.nodes || [];
-        }else{
+        } else {
             this.name = null;
             this.nodes = [];
         }

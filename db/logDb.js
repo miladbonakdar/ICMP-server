@@ -13,13 +13,16 @@ checkFolderExistAndCreateIfNot = async date => {
         `${date.getFullYear()}-${date.getMonth()}`
     );
     if (!(await fs.existsSync(dir))) {
-        await fs.mkdirSync(dir, 0744);
+        await fs.mkdirSync(dir, 744);
     }
     return dir;
 };
 
 getDbPath = async date => {
-    return path.join(await checkFolderExistAndCreateIfNot(date), getDbName(date));
+    return path.join(
+        await checkFolderExistAndCreateIfNot(date),
+        getDbName(date)
+    );
 };
 
 module.exports = async date => {

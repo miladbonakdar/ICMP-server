@@ -1,6 +1,6 @@
 const ping = require("ping");
 const areaRepository = require("../repositories/areaRepository");
-const logRepository = require('../repositories/logRepository')
+const logRepository = require("../repositories/logRepository");
 async function pingHost(hostName = "localhost") {
     try {
         let pingResponse = await ping.promise.probe(hostName);
@@ -40,5 +40,4 @@ module.exports = async () => {
     await pingAreas(areas);
     await saveAreas(areas);
     await logRepository.saveAreasLog(areas);
-    delete areas;
 };

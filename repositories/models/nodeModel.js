@@ -1,15 +1,14 @@
-const itemBase = require('./itemBase');
-module.exports = class node extends itemBase{
+const itemBase = require("./itemBase");
+module.exports = class node extends itemBase {
     constructor(data = null) {
         super(data);
-        if(data)
-        {
+        if (data) {
             this.name = data.name || null;
             this.hostName = data.hostName || null;
             this.ip = data.hostName || null;
             this.areaId = data.areaId || null;
             this.alive = data.alive || false;
-        }else{
+        } else {
             this.name = null;
             this.hostName = null;
             this.ip = null;
@@ -17,4 +16,4 @@ module.exports = class node extends itemBase{
             this.alive = false;
         }
     }
-}
+};

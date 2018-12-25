@@ -8,35 +8,35 @@ module.exports = class csvConverter {
         this.array = arrayOfObjects;
         this.dataString = "";
     }
-    convert = () => {
-        createHeader();
-        createBody();
-    };
-    createHeader = () => {
+    convert() {
+        this.createHeader();
+        this.createBody();
+    }
+    createHeader() {
         this.dataString = "";
-        this.dataString += jsonLineFromObject(dailyReportCsvTitles);
-    };
-    createBody = () => {
+        this.dataString += this.jsonLineFromObject(dailyReportCsvTitles);
+    }
+    createBody() {
         this.array.forEach(item => {
-            this.dataString += jsonLineFromObject(item);
+            this.dataString += this.jsonLineFromObject(item);
         });
-    };
-    jsonLineFromObject = item => {
+    }
+    jsonLineFromObject(item) {
         let line = "";
         Object.keys(item).forEach(key => {
             line += item[key].toString() + ",";
         });
-        if (line.endsWith(",")) lene = line.substring(0, line.length - 1);
+        if (line.endsWith(",")) line = line.substring(0, line.length - 1);
         line += endOfLine;
         return line;
-    };
-    saveToFileAsync = async path => {
+    }
+    async saveToFileAsync(path) {
         if (!path.toLowerCase().endsWith(".csv")) path += ".csv";
         return new Promise((resolve, reject) => {
             fs.writeFile(path, this.dataString, "utf8", function(err) {
                 if (err) reject(err);
-                else resolve(data);
+                else resolve(path);
             });
         });
-    };
+    }
 };

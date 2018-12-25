@@ -3,7 +3,7 @@ const routes = require("./routes");
 const defaultRoute = require("./utils/defaultRoute");
 
 function onServerStartedSuccessfuly() {
-    console.log(`Server is up and running`);
+    console.log("Server is up and running");
 }
 
 function setupMiddlewares(app) {

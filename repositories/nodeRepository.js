@@ -4,5 +4,5 @@ module.exports = class nodeRepository extends repository {
     constructor(db = database.getMainDb()) {
         super(db);
     }
-    getNodes = () => {};
+    getNodes() {}
 };

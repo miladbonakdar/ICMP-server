@@ -12,7 +12,7 @@ module.exports = class node extends itemBase {
             this.nodePath = data.nodePath || null;
             this.isAlive = data.isAlive || false;
         } else {
-            this.nodeName =  null;
+            this.nodeName = null;
             this.date = new Date();
             this.ip = "localhost";
             this.areaName = null;
@@ -23,7 +23,9 @@ module.exports = class node extends itemBase {
         }
     }
 
-    getCsvString = () => {
-        return `${this.date},${this.date},${this.areaName},${this.nodeName},${this.nodeName},${this.nodeName},${this.nodeName}`
-    };
+    getCsvString() {
+        return `${this.date},${this.date},${this.areaName},${this.nodeName},${
+            this.nodeName
+        },${this.nodeName},${this.nodeName}`;
+    }
 };
