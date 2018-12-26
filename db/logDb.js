@@ -2,11 +2,11 @@ const fs = require("fs");
 const path = require("path");
 const JsonDB = require("node-json-db");
 
-getDbName = async date => {
+const getDbName = async date => {
     return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}-${date.getDay()}.log.json`;
 };
 
-checkFolderExistAndCreateIfNot = async date => {
+const checkFolderExistAndCreateIfNot = async date => {
     let dir = path.join(
         __dirname,
         "logs",
@@ -18,7 +18,7 @@ checkFolderExistAndCreateIfNot = async date => {
     return dir;
 };
 
-getDbPath = async date => {
+const getDbPath = async date => {
     return path.join(
         await checkFolderExistAndCreateIfNot(date),
         getDbName(date)

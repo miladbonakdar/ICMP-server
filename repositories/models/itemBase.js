@@ -1,17 +1,11 @@
 const cuid = require("cuid");
-
+const validator = require("./dataValidator");
 module.exports = class itemBase {
     constructor(data = null) {
-        if (data) {
-            this.id = data.id || cuid();
-            this.parent = data.parent || undefined;
-            this.path = data.path || "/";
-            this.createdOn = data.createdOn || new Date();
-        } else {
-            this.id = cuid();
-            this.parent = undefined;
-            this.path = "/";
-            this.createdOn = new Date();
-        }
+        this.id = validator(data, "id") || cuid();
+        this.parent = validator(data, "parent") || undefined;
+        this.path = validator(data, "path") || "/";
+        this.createdOn = validator(data, "createdOn") || new Date();
+        this.areas = validator(data, "areas") || undefined;
     }
 };

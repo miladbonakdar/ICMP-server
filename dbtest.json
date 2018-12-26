@@ -1,0 +1,39 @@
+{
+    "id": "anString",
+    "path": "/",
+    "parent": null,
+    "createdOn": "2018-12-26T02:45:19.852Z",
+    "areas": [
+        {
+            "id": "anString",
+            "path": "/areas/area1Id",
+            "parent": "/",
+            "createdOn": "2018-12-26T02:45:19.852Z",
+            "name": "areaOne",
+            "nodes": [
+                {
+                    "id": "nodeId1",
+                    "path": "/areas/area1Id/nodes/nodeId1",
+                    "parent": "/areas/area1Id",
+                    "createdOn": "2018-12-26T02:45:19.852Z",
+                    "hostName": "localhost",
+                    "name": "node 1",
+                    "ip": "localhost",
+                    "areaId": "/areas/area1Id",
+                    "alive": false
+                },
+                {
+                    "id": "nodeId2",
+                    "path": "/areas/area1Id/nodes/nodeId2",
+                    "parent": "/areas/area1Id",
+                    "createdOn": "2018-12-26T02:45:19.852Z",
+                    "name": "node 2",
+                    "hostName": "localhost",
+                    "ip": "localhost",
+                    "areaId": "/areas/area1Id",
+                    "alive": false
+                }
+            ]
+        }
+    ]
+}

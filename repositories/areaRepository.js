@@ -5,4 +5,6 @@ module.exports = class areaRepository extends repository {
         super(db);
     }
     getAreas() {}
+    getConvertedAreas() {}
+    saveAreas() {}
 };

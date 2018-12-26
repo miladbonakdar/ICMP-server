@@ -2,14 +2,14 @@ const bodyParser = require("body-parser");
 const routes = require("./routes");
 const defaultRoute = require("./utils/defaultRoute");
 
-function onServerStartedSuccessfuly() {
+const onServerStartedSuccessfuly = () => {
     console.log("Server is up and running");
-}
+};
 
-function setupMiddlewares(app) {
+const setupMiddlewares = app => {
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
-}
+};
 
 module.exports = app => {
     setupMiddlewares(app);

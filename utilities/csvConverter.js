@@ -1,6 +1,6 @@
 const fs = require("fs");
 const endOfLine = require("os").EOL;
-const dailyReportCsvTitles = require("./dailyReportCsvStatics");
+const dailyReportCsvStatics = require("./dailyReportCsvStatics");
 module.exports = class csvConverter {
     constructor(arrayOfObjects) {
         if (!arrayOfObjects || typeof arrayOfObjects != "object")
@@ -14,7 +14,7 @@ module.exports = class csvConverter {
     }
     createHeader() {
         this.dataString = "";
-        this.dataString += this.jsonLineFromObject(dailyReportCsvTitles);
+        this.dataString += this.jsonLineFromObject(dailyReportCsvStatics);
     }
     createBody() {
         this.array.forEach(item => {
@@ -30,7 +30,7 @@ module.exports = class csvConverter {
         line += endOfLine;
         return line;
     }
-    async saveToFileAsync(path) {
+    async saveToFileAsync(path = dailyReportCsvStatics.getFilePath()) {
         if (!path.toLowerCase().endsWith(".csv")) path += ".csv";
         return new Promise((resolve, reject) => {
             fs.writeFile(path, this.dataString, "utf8", function(err) {

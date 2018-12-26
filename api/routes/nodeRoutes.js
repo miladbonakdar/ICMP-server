@@ -5,21 +5,31 @@ module.exports = router => {
     /**
      * get all nodes
      */
-    router.route(baseUrl(nodeController.controllerName)).get(nodeController[nodeStatics.getAll]);
+    router
+        .route(baseUrl(nodeController.controllerName))
+        .get(nodeController[nodeStatics.getAll]);
     /**
      * add an node
      */
-    router.route(baseUrl(nodeController.controllerName)).post(nodeController[nodeStatics.create]);
+    router
+        .route(baseUrl(nodeController.controllerName))
+        .post(nodeController[nodeStatics.create]);
     /**
      * update an node
      */
-    router.route(baseUrl(nodeController.controllerNamedate)).put(nodeController[nodeStatics.update]);
+    router
+        .route(baseUrl(nodeController.controllerNamedate))
+        .put(nodeController[nodeStatics.update]);
     /**
      * delete an node
      */
-    router.route(baseUrl(nodeController.controllerName)+"/:id").delete(nodeController[nodeStatics.delete]);
+    router
+        .route(baseUrl(nodeController.controllerName, true))
+        .delete(nodeController[nodeStatics.delete]);
     /**
      * get an node
      */
-    router.route(baseUrl(nodeController.controllerName)+"/:id").get(nodeController[nodeStatics.get]);
+    router
+        .route(baseUrl(nodeController.controllerName, true))
+        .get(nodeController[nodeStatics.get]);
 };

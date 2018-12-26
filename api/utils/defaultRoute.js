@@ -1,4 +1,4 @@
-module.exports =  (req, res) => {
+module.exports = (req, res) => {
     res.status(404);
     // respond with json
     if (req.accepts("json")) {

@@ -1,21 +1,25 @@
 const mainDb = require("./mainDb");
 const logDb = require("./logDb");
+const settingDb = require("./settingDb");
 
 module.exports = {
-    getDb: dbName => {
-        if (dbName == "main" || dbName.toLowerCase() == "maindb")
-            return mainDb();
-        else if (dbName == "log" || dbName.toLowerCase() == "logdb")
-            return logDb(new Date());
+    getDb(dbName) {
+        if (dbName.toLowerCase() == "maindb") return mainDb();
+        else if (dbName.toLowerCase() == "logdb") return logDb(new Date());
+        else if (dbName.toLowerCase() == "settingdb")
+            return logDb(new settingDb());
         else throw "db nams is not valid";
     },
-    getMainDb: () => {
+    getMainDb() {
         return mainDb();
     },
-    getLastLogDb: () => {
+    getSettingDb() {
+        return settingDb();
+    },
+    getLastLogDb() {
         return logDb(new Date());
     },
-    getLogDb: date => {
+    getLogDb(date) {
         return logDb(date);
     }
 };

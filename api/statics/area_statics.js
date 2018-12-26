@@ -3,5 +3,5 @@ module.exports = {
     update: "update",
     get: "get",
     delete: "delete",
-    getAll: "getAll",
+    getAll: "getAll"
 };

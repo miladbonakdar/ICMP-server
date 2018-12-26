@@ -1,26 +1,16 @@
+const validator = require("./dataValidator");
 const itemBase = require("./itemBase");
 module.exports = class node extends itemBase {
     constructor(data = null) {
         super(data);
-        if (data) {
-            this.nodeName = data.nodeName || null;
-            this.date = data.date || new Date();
-            this.ip = data.ip || "localhost";
-            this.areaName = data.areaName || null;
-            this.areaId = data.areaId || null;
-            this.nodeId = data.nodeId || null;
-            this.nodePath = data.nodePath || null;
-            this.isAlive = data.isAlive || false;
-        } else {
-            this.nodeName = null;
-            this.date = new Date();
-            this.ip = "localhost";
-            this.areaName = null;
-            this.areaId = null;
-            this.nodeId = null;
-            this.nodePath = null;
-            this.isAlive = false;
-        }
+        this.nodeName = validator(data, "nodeName") || null;
+        this.date = validator(data, "date") || new Date();
+        this.ip = validator(data, "ip") || "localhost";
+        this.areaName = validator(data, "areaName") || null;
+        this.areaId = validator(data, "areaId") || null;
+        this.nodeId = validator(data, "nodeId") || null;
+        this.nodePath = validator(data, "nodePath") || null;
+        this.isAlive = validator(data, "isAlive") || false;
     }
 
     getCsvString() {

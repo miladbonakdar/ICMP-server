@@ -4,5 +4,9 @@ module.exports = class nodeRepository extends repository {
     constructor(db = database.getMainDb()) {
         super(db);
     }
-    getNodes() {}
+    getNodes() {
+        let areas = this.db.getData("/areas");
+        // TODO need loadash or underscore here
+        areas.map(area => area.nodes);
+    }
 };
