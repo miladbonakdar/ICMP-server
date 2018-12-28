@@ -3,5 +3,12 @@ module.exports = class setting {
     constructor(data = null) {
         this.isRedisEnabled = validator(data, "nodeName") || false;
         this.isLoginEnabled = validator(data, "isLoginEnabled") || false;
+        this.isCsvExportEnabled =
+            validator(data, "isCsvExportEnabled") || false;
+        this.exportCsvFileAtHour = validator(data, "exportCsvFileAtHour") || 23;
+        this.exportCsvFileAtMinute =
+            validator(data, "exportCsvFileAtMinute") || 50;
+        this.pingHostsEvery = validator(data, "pingHostsEvery") || 30; //in minutes
+        if (this.pingHostsEvery < 5) this.pingHostsEvery = 5;
     }
 };

@@ -13,7 +13,7 @@ module.exports = {
     getFilePath: () => {
         const date = new Date();
         path.join(
-            global.__basedir,
+            __dirname,
             "csvExports",
             `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}-${date.getDay()}`
         );
