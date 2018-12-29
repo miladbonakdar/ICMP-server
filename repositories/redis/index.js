@@ -1,6 +1,6 @@
 const redis = require("redis");
 
-let client = redis.createClient();
+let client = undefined;
 let connected = false;
 
 const setRedisClientEvents = () => {

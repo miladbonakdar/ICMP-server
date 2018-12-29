@@ -1,5 +1,5 @@
 {
-    "isRedisEnabled": true,
+    "isRedisEnabled": false,
     "isLoginEnabled": false,
     "isCsvExportEnabled": false,
     "exportCsvFileAtHour": 23,
