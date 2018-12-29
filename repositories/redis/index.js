@@ -20,7 +20,7 @@ const startRedisClient = () => {
 };
 
 const set = (key, data) => {
-    if (!connected) throw "redis is not avalible";
+    if (!connected) return;
     client.set(key, JSON.stringify(data), redis.print);
 };
 
@@ -45,7 +45,9 @@ const stopRedisClient = () => {
 };
 
 const statics = {
-    settingObjectKey:"settingObjectKey",
+    settingObjectKey: "settingObjectKey",
+    getAreasObjectKey: "getAreasObjectKey",
+    getNodesObjectKey: "getNodesObjectKey"
 };
 
 module.exports = {

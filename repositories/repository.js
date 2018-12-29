@@ -1,9 +1,13 @@
-
+const redisClient = require("./redis");
 
 module.exports = class repository {
     constructor(db) {
         if (!db) throw "db is not valid";
         this.db = db;
+        this.redis = redisClient;
+    }
+    updateRedis(object, key) {
+        redisClient.set(key, object);
     }
     add(entityToAdd, validationFunction = this.checkModel) {
         try {
