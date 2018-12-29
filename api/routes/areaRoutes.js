@@ -24,12 +24,24 @@ module.exports = router => {
      * delete an area
      */
     router
-        .route(baseUrl(areaController.controllerName, true))
+        .route(baseUrl(areaController.controllerName, undefined, "id"))
         .delete(areaController[areaStatics.delete]);
     /**
-     * get an area
+     * get an area by item id
      */
     router
-        .route(baseUrl(areaController.controllerName, true))
+        .route(baseUrl(areaController.controllerName, undefined, "id"))
         .get(areaController[areaStatics.get]);
+    /**
+     * get an area by item index
+     */
+    router
+        .route(
+            baseUrl(
+                areaController.controllerName,
+                areaStatics.getByIndex,
+                "index"
+            )
+        )
+        .get(areaController[areaStatics.getByIndex]);
 };

@@ -1,6 +1,10 @@
-module.exports = (controllerName, actionName = undefined, hasId = false) => {
+module.exports = (
+    controllerName,
+    actionName = undefined,
+    parameter = undefined
+) => {
     const rout = `/api/v1/${controllerName}${
         actionName ? "/" + actionName : ""
     }`;
-    return hasId ? `${rout}/:id` : rout;
+    return parameter ? `${rout}/:${parameter}` : rout;
 };
