@@ -8,7 +8,7 @@ module.exports = class settingRepository {
     }
     getSetting() {
         try {
-            setting = this.db.getData("/");
+            let setting = this.db.getData("/");
             return new settingModel(setting);
         } catch (error) {
             console.log(error);

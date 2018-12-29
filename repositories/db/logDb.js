@@ -8,7 +8,8 @@ const getDbName = async date => {
 
 const checkFolderExistAndCreateIfNot = async date => {
     let dir = path.join(
-        __filename,
+        __baseDirname,
+        "database",
         "logs",
         `${date.getFullYear()}-${date.getMonth()}`
     );

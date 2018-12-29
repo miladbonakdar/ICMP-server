@@ -1,13 +1,13 @@
+require("./setGlobalVariables")();
 const app = require("express")();
 const api = require("./api");
 const cronJobTaskRunner = require("./cron");
-const settingRepo = new (require("./repositories/settingRepository"))();
+const settingRepo = require("./repositories/settingRepository");
 const redisServer = require("./repositories/redis");
 
-let setting = settingRepo.getSetting();
-if (!setting) setting = settingRepo.setSetting();
-
-global.isDebugMode = true; //for production or debug mode
+const settingRepository = new settingRepo();
+let setting = settingRepository.getSetting();
+if (!setting) setting = settingRepository.setSetting();
 
 api(app);
 cronJobTaskRunner.start();

@@ -5,5 +5,6 @@ module.exports = {
     [nodeStatics.getAll]: (req, res, next) => {},
     [nodeStatics.update]: (req, res, next) => {},
     [nodeStatics.delete]: (req, res, next) => {},
-    [nodeStatics.get]: (req, res, next) => {}
+    [nodeStatics.get]: (req, res, next) => {},
+    [nodeStatics.getByIndex]: (req, res, next) => {}
 };

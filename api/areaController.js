@@ -15,5 +15,8 @@ module.exports = {
     },
     [areaStatics.get]: (req, res, next) => {
         res.end(areaStatics.get);
+    },
+    [areaStatics.getByIndex]: (req, res, next) => {
+        res.end(areaStatics.getByIndex);
     }
 };
