@@ -1,10 +1,10 @@
 const cron = require("node-cron");
 const onPingCronJobFinished = require("./onPingCronJobFinished");
 const onDailyExportCronJobFinished = require("./onDailyExportCronJobFinished");
-const settingRepo = require("../repositories/settingRepository");
-const setting = new settingRepo().getSetting();
+const settingRepo = new (require("../repositories/settingRepository"))();
 
 let pingCronJob = undefined;
+let setting = undefined;
 let csvExportCronJob = undefined;
 
 const stopCronJob = cronName => {
@@ -15,6 +15,7 @@ const stopCronJob = cronName => {
 };
 
 const startSchadule = () => {
+    setting = settingRepo.getSetting();
     startPingCronJob(); //every 30 minutes
     startCsvCronJob(); //every day at 12:00
 };

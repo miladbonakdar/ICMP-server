@@ -1,20 +1,20 @@
 {
     "id": "anString",
     "path": "/",
-    "parent": null,
+    "parent": "/",
     "createdOn": "2018-12-26T02:45:19.852Z",
     "areas": [
         {
             "id": "anString",
-            "path": "/areas/area1Id",
+            "path": "/areas[0]",
             "parent": "/",
             "createdOn": "2018-12-26T02:45:19.852Z",
             "name": "areaOne",
             "nodes": [
                 {
                     "id": "nodeId1",
-                    "path": "/areas/area1Id/nodes/nodeId1",
-                    "parent": "/areas/area1Id",
+                    "path": "/areas[0]/nodes[0]",
+                    "parent": "/areas[0]",
                     "createdOn": "2018-12-26T02:45:19.852Z",
                     "hostName": "localhost",
                     "name": "node 1",
@@ -24,8 +24,8 @@
                 },
                 {
                     "id": "nodeId2",
-                    "path": "/areas/area1Id/nodes/nodeId2",
-                    "parent": "/areas/area1Id",
+                    "path": "/areas[0]/nodes[0]",
+                    "parent": "/areas[0]",
                     "createdOn": "2018-12-26T02:45:19.852Z",
                     "name": "node 2",
                     "hostName": "localhost",

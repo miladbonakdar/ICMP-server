@@ -5,8 +5,8 @@ module.exports = class nodeRepository extends repository {
         super(db);
     }
     getNodes() {
-        let areas = this.db.getData("/areas");
-        // TODO need loadash or underscore here
+        const areas = this.db.getData("/areas");
+        return _.spread(_.union)(areas.map(item => item.nodes));
         areas.map(area => area.nodes);
     }
 };

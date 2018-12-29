@@ -4,6 +4,10 @@ module.exports = class logRepository extends repository {
     constructor(db = database.getLastLogDb()) {
         super(db);
     }
-    getLogsForCsvExport() {}
-    saveAreasLog(areas){}
+    saveAreasLog(areas) {
+        areas.forEach(area => {});
+    }
+    getLogs() {
+        return this.get("/");
+    }
 };

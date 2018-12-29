@@ -8,15 +8,13 @@ module.exports = class settingRepository {
     }
     getSetting() {
         try {
-            let setting = redisClient.get(
-                redisClient.statics.settingObjectKey
-            );
+            let setting = redisClient.get(redisClient.statics.settingObjectKey);
             if (!setting) setting = this.db.getData("/");
-            if (Object.keys(setting).length == 0) return undefined;
+            if (Object.keys(setting).length == 0) return this.setSetting();
             return new settingModel(setting);
         } catch (error) {
             console.log(error);
-            return undefined;
+            return this.setSetting();
         }
     }
     updateInRedis(setting) {
@@ -24,11 +22,11 @@ module.exports = class settingRepository {
     }
     setSetting(setting) {
         let settingToSave = new settingModel(setting);
-        //TODO: we should use event emiter in here to stop services and clients 
+        //TODO: we should use event emiter in here to stop services and clients
         // if (!settingToSave.isCsvExportEnabled) cron.stop("csv");
         // if (!settingToSave.isRedisEnabled) redisClient.stopRedisClient();
         this.db.push("/", settingToSave);
-        this.updateInRedis(settingToSave);
+        updateInRedis(settingToSave);
         return settingToSave;
     }
 };

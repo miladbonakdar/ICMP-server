@@ -1,3 +1,5 @@
+
+
 module.exports = class repository {
     constructor(db) {
         if (!db) throw "db is not valid";
@@ -5,7 +7,8 @@ module.exports = class repository {
     }
     add(entityToAdd, validationFunction = this.checkModel) {
         try {
-            validationFunction(entityToAdd);
+            if (!validationFunction(entityToAdd))
+                throw "your object is not valid";
             this.db.push(entityToAdd.path, entityToAdd);
         } catch (exception) {
             throw exception;
@@ -16,9 +19,11 @@ module.exports = class repository {
             !entityToAdd ||
             !entityToAdd.id ||
             !entityToAdd.path ||
+            !entityToAdd.parent ||
             !entityToAdd.createdOn
         )
-            throw "entity is not valid for add";
+            return false;
+        return true;
     }
     delete(path) {
         this.db.delete(path);

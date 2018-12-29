@@ -1,5 +1,5 @@
 const ping = require("ping");
-const areaRepository = require("../repositories/areaRepository");
+const areaRepository = new (require("../repositories/areaRepository"))();
 const logRepository = require("../repositories/logRepository");
 const pingHost = async (hostName = "localhost") => {
     try {
@@ -8,12 +8,6 @@ const pingHost = async (hostName = "localhost") => {
     } catch (exception) {
         return false;
     }
-};
-
-const pingHosts = async (hostNames = ["localhost"]) => {
-    hostNames.array.forEach(async element => {
-        await pingHost(element);
-    });
 };
 
 const pingNode = async node => {

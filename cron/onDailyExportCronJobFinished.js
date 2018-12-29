@@ -1,11 +1,10 @@
-const logRepository = require("../repositories/logRepository");
+const log = require("../repositories/logRepository");
 const csvConverter = require("../utilities/csvConverter");
-const dailyReportCsvStatics = require("../utilities/dailyReportCsvStatics");
 
 module.exports = async () => {
-    const logRepository = new logRepository();
+    const logRepository = new log();
 
-    const logs = logRepository.getLogsForCsvExport();
+    const logs = logRepository.getLogs();
     const csv = new csvConverter(logs);
     csv.convert();
     await csv.saveToFileAsync();
