@@ -1,1 +1,8 @@
-{}
+{
+    "isRedisEnabled": true,
+    "isLoginEnabled": false,
+    "isCsvExportEnabled": true,
+    "exportCsvFileAtHour": 23,
+    "exportCsvFileAtMinute": 50,
+    "pingHostsEvery": 30
+}

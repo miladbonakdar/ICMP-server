@@ -1,6 +1,6 @@
 const cron = require("node-cron");
-const onPingCornJobFinished = require("./onPingCornJobFinished");
-const onDailyExportCornJobFinished = require("./onDailyExportCornJobFinished");
+const onPingCronJobFinished = require("./onPingCronJobFinished");
+const onDailyExportCronJobFinished = require("./onDailyExportCronJobFinished");
 const settingRepo = require("../repositories/settingRepository");
 const setting = new settingRepo().getSetting();
 
@@ -25,7 +25,7 @@ const startCsvCronJob = () => {
             `${setting.exportCsvFileAtMinute} ${
                 setting.exportCsvFileAtHour
             } * * *`,
-            onDailyExportCornJobFinished
+            onDailyExportCronJobFinished
         );
 };
 
@@ -33,12 +33,12 @@ const startPingCronJob = () => {
     if (!pingCronJob)
         pingCronJob = cron.schedule(
             `*/${setting.pingHostsEvery} * * * *`,
-            onPingCornJobFinished
+            onPingCronJobFinished
         );
 };
 
 //https://crontab.guru/#15_14_1_*_*
 module.exports = {
     start: startSchadule,
-    stopCronJob: stopCronJob
+    stop: stopCronJob
 };

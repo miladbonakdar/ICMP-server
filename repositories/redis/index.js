@@ -24,13 +24,11 @@ const set = (key, data) => {
     client.set(key, JSON.stringify(data), redis.print);
 };
 
-const getAsync = async key => {
+const get = key => {
     if (!connected) return undefined;
-    return new Promise((resolve, reject) => {
-        client.get(key, (err, stringData) => {
-            if (err) reject(err);
-            resolve(JSON.parse(stringData));
-        });
+    client.get(key, (err, stringData) => {
+        if (err) reject(err);
+        resolve(JSON.parse(stringData));
     });
 };
 
@@ -46,10 +44,15 @@ const stopRedisClient = () => {
     }
 };
 
+const statics = {
+    settingObjectKey:"settingObjectKey",
+};
+
 module.exports = {
     startRedisClient,
     set,
-    getAsync,
+    get,
     isConnected,
-    stopRedisClient
+    stopRedisClient,
+    statics
 };

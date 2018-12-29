@@ -1,25 +1,34 @@
 const database = require("./db");
 const settingModel = require("./models/settingModel");
-const stopCronFunction = require("../cron/index").stopCronJob;
-const stopRedisClientFunction = require("./redis").stopRedisClient;
+const cron = require("../cron");
+const redisClient = require("./redis");
 module.exports = class settingRepository {
     constructor(db = database.getSettingDb()) {
         this.db = db;
     }
     getSetting() {
         try {
-            let setting = this.db.getData("/");
+            let setting = redisClient.get(
+                redisClient.statics.settingObjectKey
+            );
+            if (!setting) setting = this.db.getData("/");
+            if (Object.keys(setting).length == 0) return undefined;
             return new settingModel(setting);
         } catch (error) {
             console.log(error);
             return undefined;
         }
     }
+    updateInRedis(setting) {
+        redisClient.set(redisClient.statics.settingObjectKey, setting);
+    }
     setSetting(setting) {
         let settingToSave = new settingModel(setting);
-        if (!settingToSave.isCsvExportEnabled) stopCronFunction();
-        if (!settingToSave.isRedisEnabled) stopRedisClientFunction();
+        //TODO: we should use event emiter in here to stop services and clients 
+        // if (!settingToSave.isCsvExportEnabled) cron.stop("csv");
+        // if (!settingToSave.isRedisEnabled) redisClient.stopRedisClient();
         this.db.push("/", settingToSave);
+        this.updateInRedis(settingToSave);
         return settingToSave;
     }
 };
