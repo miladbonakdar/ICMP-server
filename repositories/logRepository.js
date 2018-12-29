@@ -5,7 +5,7 @@ module.exports = class logRepository extends repository {
         super(db);
     }
     saveAreasLog(areas) {
-        areas.forEach(area => {});
+        // areas.forEach(area => {});
     }
     getLogs() {
         return this.get("/");
