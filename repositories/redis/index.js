@@ -1,4 +1,5 @@
 const redis = require("redis");
+
 let client = redis.createClient();
 let connected = false;
 
@@ -24,7 +25,7 @@ const set = (key, data) => {
 };
 
 const getAsync = async key => {
-    if (!connected) throw "redis is not avalible";
+    if (!connected) return undefined;
     return new Promise((resolve, reject) => {
         client.get(key, (err, stringData) => {
             if (err) reject(err);
@@ -33,8 +34,22 @@ const getAsync = async key => {
     });
 };
 
+const isConnected = () => {
+    return connected;
+};
+
+const stopRedisClient = () => {
+    if (client) {
+        client.quit();
+        client = undefined;
+        connected = false;
+    }
+};
+
 module.exports = {
     startRedisClient,
     set,
-    getAsync
+    getAsync,
+    isConnected,
+    stopRedisClient
 };
