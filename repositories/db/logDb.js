@@ -11,7 +11,7 @@ const checkFolderExistAndCreateIfNot = async date => {
         __baseDirname,
         "database",
         "logs",
-        `${date.getFullYear()}-${date.getMonth()}`
+        `${date.getFullYear()}-${date.getMonth()}.cache.json`
     );
     if (!(await fs.existsSync(dir))) {
         await fs.mkdirSync(dir, 744);
