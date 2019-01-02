@@ -24,4 +24,9 @@ module.exports = class areaRepository extends repository {
         });
         this.updateRedis(areas, this.redis.statics.getAreasObjectKey);
     }
+    addArea(requestBody) {}
+    updateArea(requestBody) {}
+    deleteArea(requestBody) {}
+    getAreaById(id) {}
+    getAreaByIndex(index) {}
 };

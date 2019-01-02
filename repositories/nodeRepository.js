@@ -15,4 +15,10 @@ module.exports = class nodeRepository extends repository {
     saveNodes(nodes) {
         this.updateRedis(nodes, this.redis.statics.getNodesObjectKey);
     }
+
+    addNode(requestBody) {}
+    updateNode(requestBody) {}
+    deleteNode(requestBody) {}
+    getNodeById(id) {}
+    getNodeByIndex(index) {}
 };

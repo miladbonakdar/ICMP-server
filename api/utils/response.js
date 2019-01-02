@@ -14,21 +14,21 @@ response.echo = function(res, message, data, success, status) {
 };
 response.success = function(
     res,
-    message = "action successfully finished",
-    data = {}
+    data = {},
+    message = "action successfully finished"
 ) {
     response.echo(res, message, data, true, 200);
 };
-response.error = function(res, message = "somthing bad happend", status) {
+response.error = function(res, message = "somthing bad happend", status = 500) {
     response.echo(res, message, {}, false, status);
 };
 response.notFound = function(res) {
     response.echo(res, "not found", {}, false, 404);
 };
-response.badRequest = function(res) {
-    response.echo(res, "bad request", {}, false, 400);
+response.badRequest = function(res, invalidParam = "") {
+    response.echo(res, "bad request '" + invalidParam + "'", {}, false, 400);
 };
-response.internalServerError = function(res,message) {
+response.internalServerError = function(res, message) {
     response.echo(res, message, {}, false, 500);
 };
 
