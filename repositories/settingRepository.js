@@ -30,4 +30,5 @@ module.exports = class settingRepository {
         this.updateInRedis(settingToSave);
         return settingToSave;
     }
+    setDefault() {}
 };

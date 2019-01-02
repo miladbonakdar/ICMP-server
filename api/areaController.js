@@ -37,6 +37,7 @@ module.exports = {
 
     [areaStatics.delete]: (req, res) => {
         try {
+            if (!req.params.id) response.badRequest(res, "id");
             const areaRepo = new AreaRepository();
             areaRepo.deleteArea(req.params.id);
             response.success(res, {}, "area deleted successfuly");
@@ -47,6 +48,7 @@ module.exports = {
 
     [areaStatics.get]: (req, res) => {
         try {
+            if (!req.params.id) response.badRequest(res, "id");
             const areaRepo = new AreaRepository();
             let area = areaRepo.getAreaById(req.params.id);
             response.success(res, area);
