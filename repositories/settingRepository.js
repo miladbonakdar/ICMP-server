@@ -1,5 +1,5 @@
 const database = require("./db");
-const settingModel = require("./models/settingModel");
+const settingModel = require("../models/settingModel");
 const redisClient = require("./redis");
 
 module.exports = class settingRepository {

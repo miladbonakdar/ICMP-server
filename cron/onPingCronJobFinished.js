@@ -26,9 +26,10 @@ const pingAreas = async areas => {
     });
 };
 
-module.exports = async () => {
+const pingHosts = async () => {
     let areas = await areaRepository.getConvertedAreas();
     await pingAreas(areas);
     await areaRepository.saveAreas(areas);
     await logRepository.saveAreasLog(areas);
 };
+module.exports = pingHosts;

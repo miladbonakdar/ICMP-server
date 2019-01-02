@@ -1,6 +1,6 @@
 const database = require("./db");
 const repository = require("./repository");
-const itemBase = require("./models/itemBase");
+const itemBase = require("../models/itemBase");
 module.exports = class areaRepository extends repository {
     constructor(db = database.getMainDb()) {
         super(db);
