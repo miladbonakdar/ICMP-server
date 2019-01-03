@@ -1,6 +1,6 @@
-const areaStatics = require("./statics/area_statics");
-const AreaRepository = require("../repositories/areaRepository");
-const response = require("./utils/response");
+const areaStatics = require("../statics/area_statics");
+const AreaRepository = require("../../repositories/areaRepository");
+const response = require("../utils/response");
 
 module.exports = {
     controllerName: "area",

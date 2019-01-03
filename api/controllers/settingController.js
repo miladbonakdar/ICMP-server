@@ -1,6 +1,6 @@
-const settingStatics = require("./statics/setting_statics");
-const SettingRepository = require("../repositories/settingRepository");
-const response = require("./utils/response");
+const settingStatics = require("../statics/setting_statics");
+const SettingRepository = require("../../repositories/settingRepository");
+const response = require("../utils/response");
 module.exports = {
     controllerName: "setting",
     

@@ -1,4 +1,4 @@
-const areaController = require("../areaController");
+const areaController = require("../controllers/areaController");
 const baseUrl = require("../utils/baseRoutController");
 const areaStatics = require("../statics/area_statics");
 module.exports = router => {

@@ -1,4 +1,4 @@
-const nodeController = require("../nodeController");
+const nodeController = require("../controllers/nodeController");
 const baseUrl = require("../utils/baseRoutController");
 const nodeStatics = require("../statics/node_statics");
 module.exports = router => {

@@ -1,4 +1,4 @@
-const settingController = require("../settingController");
+const settingController = require("../controllers/settingController");
 const baseUrl = require("../utils/baseRoutController");
 const settingStatics = require("../statics/setting_statics");
 module.exports = router => {

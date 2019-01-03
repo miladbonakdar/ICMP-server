@@ -1,6 +1,6 @@
-const nodeStatics = require("./statics/node_statics");
-const NodeRepository = require("../repositories/nodeRepository");
-const response = require("./utils/response");
+const nodeStatics = require("../statics/node_statics");
+const NodeRepository = require("../../repositories/nodeRepository");
+const response = require("../utils/response");
 
 module.exports = {
     controllerName: "node",
