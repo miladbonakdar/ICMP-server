@@ -41,7 +41,11 @@ module.exports = class areaRepository extends repository {
      *
      */
     addArea(requestBody) {
-        let baseItem = this.get("/");
+        let baseItem = new ItemBase(this.get("/"));
+        if (!baseItem.areas) {
+            baseItem.areas = [];
+            this.add(baseItem);
+        }
         let newArea = new AreaModel(requestBody);
         newArea.parent = "/";
         newArea.path = `/areas[${baseItem.areas.length + 1}]`;

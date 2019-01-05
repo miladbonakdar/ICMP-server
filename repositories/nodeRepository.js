@@ -1,6 +1,7 @@
 const database = require("./db");
 const repository = require("./repository");
 const NodeModel = require("../models/nodeModel");
+const _ = require("lodash");
 module.exports = class nodeRepository extends repository {
     /** TODO: add description
      *

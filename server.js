@@ -9,7 +9,7 @@ let setting = settingRepository.getSetting();
 if (!setting) setting = settingRepository.setSetting();
 
 //set express static files
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
 api(app);
 cronJobTaskRunner.start();

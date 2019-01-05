@@ -7,7 +7,7 @@ const dailyReportCsvStatics = require("./dailyReportCsvStatics");
 module.exports = async () => {
     const logRepository = new log();
 
-    const logs = logRepository.getLogs();
+    const logs = logRepository.getLogsForCsvExport();
     const csv = new csvConverter(
         logs,
         dailyReportCsvStatics.getHeader(),
