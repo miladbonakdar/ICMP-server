@@ -1,14 +1,23 @@
 const redisClient = require("./redis");
 
 module.exports = class repository {
+    /** TODO: add description
+     *
+     */
     constructor(db) {
         if (!db) throw "db is not valid";
         this.db = db;
         this.redis = redisClient;
     }
+    /** TODO: add description
+     *
+     */
     updateRedis(object, key) {
         redisClient.set(key, object);
     }
+    /** TODO: add description
+     *
+     */
     add(entityToAdd, validationFunction = this.checkModel) {
         try {
             if (!validationFunction(entityToAdd))
@@ -18,6 +27,9 @@ module.exports = class repository {
             throw exception;
         }
     }
+    /** TODO: add description
+     *
+     */
     checkModel(entityToAdd) {
         if (
             !entityToAdd ||
@@ -29,9 +41,15 @@ module.exports = class repository {
             return false;
         return true;
     }
+    /** TODO: add description
+     *
+     */
     delete(path) {
         this.db.delete(path);
     }
+    /** TODO: add description
+     *
+     */
     get(path) {
         try {
             return this.db.getData(path);

@@ -1,3 +1,6 @@
+/** TODO: add description
+ *
+ */
 module.exports = (
     controllerName,
     actionName = undefined,

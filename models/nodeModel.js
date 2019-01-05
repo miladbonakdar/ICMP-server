@@ -1,6 +1,9 @@
 const validator = require("./dataValidator");
 const itemBase = require("./itemBase");
 module.exports = class node extends itemBase {
+    /** TODO: add description
+     *
+     */
     constructor(data = null) {
         super(data);
         this.name = validator(data, "name") || null;

@@ -20,12 +20,21 @@ module.exports = {
     getMainDb() {
         return mainDb();
     },
+    /** TODO: add description
+     * 
+     */
     getSettingDb() {
         return settingDb();
     },
+    /** TODO: add description
+     * 
+     */
     getLastLogDb() {
         return logDb(new Date());
     },
+    /** TODO: add description
+     * 
+     */
     getLogDb(date) {
         return logDb(date);
     }

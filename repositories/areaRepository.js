@@ -3,11 +3,14 @@ const repository = require("./repository");
 const ItemBase = require("../models/itemBase");
 const AreaModel = require("../models/areaModel");
 module.exports = class areaRepository extends repository {
+    /** TODO: add description
+     *
+     */
     constructor(db = database.getMainDb()) {
         super(db);
     }
-    /**
-     * 
+    /** TODO: add description
+     *
      */
     getAreas() {
         let areas = this.redis.get(this.redis.statics.getAreasObjectKey);
@@ -17,14 +20,14 @@ module.exports = class areaRepository extends repository {
         this.updateRedis(baseItem.areas, this.redis.statics.getAreasObjectKey);
         return baseItem.areas;
     }
-    /**
-     * 
+    /** TODO: add description
+     *
      */
     getConvertedAreas() {
         return this.get("/").areas;
     }
-    /**
-     * 
+    /** TODO: add description
+     *
      */
     saveAreas(areas) {
         let base = new ItemBase({ areas: areas });
@@ -34,8 +37,8 @@ module.exports = class areaRepository extends repository {
         });
         this.updateRedis(areas, this.redis.statics.getAreasObjectKey);
     }
-    /**
-     * 
+    /** TODO: add description
+     *
      */
     addArea(requestBody) {
         let baseItem = this.get("/");
@@ -46,8 +49,8 @@ module.exports = class areaRepository extends repository {
         this.db.push(newArea.path, newArea);
         return newArea;
     }
-    /**
-     * 
+    /** TODO: add description
+     *
      */
     updateArea(requestBody) {
         try {
@@ -59,8 +62,8 @@ module.exports = class areaRepository extends repository {
             throw error;
         }
     }
-    /**
-     * 
+    /** TODO: add description
+     *
      */
     deleteArea(id) {
         let baseItem = this.get("/");
@@ -69,8 +72,8 @@ module.exports = class areaRepository extends repository {
         this.db.delete(areaToDelete.path);
         return;
     }
-    /**
-     * 
+    /** TODO: add description
+     *
      */
     getAreaById(id) {
         let baseItem = this.get("/");
@@ -78,8 +81,8 @@ module.exports = class areaRepository extends repository {
         if (!area) throw "404 ,the area was not found";
         return area;
     }
-    /**
-     * 
+    /** TODO: add description
+     *
      */
     getAreaByIndex(index) {
         let baseItem = this.get("/");

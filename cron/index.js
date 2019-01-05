@@ -7,6 +7,9 @@ let pingCronJob = undefined;
 let setting = undefined;
 let csvExportCronJob = undefined;
 
+/** TODO: add description
+ *
+ */
 const stopCronJob = cronName => {
     if (cronName.indexOf("csv") >= 0 && csvExportCronJob) {
         csvExportCronJob.stop();
@@ -14,12 +17,18 @@ const stopCronJob = cronName => {
     }
 };
 
+/** TODO: add description
+ *
+ */
 const startSchadule = () => {
     setting = settingRepo.getSetting();
     startPingCronJob(); //every 30 minutes
     startCsvCronJob(); //every day at 12:00
 };
 
+/** TODO: add description
+ *
+ */
 const startCsvCronJob = () => {
     if (setting.isCsvExportEnabled && !csvExportCronJob)
         csvExportCronJob = cron.schedule(
@@ -30,6 +39,9 @@ const startCsvCronJob = () => {
         );
 };
 
+/** TODO: add description
+ *
+ */
 const startPingCronJob = () => {
     if (!pingCronJob)
         pingCronJob = cron.schedule(

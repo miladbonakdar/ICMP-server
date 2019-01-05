@@ -1,5 +1,8 @@
 const validator = require("./dataValidator");
 module.exports = class setting {
+    /** TODO: add description
+     *
+     */
     constructor(data = null) {
         this.isRedisEnabled = validator(data, "isRedisEnabled") || false;
         this.isLoginEnabled = validator(data, "isLoginEnabled") || false;

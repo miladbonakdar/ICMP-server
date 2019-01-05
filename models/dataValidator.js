@@ -1,3 +1,6 @@
+/** TODO: add description
+ *
+ */
 module.exports = (data, datapropertyKey) => {
     if (!data) return undefined;
     if (!data[datapropertyKey]) return undefined;

@@ -1,5 +1,8 @@
 const path = require("path");
 module.exports = {
+    /** TODO: add description
+     *
+     */
     getHeader: () => ({
         date: "Date",
         nodeName: "Node name",
@@ -10,6 +13,9 @@ module.exports = {
         nodePath: "Node path",
         isAlive: "Status"
     }),
+    /** TODO: add description
+     *
+     */
     getFilePath: () => {
         const date = new Date();
         path.join(

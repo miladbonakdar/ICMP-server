@@ -3,12 +3,21 @@ const settingModel = require("../models/settingModel");
 const redisClient = require("./redis");
 
 module.exports = class settingRepository {
+    /** TODO: add description
+     *
+     */
     constructor(db = database.getSettingDb()) {
         this.db = db;
     }
+    /** TODO: add description
+     *
+     */
     updateInRedis(setting) {
         redisClient.set(redisClient.statics.settingObjectKey, setting);
     }
+    /** TODO: add description
+     *
+     */
     getSetting() {
         try {
             let setting = redisClient.get(redisClient.statics.settingObjectKey);
@@ -21,6 +30,9 @@ module.exports = class settingRepository {
             return this.setSetting();
         }
     }
+    /** TODO: add description
+     *
+     */
     setSetting(setting) {
         let settingToSave = new settingModel(setting);
         //TODO: we should use event emiter in here to stop services and clients
@@ -30,5 +42,8 @@ module.exports = class settingRepository {
         this.updateInRedis(settingToSave);
         return settingToSave;
     }
+    /** TODO: add description
+     *
+     */
     setDefault() {}
 };

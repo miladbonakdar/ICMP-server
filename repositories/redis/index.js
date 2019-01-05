@@ -3,6 +3,9 @@ const redis = require("redis");
 let client = undefined;
 let connected = false;
 
+/** TODO: add description
+ *
+ */
 const setRedisClientEvents = () => {
     client.on("ready", () => {
         connected = true;
@@ -14,16 +17,25 @@ const setRedisClientEvents = () => {
     });
 };
 
+/** TODO: add description
+ *
+ */
 const startRedisClient = () => {
     client = redis.createClient();
     setRedisClientEvents();
 };
 
+/** TODO: add description
+ *
+ */
 const set = (key, data) => {
     if (!connected) return;
     client.set(key, JSON.stringify(data), redis.print);
 };
 
+/** TODO: add description
+ *
+ */
 const get = key => {
     if (!connected) return undefined;
     client.get(key, (err, stringData) => {
@@ -32,10 +44,16 @@ const get = key => {
     });
 };
 
+/** TODO: add description
+ *
+ */
 const isConnected = () => {
     return connected;
 };
 
+/** TODO: add description
+ *
+ */
 const stopRedisClient = () => {
     if (client) {
         client.quit();
@@ -44,6 +62,9 @@ const stopRedisClient = () => {
     }
 };
 
+/** TODO: add description
+ *
+ */
 const statics = {
     settingObjectKey: "settingObjectKey",
     getAreasObjectKey: "getAreasObjectKey",
