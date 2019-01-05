@@ -15,7 +15,7 @@ module.exports = {
         }
     },
 
-    [nodeStatics.getAll]: (req, res) => {
+    [nodeStatics.getAll]: (_, res) => {
         try {
             const nodeRepo = new NodeRepository();
             let nodes = nodeRepo.getNodes();

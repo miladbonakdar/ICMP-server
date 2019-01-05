@@ -18,7 +18,7 @@ module.exports = class nodeRepository extends repository {
 
     addNode(requestBody) {}
     updateNode(requestBody) {}
-    deleteNode(requestBody) {}
+    deleteNode(id) {}
     getNodeById(id) {}
     getNodeByIndex(index) {}
 };

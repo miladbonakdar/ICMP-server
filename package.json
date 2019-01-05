@@ -33,6 +33,7 @@
     "eslint": "^5.11.0",
     "eslint-config-node": "^4.0.0",
     "eslint-plugin-node": "^8.0.0",
+    "jest": "^23.6.0",
     "nodemon": "^1.18.9"
   }
 }
