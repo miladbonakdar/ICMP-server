@@ -1,6 +1,6 @@
 const cuid = require("cuid");
 const validator = require("./dataValidator");
-module.exports = class itemBase {
+module.exports = class ItemBase {
     /** TODO: add description
      *
      */

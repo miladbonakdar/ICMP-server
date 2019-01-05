@@ -1,5 +1,5 @@
 const validator = require("./dataValidator");
-module.exports = class response {
+module.exports = class Response {
     /** TODO: add description
      *
      */

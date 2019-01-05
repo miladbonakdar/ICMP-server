@@ -1,6 +1,6 @@
 const fs = require("fs");
 const endOfLine = require("os").EOL;
-module.exports = class csvConverter {
+module.exports = class CsvConverter {
     /** TODO: add description
      *
      */

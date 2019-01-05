@@ -1,9 +1,9 @@
 const database = require("./db");
-const repository = require("./repository");
+const Repository = require("./repository");
 const _ = require("lodash");
 const LogEvent = require("../models/logEventModel");
 const Log = require("../models/logModel");
-module.exports = class logRepository extends repository {
+module.exports = class LogRepository extends Repository {
     /** TODO: add description
      *
      */

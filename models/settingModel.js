@@ -1,5 +1,5 @@
 const validator = require("./dataValidator");
-module.exports = class setting {
+module.exports = class Setting {
     /** TODO: add description
      *
      */

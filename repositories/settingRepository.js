@@ -2,7 +2,7 @@ const database = require("./db");
 const settingModel = require("../models/settingModel");
 const redisClient = require("./redis");
 
-module.exports = class settingRepository {
+module.exports = class SettingRepository {
     /** TODO: add description
      *
      */

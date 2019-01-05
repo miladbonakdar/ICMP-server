@@ -1,9 +1,11 @@
 require("./setGlobalVariables")();
-const app = require("express")();
+const express = require("express");
 const api = require("./api");
 const cronJobTaskRunner = require("./cron");
 const settingRepository = new (require("./repositories/settingRepository"))();
 const redisServer = require("./repositories/redis");
+const path = require("path");
+const app = express();
 
 let setting = settingRepository.getSetting();
 if (!setting) setting = settingRepository.setSetting();

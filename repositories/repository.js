@@ -1,6 +1,6 @@
 const redisClient = require("./redis");
 
-module.exports = class repository {
+module.exports = class Repository {
     /** TODO: add description
      *
      */

@@ -1,6 +1,6 @@
 const validator = require("./dataValidator");
-const itemBase = require("./itemBase");
-module.exports = class node extends itemBase {
+const ItemBase = require("./itemBase");
+module.exports = class Node extends ItemBase {
     /** TODO: add description
      *
      */

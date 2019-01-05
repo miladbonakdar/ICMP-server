@@ -1,8 +1,8 @@
 const database = require("./db");
-const repository = require("./repository");
+const Repository = require("./repository");
 const ItemBase = require("../models/itemBase");
 const AreaModel = require("../models/areaModel");
-module.exports = class areaRepository extends repository {
+module.exports = class AreaRepository extends Repository {
     /** TODO: add description
      *
      */
