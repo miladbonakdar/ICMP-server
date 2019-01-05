@@ -1,5 +1,6 @@
 const database = require("./db");
 const repository = require("./repository");
+const NodeModel = require("../models/nodeModel");
 module.exports = class nodeRepository extends repository {
     /** TODO: add description
      *
@@ -27,21 +28,55 @@ module.exports = class nodeRepository extends repository {
     /** TODO: add description
      *
      */
-    addNode(requestBody) {}
+    addNode(requestBody) {
+        let newNode = new NodeModel(requestBody);
+        let parentArea = this.get(newNode.parent);
+        newNode.parent = parentArea.path;
+        newNode.path = `${parentArea.path}/nodes[${parentArea.nodes.length +
+            1}]`;
+        this.add(newNode);
+        return newNode;
+    }
     /** TODO: add description
      *
      */
-    updateNode(requestBody) {}
+    updateNode(requestBody) {
+        let newNode = new NodeModel(requestBody);
+        this.get(newNode.path); //just to check if it is valid
+        this.add(newNode);
+        return newNode;
+    }
     /** TODO: add description
      *
      */
-    deleteNode(id) {}
+    deleteNode(id) {
+        let baseItem = this.get("/");
+        let nodeToDelete;
+        baseItem.areas.forEach(area => {
+            if (nodeToDelete) return;
+            nodeToDelete = area.nodes.filter(node => node.id == id)[0];
+        });
+        if (!nodeToDelete) throw "404 ,the node is not valid to delete";
+        this.db.delete(nodeToDelete.path);
+        return;
+    }
     /** TODO: add description
      *
      */
-    getNodeById(id) {}
+    getNodeById(id) {
+        let baseItem = this.get("/");
+        let nodeToReturn;
+        baseItem.areas.forEach(area => {
+            if (nodeToReturn) return;
+            nodeToReturn = area.nodes.filter(node => node.id == id)[0];
+        });
+        if (!nodeToReturn) throw "404 ,the node was not found";
+        return nodeToReturn;
+    }
     /** TODO: add description
      *
      */
-    getNodeByIndex(index) {}
+    getNodeByIndex(index) {
+        throw "not implimented method";
+    }
 };

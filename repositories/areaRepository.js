@@ -45,8 +45,7 @@ module.exports = class areaRepository extends repository {
         let newArea = new AreaModel(requestBody);
         newArea.parent = "/";
         newArea.path = `/areas[${baseItem.areas.length + 1}]`;
-        baseItem.areas.push(newArea);
-        this.db.push(newArea.path, newArea);
+        this.add(newArea);
         return newArea;
     }
     /** TODO: add description
@@ -67,8 +66,8 @@ module.exports = class areaRepository extends repository {
      */
     deleteArea(id) {
         let baseItem = this.get("/");
-        let areaToDelete = baseItem.areas.findIndex(area => area.id == id);
-        if (areaToUpdate < 0) throw "404 ,the area is not valid to delete";
+        let areaToDelete = baseItem.areas.filter(area => area.id == id)[0];
+        if (!areaToUpdate) throw "404 ,the area is not valid to delete";
         this.db.delete(areaToDelete.path);
         return;
     }

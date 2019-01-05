@@ -8,7 +8,7 @@ module.exports = class node extends itemBase {
         super(data);
         this.nodeName = validator(data, "nodeName") || null;
         this.date = validator(data, "date") || new Date();
-        this.ip = validator(data, "ip") || "localhost";
+        this.ip = validator(data, "ip") || null;
         this.areaName = validator(data, "areaName") || null;
         this.areaId = validator(data, "areaId") || null;
         this.nodeId = validator(data, "nodeId") || null;

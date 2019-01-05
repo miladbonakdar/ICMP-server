@@ -45,5 +45,7 @@ module.exports = class settingRepository {
     /** TODO: add description
      *
      */
-    setDefault() {}
+    setDefault() {
+        return this.setSetting(new settingModel());
+    }
 };
