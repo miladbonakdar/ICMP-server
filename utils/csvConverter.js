@@ -12,6 +12,7 @@ module.exports = class csvConverter {
         this.path = pathToSave;
         this.dataString = "";
     }
+
     /** TODO: add description
      *
      */
@@ -19,6 +20,7 @@ module.exports = class csvConverter {
         this.createHeader();
         this.createBody();
     }
+
     /** TODO: add description
      *
      */
@@ -26,6 +28,7 @@ module.exports = class csvConverter {
         this.dataString = "";
         this.dataString += this.jsonLineFromObject(this.header);
     }
+
     /** TODO: add description
      *
      */
@@ -34,6 +37,7 @@ module.exports = class csvConverter {
             this.dataString += this.jsonLineFromObject(item);
         });
     }
+
     /** TODO: add description
      *
      */
@@ -46,6 +50,7 @@ module.exports = class csvConverter {
         line += endOfLine;
         return line;
     }
+
     /** TODO: add description
      *
      */

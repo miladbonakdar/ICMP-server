@@ -5,6 +5,9 @@ const response = require("../utils/response");
 module.exports = {
     controllerName: "area",
 
+    /** TODO: add description
+     *
+     */
     [areaStatics.create]: (req, res) => {
         try {
             const areaRepo = new AreaRepository();
@@ -15,6 +18,9 @@ module.exports = {
         }
     },
 
+    /** TODO: add description
+     *
+     */
     [areaStatics.getAll]: (req, res) => {
         try {
             const areaRepo = new AreaRepository();
@@ -25,6 +31,9 @@ module.exports = {
         }
     },
 
+    /** TODO: add description
+     *
+     */
     [areaStatics.update]: (req, res) => {
         try {
             const areaRepo = new AreaRepository();
@@ -35,6 +44,9 @@ module.exports = {
         }
     },
 
+    /** TODO: add description
+     *
+     */
     [areaStatics.delete]: (req, res) => {
         try {
             if (!req.params.id) response.badRequest(res, "id");
@@ -46,6 +58,9 @@ module.exports = {
         }
     },
 
+    /** TODO: add description
+     *
+     */
     [areaStatics.get]: (req, res) => {
         try {
             if (!req.params.id) response.badRequest(res, "id");
@@ -57,6 +72,9 @@ module.exports = {
         }
     },
 
+    /** TODO: add description
+     *
+     */
     [areaStatics.getByIndex]: (req, res) => {
         try {
             if (!req.params.index) response.badRequest(res, "index");

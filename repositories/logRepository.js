@@ -10,6 +10,7 @@ module.exports = class logRepository extends repository {
     constructor(db = database.getLastLogDb()) {
         super(db);
     }
+
     /** TODO: add description
      *
      */
@@ -26,6 +27,7 @@ module.exports = class logRepository extends repository {
         newLog.nodePath = node.path;
         return newLog;
     }
+
     /** TODO: add description
      *
      */
@@ -40,6 +42,7 @@ module.exports = class logRepository extends repository {
         });
         return logs;
     }
+
     /** TODO: add description
      *
      */
@@ -59,6 +62,7 @@ module.exports = class logRepository extends repository {
         newLogEvent.totalDown = newLogEvent.totalDevices - newLogEvent.totalUp;
         this.add(newLogEvent);
     }
+
     /** TODO: add description
      *
      */

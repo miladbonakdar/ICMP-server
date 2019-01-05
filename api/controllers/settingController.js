@@ -3,7 +3,10 @@ const SettingRepository = require("../../repositories/settingRepository");
 const response = require("../utils/response");
 module.exports = {
     controllerName: "setting",
-    
+
+    /** TODO: add description
+     *
+     */
     [settingStatics.update]: (req, res) => {
         try {
             const settingRepo = new SettingRepository();
@@ -14,6 +17,9 @@ module.exports = {
         }
     },
 
+    /** TODO: add description
+     *
+     */
     [settingStatics.delete]: (req, res) => {
         try {
             const settingRepo = new SettingRepository();
@@ -24,6 +30,9 @@ module.exports = {
         }
     },
 
+    /** TODO: add description
+     *
+     */
     [settingStatics.get]: (req, res) => {
         try {
             const settingRepo = new SettingRepository();

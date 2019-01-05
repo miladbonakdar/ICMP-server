@@ -8,12 +8,14 @@ module.exports = router => {
     router
         .route(baseUrl(settingController.controllerName))
         .put(settingController[settingStatics.update]);
+
     /** TODO: add description
      * delete the setting and set it to default
      */
     router
         .route(baseUrl(settingController.controllerName))
         .delete(settingController[settingStatics.delete]);
+
     /** TODO: add description
      * get the setting
      */

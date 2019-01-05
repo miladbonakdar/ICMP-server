@@ -8,30 +8,35 @@ module.exports = router => {
     router
         .route(baseUrl(nodeController.controllerName))
         .get(nodeController[nodeStatics.getAll]);
+
     /** TODO: add description
      * add an node
      */
     router
         .route(baseUrl(nodeController.controllerName))
         .post(nodeController[nodeStatics.create]);
+
     /** TODO: add description
      * update an node
      */
     router
         .route(baseUrl(nodeController.controllerNamedate))
         .put(nodeController[nodeStatics.update]);
+
     /** TODO: add description
      * delete an node
      */
     router
         .route(baseUrl(nodeController.controllerName, undefined, "id"))
         .delete(nodeController[nodeStatics.delete]);
+
     /** TODO: add description
      * get an node
      */
     router
         .route(baseUrl(nodeController.controllerName, undefined, "id"))
         .get(nodeController[nodeStatics.get]);
+
     /** TODO: add description
      * get an area by item index
      */

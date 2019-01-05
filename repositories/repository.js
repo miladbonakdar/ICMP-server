@@ -9,12 +9,14 @@ module.exports = class repository {
         this.db = db;
         this.redis = redisClient;
     }
+
     /** TODO: add description
      *
      */
     updateRedis(object, key) {
         redisClient.set(key, object);
     }
+
     /** TODO: add description
      *
      */
@@ -27,6 +29,7 @@ module.exports = class repository {
             throw exception;
         }
     }
+
     /** TODO: add description
      *
      */
@@ -41,12 +44,14 @@ module.exports = class repository {
             return false;
         return true;
     }
+
     /** TODO: add description
      *
      */
     delete(path) {
         this.db.delete(path);
     }
+
     /** TODO: add description
      *
      */

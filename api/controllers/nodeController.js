@@ -5,6 +5,9 @@ const response = require("../utils/response");
 module.exports = {
     controllerName: "node",
 
+    /** TODO: add description
+     *
+     */
     [nodeStatics.create]: (req, res) => {
         try {
             const nodeRepo = new NodeRepository();
@@ -15,6 +18,9 @@ module.exports = {
         }
     },
 
+    /** TODO: add description
+     *
+     */
     [nodeStatics.getAll]: (_, res) => {
         try {
             const nodeRepo = new NodeRepository();
@@ -25,6 +31,9 @@ module.exports = {
         }
     },
 
+    /** TODO: add description
+     *
+     */
     [nodeStatics.update]: (req, res) => {
         try {
             const nodeRepo = new NodeRepository();
@@ -35,6 +44,9 @@ module.exports = {
         }
     },
 
+    /** TODO: add description
+     *
+     */
     [nodeStatics.delete]: (req, res) => {
         try {
             if (!req.params.id) response.badRequest(res, "id");
@@ -46,6 +58,9 @@ module.exports = {
         }
     },
 
+    /** TODO: add description
+     *
+     */
     [nodeStatics.get]: (req, res) => {
         try {
             if (!req.params.id) response.badRequest(res, "id");
@@ -57,6 +72,9 @@ module.exports = {
         }
     },
 
+    /** TODO: add description
+     *
+     */
     [nodeStatics.getByIndex]: (req, res) => {
         try {
             if (!req.params.index) response.badRequest(res, "index");

@@ -9,12 +9,14 @@ module.exports = class settingRepository {
     constructor(db = database.getSettingDb()) {
         this.db = db;
     }
+
     /** TODO: add description
      *
      */
     updateInRedis(setting) {
         redisClient.set(redisClient.statics.settingObjectKey, setting);
     }
+
     /** TODO: add description
      *
      */
@@ -30,6 +32,7 @@ module.exports = class settingRepository {
             return this.setSetting();
         }
     }
+
     /** TODO: add description
      *
      */
@@ -42,6 +45,7 @@ module.exports = class settingRepository {
         this.updateInRedis(settingToSave);
         return settingToSave;
     }
+
     /** TODO: add description
      *
      */

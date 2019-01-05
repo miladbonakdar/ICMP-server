@@ -15,6 +15,7 @@ module.exports = class node extends itemBase {
         this.nodePath = validator(data, "nodePath") || null;
         this.isAlive = validator(data, "isAlive") || false;
     }
+
     /** TODO: add description
      *
      */

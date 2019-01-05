@@ -9,6 +9,7 @@ module.exports = class areaRepository extends repository {
     constructor(db = database.getMainDb()) {
         super(db);
     }
+
     /** TODO: add description
      *
      */
@@ -20,12 +21,14 @@ module.exports = class areaRepository extends repository {
         this.updateRedis(baseItem.areas, this.redis.statics.getAreasObjectKey);
         return baseItem.areas;
     }
+
     /** TODO: add description
      *
      */
     getConvertedAreas() {
         return this.get("/").areas;
     }
+
     /** TODO: add description
      *
      */
@@ -37,6 +40,7 @@ module.exports = class areaRepository extends repository {
         });
         this.updateRedis(areas, this.redis.statics.getAreasObjectKey);
     }
+
     /** TODO: add description
      *
      */
@@ -52,6 +56,7 @@ module.exports = class areaRepository extends repository {
         this.add(newArea);
         return newArea;
     }
+
     /** TODO: add description
      *
      */
@@ -65,6 +70,7 @@ module.exports = class areaRepository extends repository {
             throw error;
         }
     }
+
     /** TODO: add description
      *
      */
@@ -75,6 +81,7 @@ module.exports = class areaRepository extends repository {
         this.db.delete(areaToDelete.path);
         return;
     }
+
     /** TODO: add description
      *
      */
@@ -84,6 +91,7 @@ module.exports = class areaRepository extends repository {
         if (!area) throw "404 ,the area was not found";
         return area;
     }
+
     /** TODO: add description
      *
      */

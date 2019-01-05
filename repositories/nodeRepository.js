@@ -9,6 +9,7 @@ module.exports = class nodeRepository extends repository {
     constructor(db = database.getMainDb()) {
         super(db);
     }
+
     /** TODO: add description
      *
      */
@@ -20,12 +21,14 @@ module.exports = class nodeRepository extends repository {
         this.updateRedis(nodes, this.redis.statics.getNodesObjectKey);
         return nodes;
     }
+
     /** TODO: add description
      *
      */
     saveNodes(nodes) {
         this.updateRedis(nodes, this.redis.statics.getNodesObjectKey);
     }
+
     /** TODO: add description
      *
      */
@@ -38,6 +41,7 @@ module.exports = class nodeRepository extends repository {
         this.add(newNode);
         return newNode;
     }
+
     /** TODO: add description
      *
      */
@@ -47,6 +51,7 @@ module.exports = class nodeRepository extends repository {
         this.add(newNode);
         return newNode;
     }
+
     /** TODO: add description
      *
      */
@@ -61,6 +66,7 @@ module.exports = class nodeRepository extends repository {
         this.db.delete(nodeToDelete.path);
         return;
     }
+
     /** TODO: add description
      *
      */
@@ -74,6 +80,7 @@ module.exports = class nodeRepository extends repository {
         if (!nodeToReturn) throw "404 ,the node was not found";
         return nodeToReturn;
     }
+
     /** TODO: add description
      *
      */

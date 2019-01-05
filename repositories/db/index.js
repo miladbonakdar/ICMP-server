@@ -14,26 +14,30 @@ module.exports = {
             return logDb(new settingDb());
         else throw "db nams is not valid";
     },
+
     /**
      * @returns {db object} main database object
      */
     getMainDb() {
         return mainDb();
     },
+
     /** TODO: add description
-     * 
+     *
      */
     getSettingDb() {
         return settingDb();
     },
+
     /** TODO: add description
-     * 
+     *
      */
     getLastLogDb() {
         return logDb(new Date());
     },
+
     /** TODO: add description
-     * 
+     *
      */
     getLogDb(date) {
         return logDb(date);
