@@ -52,7 +52,7 @@ module.exports = class AreaRepository extends Repository {
         }
         let newArea = new AreaModel(requestBody);
         newArea.parent = "/";
-        newArea.path = `/areas[${baseItem.areas.length + 1}]`;
+        newArea.path = `/areas[${baseItem.areas.length}]`;
         this.add(newArea);
         return newArea;
     }
@@ -77,7 +77,7 @@ module.exports = class AreaRepository extends Repository {
     deleteArea(id) {
         let baseItem = this.get("/");
         let areaToDelete = baseItem.areas.filter(area => area.id == id)[0];
-        if (!areaToUpdate) throw "404 ,the area is not valid to delete";
+        if (!areaToDelete) throw "404 ,the area is not valid to delete";
         this.db.delete(areaToDelete.path);
         return;
     }

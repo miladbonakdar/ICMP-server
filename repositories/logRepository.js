@@ -54,7 +54,7 @@ module.exports = class LogRepository extends Repository {
             baseItem.areas = [];
             this.add(baseItem);
         }
-        newLogEvent.path = `/logEvents[${baseItem.logEvents.length + 1}]`;
+        newLogEvent.path = `/logEvents[${baseItem.logEvents.length}]`;
         const deviceLogs = this.getLogsFromAreas(areas, newLogEvent.path);
         newLogEvent.logs = deviceLogs;
         newLogEvent.totalDevices = deviceLogs.length;

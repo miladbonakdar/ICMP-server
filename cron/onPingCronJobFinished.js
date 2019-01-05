@@ -1,6 +1,6 @@
 const ping = require("ping");
 const areaRepository = new (require("../repositories/areaRepository"))();
-const logRepository = require("../repositories/logRepository");
+const logRepository = new (require("../repositories/logRepository"))();
 
 /** TODO: add description
  *
@@ -45,8 +45,8 @@ const pingAreas = async areas => {
 const pingHosts = async () => {
     let areas = await areaRepository.getConvertedAreas();
     await pingAreas(areas);
-    await areaRepository.saveAreas(areas);
-    await logRepository.saveAreasLog(areas);
+    areaRepository.saveAreas(areas);
+    logRepository.saveAreasLog(areas);
 };
 
 module.exports = pingHosts;
