@@ -1,7 +1,7 @@
 import Login from "./components/Login.vue";
 import Setting from "./components/Setting.vue";
 import Areas from "./components/Areas.vue";
-import Node from "./components/Node.vue";
+import Node from "./components/Nodes.vue";
 
 export const routes = [
     {

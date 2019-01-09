@@ -1,9 +1,15 @@
 <template>
     <div>
         <app-header></app-header>
-        <hr>
-        <router-view></router-view>
-        <app-footer></app-footer>
+        <div class="container-fluid">
+            <div class="row">
+                <div id="app" class="col-sm-8">
+                    <router-view></router-view>
+                </div>
+            </div>
+            <hr>
+            <app-footer></app-footer>
+        </div>
     </div>
 </template>
 
@@ -21,22 +27,8 @@
 </script>
 
 <style scoped>
-
-    h1, h2 {
-        font-weight: bold;
-    }
-
-    ul {
-        list-style-type: none;
-        padding: 0;
-    }
-
-    li {
-        display: inline-block;
-        margin: 0 10px;
-    }
-
-    a {
-        color: #42b983;
-    }
+#app{
+    float: none;
+    margin: 10px auto;
+}
 </style>
