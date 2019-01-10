@@ -1,5 +1,6 @@
 <template>
     <div>
+        <h2>Login</h2>
         <b-form @submit="onSubmit" @reset="onReset" v-if="show">
             <b-form-group id="usernameInputGroup"
                           label="Your Username:"
