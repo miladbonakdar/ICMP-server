@@ -1,5 +1,5 @@
 /** TODO: add description
- *
+ *  FIXME: unitTest
  */
 module.exports = (data, datapropertyKey, required = false) => {
     if (required) {

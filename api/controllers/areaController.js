@@ -7,7 +7,7 @@ module.exports = {
     controllerName: "area",
 
     /** TODO: add description
-     *
+     *  FIXME: unitTest
      */
     [areaStatics.create]: check((req, res) => {
         const areaRepo = new AreaRepository();
@@ -16,7 +16,7 @@ module.exports = {
     }),
 
     /** TODO: add description
-     *
+     *  
      */
     [areaStatics.getAll]: check((req, res) => {
         const areaRepo = new AreaRepository();

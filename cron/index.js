@@ -8,7 +8,7 @@ let setting = undefined;
 let csvExportCronJob = undefined;
 
 /** TODO: add description
- *
+ *  FIXME: unitTest
  */
 const stopCronJob = cronName => {
     if (cronName.indexOf("csv") >= 0 && csvExportCronJob) {
@@ -18,7 +18,7 @@ const stopCronJob = cronName => {
 };
 
 /** TODO: add description
- *
+ *  FIXME: unitTest
  */
 const startSchadule = () => {
     setting = settingRepo.getSetting();
@@ -27,7 +27,7 @@ const startSchadule = () => {
 };
 
 /** TODO: add description
- *
+ *  FIXME: unitTest
  */
 const startCsvCronJob = () => {
     if (setting.isCsvExportEnabled && !csvExportCronJob)
@@ -40,7 +40,7 @@ const startCsvCronJob = () => {
 };
 
 /** TODO: add description
- *
+ *  FIXME: unitTest
  */
 const startPingCronJob = () => {
     if (!pingCronJob)

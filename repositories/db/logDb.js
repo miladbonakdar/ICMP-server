@@ -3,14 +3,14 @@ const path = require("path");
 const JsonDB = require("node-json-db");
 
 /** TODO: add description
- *
+ *  FIXME: unitTest
  */
 const getDbName = async date => {
     return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}-${date.getDay()}.log.json`;
 };
 
 /** TODO: add description
- *
+ *  FIXME: unitTest
  */
 const checkFolderExistAndCreateIfNot = async date => {
     let dir = path.join(
@@ -26,7 +26,7 @@ const checkFolderExistAndCreateIfNot = async date => {
 };
 
 /** TODO: add description
- *
+ *  FIXME: unitTest
  */
 const getDbPath = async date => {
     return path.join(
@@ -36,7 +36,7 @@ const getDbPath = async date => {
 };
 
 /** TODO: add description
- *
+ *  FIXME: unitTest
  */
 module.exports = async date => {
     return new JsonDB(await getDbPath(date), true, global.isDebugMode);

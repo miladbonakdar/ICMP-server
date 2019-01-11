@@ -2,7 +2,7 @@ const ItemBase = require("./itemBase");
 const validator = require("./dataValidator");
 module.exports = class Area extends ItemBase {
     /** TODO: add description
-     *
+     *  FIXME: unitTest
      */
     constructor(data = null) {
         super(data);
