@@ -12,7 +12,7 @@
         "indent": ["error", 4],
         "no-undef": "off",
         "no-comm": "off",
-        "linebreak-style": ["error", "windows"],
+        "linebreak-style": ["error", "unix"],
         "quotes": ["error", "double"],
         "semi": ["error", "always"],
         "node/exports-style": ["error", "module.exports"],
