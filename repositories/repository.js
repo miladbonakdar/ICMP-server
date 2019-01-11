@@ -5,7 +5,7 @@ module.exports = class Repository {
      *
      */
     constructor(db) {
-        if (!db) throw "db is not valid";
+        if (!db) throw new Error("db is not valid");
         this.db = db;
         this.redis = redisClient;
     }
@@ -23,7 +23,7 @@ module.exports = class Repository {
     add(entityToAdd, validationFunction = this.checkModel) {
         try {
             if (!validationFunction(entityToAdd))
-                throw "your object is not valid";
+                throw new Error("your object is not valid");
             this.db.push(entityToAdd.path, entityToAdd);
         } catch (exception) {
             throw exception;
@@ -59,7 +59,7 @@ module.exports = class Repository {
         try {
             return this.db.getData(path);
         } catch (error) {
-            throw "path is not valid";
+            throw new Error("path is not valid");
         }
     }
 };

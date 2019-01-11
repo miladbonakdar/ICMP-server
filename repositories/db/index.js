@@ -12,7 +12,7 @@ module.exports = {
         else if (dbName.toLowerCase() == "logdb") return logDb(new Date());
         else if (dbName.toLowerCase() == "settingdb")
             return logDb(new settingDb());
-        else throw "db nams is not valid";
+        else throw new Error("db nams is not valid");
     },
 
     /**

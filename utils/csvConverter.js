@@ -6,7 +6,7 @@ module.exports = class CsvConverter {
      */
     constructor(arrayOfObjects, headerObject, pathToSave = __dirname) {
         if (!arrayOfObjects || typeof arrayOfObjects != "object")
-            throw "invalid converter parameter";
+            throw new Error("invalid converter parameter");
         this.array = arrayOfObjects;
         this.header = headerObject;
         this.path = pathToSave;

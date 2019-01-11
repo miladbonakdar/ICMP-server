@@ -20,7 +20,7 @@ module.exports = router => {
      * update an node
      */
     router
-        .route(baseUrl(nodeController.controllerNamedate))
+        .route(baseUrl(nodeController.controllerName))
         .put(nodeController[nodeStatics.update]);
 
     /** TODO: add description
