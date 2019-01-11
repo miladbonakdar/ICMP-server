@@ -1,6 +1,7 @@
 const bodyParser = require("body-parser");
 const routes = require("./routes");
 const defaultRoute = require("./utils/defaultRoute");
+const errorHandler = require("./utils/expressErrorHandler");
 
 /** TODO: add description
  *
@@ -23,7 +24,7 @@ const setupMiddlewares = app => {
 module.exports = app => {
     setupMiddlewares(app);
     app.listen(process.env.PORT || 3000, onServerStartedSuccessfuly);
-
     routes(app);
     app.use(defaultRoute);
+    app.use(errorHandler);
 };

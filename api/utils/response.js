@@ -51,8 +51,8 @@ response.badRequest = function(res, invalidParam = "") {
 /** TODO: add description
  *
  */
-response.internalServerError = function(res, message) {
-    response.echo(res, message, {}, false, 500);
+response.internalServerError = function(res, e) {
+    response.echo(res, e.message, {}, false, 500);
 };
 
 module.exports = response;
