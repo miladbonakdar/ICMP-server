@@ -2,11 +2,17 @@ const fs = require("fs");
 const endOfLine = require("os").EOL;
 module.exports = class CsvConverter {
     /** TODO: add description
-     *  FIXME: unitTest
+     *  
      */
     constructor(arrayOfObjects, headerObject, pathToSave = __dirname) {
         if (!arrayOfObjects || typeof arrayOfObjects != "object")
             throw new Error("invalid converter parameter");
+        if (arrayOfObjects.length == 0) throw new Error("array is empty");
+        if (
+            Object.keys(headerObject).length !=
+            Object.keys(arrayOfObjects[0]).length
+        )
+            throw new Error("header and the body are not in the same size");
         this.array = arrayOfObjects;
         this.header = headerObject;
         this.path = pathToSave;
@@ -14,7 +20,7 @@ module.exports = class CsvConverter {
     }
 
     /** TODO: add description
-     *  FIXME: unitTest
+     *  
      */
     convert() {
         this.createHeader();
@@ -22,7 +28,7 @@ module.exports = class CsvConverter {
     }
 
     /** TODO: add description
-     *  FIXME: unitTest
+     *  
      */
     createHeader() {
         this.dataString = "";
@@ -30,7 +36,7 @@ module.exports = class CsvConverter {
     }
 
     /** TODO: add description
-     *  FIXME: unitTest
+     *  
      */
     createBody() {
         this.array.forEach(item => {
@@ -39,7 +45,7 @@ module.exports = class CsvConverter {
     }
 
     /** TODO: add description
-     *  FIXME: unitTest
+     *  
      */
     jsonLineFromObject(item) {
         let line = "";
@@ -52,7 +58,7 @@ module.exports = class CsvConverter {
     }
 
     /** TODO: add description
-     *  FIXME: unitTest
+     *  
      */
     async saveToFileAsync(path = this.path) {
         if (!path.toLowerCase().endsWith(".csv")) path += ".csv";

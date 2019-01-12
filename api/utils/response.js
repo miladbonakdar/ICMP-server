@@ -6,7 +6,7 @@ let response = {};
  */
 response.echo = function(res, message, data, success, status) {
     res.status(status);
-    res.send(
+    res.json(
         new Response({
             data: data,
             success: success,

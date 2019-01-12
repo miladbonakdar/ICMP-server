@@ -4,7 +4,8 @@
   "description": "simple node js web application that ping some devices and show the data of logs and details",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
