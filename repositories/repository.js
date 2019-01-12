@@ -59,6 +59,7 @@ module.exports = class Repository {
         try {
             return this.db.getData(path);
         } catch (error) {
+            // FIXME: if the path is '/' and it throws error here we should save empty object on the database
             throw new Error("path is not valid");
         }
     }

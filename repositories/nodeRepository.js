@@ -33,10 +33,10 @@ module.exports = class NodeRepository extends Repository {
      *
      */
     addNode(requestBody) {
+        let parentArea = this.get(requestBody.parent);
+        requestBody.path = `${parentArea.path}/nodes[${parentArea.nodes.length}]`;
         let newNode = new NodeModel(requestBody);
-        let parentArea = this.get(newNode.parent);
         newNode.parent = parentArea.path;
-        newNode.path = `${parentArea.path}/nodes[${parentArea.nodes.length}]`;
         this.add(newNode);
         return newNode;
     }

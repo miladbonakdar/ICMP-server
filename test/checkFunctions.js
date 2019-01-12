@@ -1,4 +1,7 @@
 module.exports = {
+    /** TODO: add description
+     *  
+     */
     check: fn => () => {
         try {
             fn();
@@ -6,6 +9,9 @@ module.exports = {
             expect(e).toBeUndefined();
         }
     },
+    /** TODO: add description
+     *  
+     */
     checkForException: (fn,exceptionMessage) => () => {
         try {
             fn();

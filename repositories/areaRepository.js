@@ -50,9 +50,9 @@ module.exports = class AreaRepository extends Repository {
             baseItem.areas = [];
             this.add(baseItem);
         }
+        requestBody.path = `/areas[${baseItem.areas.length}]`;
         let newArea = new AreaModel(requestBody);
         newArea.parent = "/";
-        newArea.path = `/areas[${baseItem.areas.length}]`;
         this.add(newArea);
         return newArea;
     }
