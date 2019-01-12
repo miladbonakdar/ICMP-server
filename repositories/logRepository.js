@@ -7,7 +7,7 @@ module.exports = class LogRepository extends Repository {
     /** TODO: add description
      *
      */
-    constructor(db = database.getLastLogDb()) {
+    constructor(db = database.getLogDb()) {
         super(db);
     }
 

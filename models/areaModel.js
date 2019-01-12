@@ -6,7 +6,7 @@ module.exports = class Area extends ItemBase {
      */
     constructor(data = null) {
         super(data);
-        this.name = validator(data, "name", true) || null;
+        this.name = validator(data, "name", true);
         this.nodes = validator(data, "nodes") || [];
         if (this.path == "/") throw new Error("the path is not valid");
     }
