@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-navbar toggleable="md" type="dark" variant="info">
+        <b-navbar toggleable="md" type="dark" class="header">
 
             <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
@@ -43,5 +43,8 @@
     }
     a:hover{
         color: lightgrey;
+    }
+    .header{
+        background-color: #563D7C;
     }
 </style>

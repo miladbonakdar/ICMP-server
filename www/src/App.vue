@@ -8,8 +8,8 @@
                 </div>
             </div>
             <hr>
-            <app-footer></app-footer>
         </div>
+        <app-footer></app-footer>
     </div>
 </template>
 
