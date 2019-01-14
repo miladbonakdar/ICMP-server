@@ -1,8 +1,10 @@
+/* eslint-disable node/no-unpublished-require */
 var path = require("path");
 var webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
+    mode: "development",
     entry: "./src/main.js",
     output: {
         path: path.resolve(__dirname, "./dist"),
