@@ -1,6 +1,6 @@
 <template>
     <div>
-        <span style="position: absolute; right: 10px; top: 15px;" class="oi oi-chevron-bottom"></span>
+        <span style="position: absolute; right: 10px; top: 15px; color: gray;" :class="getExpandIconClass"></span>
         <div class="row">
             <div class="col">
                 <h4>{{area.name}}</h4>
@@ -14,7 +14,7 @@
                 </p>
             </div>
             <div class="col">
-                <img @click.stop="editArea(index)" rel="tooltip" title="Edit Area" src="../assets/edit.svg"
+                <img @click.stop="editArea(index)" v-b-tooltip.hover title="Edit Area" src="../assets/edit.svg"
                      class="icon">
             </div>
         </div>
@@ -32,11 +32,23 @@
             index: {
                 type: Number,
                 required: true
+            },
+            isExpand: {
+                type: Boolean,
+                required: true
             }
         },
         methods: {
             editArea() {
                 alert("hello");
+            }
+        },
+        computed: {
+            getExpandIconClass(){
+                if(this.isExpand)
+                    return "oi oi-chevron-top";
+                else
+                    return"oi oi-chevron-bottom";
             }
         }
     };

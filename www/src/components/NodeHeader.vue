@@ -1,6 +1,6 @@
 <template>
     <div>
-        <span style="position: absolute; right: 10px; top: 15px;" class="oi oi-chevron-bottom"></span>
+        <span style="position: absolute; right: 10px; top: 15px; color: gray;" :class="getExpandIconClass"></span>
         <div class="row">
             <div class="col">
                 <h4>{{node.name}}</h4>
@@ -12,11 +12,11 @@
                 Up : {{node.up}}
             </p>
             <div class="col">
-                <img @click.stop="editNode(index)" rel="tooltip" title="Edit Node" src="../assets/edit.svg"
+                <img @click.stop="editNode(index)" v-b-tooltip.hover title="Edit Node" src="../assets/edit.svg"
                      class="icon">
             </div>
             <div class="col">
-                <img @click.stop="deleteNode(index)" rel="tooltip" title="Delete Node" src="../assets/delete.svg"
+                <img @click.stop="deleteNode(index)" v-b-tooltip.hover title="Delete Node" src="../assets/delete.svg"
                      class="icon">
             </div>
         </div>
@@ -34,6 +34,9 @@
             index: {
                 type: Number,
                 required: true
+            },
+            isExpand: {
+                required: true
             }
         },
         methods: {
@@ -42,6 +45,14 @@
             },
             deleteNode() {
 
+            }
+        },
+        computed: {
+            getExpandIconClass(){
+                if(this.isExpand)
+                    return "oi oi-chevron-top";
+                else
+                    return"oi oi-chevron-bottom";
             }
         }
     };
