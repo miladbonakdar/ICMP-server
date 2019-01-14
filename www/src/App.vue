@@ -1,13 +1,12 @@
 <template>
     <div>
         <app-header></app-header>
-        <div class="container-fluid">
+        <div id="container" class="container-fluid">
             <div class="row">
                 <div id="app" class="col-sm-8">
                     <router-view></router-view>
                 </div>
             </div>
-            <hr>
         </div>
         <app-footer></app-footer>
     </div>
@@ -27,8 +26,11 @@
 </script>
 
 <style scoped>
-#app{
-    float: none;
-    margin: 10px auto;
-}
+    #app {
+        float: none;
+        margin: 10px auto;
+    }
+    #container{
+        margin-bottom: 40px;
+    }
 </style>

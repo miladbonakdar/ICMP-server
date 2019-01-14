@@ -10,13 +10,13 @@
 
                 <b-navbar-nav style="margin-left: 30px">
                     <b-nav-item>
-                        <router-link to="/dashboard" active-class="active" exact><a>Dashboard</a></router-link>
+                        <router-link :to="{name: routsName.dashboard()}" active-class="active" exact><a>Dashboard</a></router-link>
                     </b-nav-item>
                     <b-nav-item>
-                        <router-link to="/area" active-class="active" exact><a>Area</a></router-link>
+                        <router-link :to="{name: routsName.addArea()}" active-class="active" exact><a>Area</a></router-link>
                     </b-nav-item>
                     <b-nav-item>
-                        <router-link to="/setting" active-class="active" exact><a>Setting</a></router-link>
+                        <router-link :to="{name: routsName.setting()}" active-class="active" exact><a>Setting</a></router-link>
                     </b-nav-item>
                 </b-navbar-nav>
 
@@ -26,8 +26,14 @@
 </template>
 
 <script>
+    import routsName from "../routsName";
     export default {
-        name: "Header"
+        name: "Header",
+        data(){
+            return{
+                routsName
+            };
+        }
     };
 </script>
 
@@ -38,11 +44,11 @@
         text-decoration: none;
     }
     a{
-        color: #bbbbbb;
+        color: rgba(211,211,211,0.61);
         text-decoration: none;
     }
     a:hover{
-        color: lightgrey;
+        color: white;
     }
     .header{
         background-color: #563D7C;

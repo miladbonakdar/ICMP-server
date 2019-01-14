@@ -1,5 +1,5 @@
 <template>
-    <div class="footer">
+    <div id="footer">
         <b-row>
             <b-col>
                 <p align="center"><a href="https://github.com/miladbonakdar/ICMP-server">Github</a></p>
@@ -21,8 +21,11 @@
 </script>
 
 <style scoped>
-    .footer{
+    #footer{
         background-color: #563D7C;
+        position: fixed;
+        width: 100%;
+        bottom: 0;
     }
     a{
         color: white;

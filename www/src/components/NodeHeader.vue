@@ -1,7 +1,7 @@
 <template>
     <div>
         <span style="position: absolute; right: 10px; top: 15px; color: gray;" :class="getExpandIconClass"></span>
-        <div class="row">
+        <div class="row" style="margin-right: 12px">
             <div class="col">
                 <h4>{{node.name}}</h4>
             </div>

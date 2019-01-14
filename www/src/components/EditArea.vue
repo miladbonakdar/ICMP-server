@@ -19,18 +19,15 @@
 </template>
 
 <script>
+    import AreaData from "../Areas.json";
+
     export default {
         name: "Area",
-        props: {
-            area: {
-                type: Object,
-                required: true
-            }
-        },
         data() {
             return {
+                area: AreaData[0],
                 form: {
-                    areaName: area.name
+                    areaName: AreaData[0].name
                 },
                 show: true
             };
@@ -43,7 +40,7 @@
             onReset(evt) {
                 evt.preventDefault();
                 /* Reset our form values */
-                this.form.areaName = area.name;
+                this.form.areaName = this.area.name;
                 /* Trick to reset/clear native browser form validation state */
                 this.show = false;
                 this.$nextTick(() => {  

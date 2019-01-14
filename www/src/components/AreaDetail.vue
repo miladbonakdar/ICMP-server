@@ -1,7 +1,7 @@
 <template>
     <div>
         <span style="position: absolute; right: 10px; top: 15px; color: gray;" :class="getExpandIconClass"></span>
-        <div class="row">
+        <div class="row" style="margin-right: 12px">
             <div class="col">
                 <h4>{{area.name}}</h4>
             </div>
@@ -14,7 +14,7 @@
                 </p>
             </div>
             <div class="col">
-                <img @click.stop="editArea(index)" v-b-tooltip.hover title="Edit Area" src="../assets/edit.svg"
+                <img @click.stop="editArea()" v-b-tooltip.hover title="Edit Area" src="../assets/edit.svg"
                      class="icon">
             </div>
         </div>
@@ -22,8 +22,15 @@
 </template>
 
 <script>
+    import routsName from "../routsName";
+
     export default {
         name: "AreaDetail",
+        data(){
+            return{
+                routsName
+            };
+        },
         props: {
             area: {
                 type: Object,
@@ -40,7 +47,7 @@
         },
         methods: {
             editArea() {
-                alert("hello");
+                this.$router.push({ name: routsName.editArea(), params: {id: this.area.id} });
             }
         },
         computed: {
