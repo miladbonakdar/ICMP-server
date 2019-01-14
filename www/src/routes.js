@@ -1,7 +1,9 @@
 import Login from "./components/Login.vue";
 import Dashboard from "./components/Dashboard.vue";
 import Setting from "./components/Setting.vue";
-import Areas from "./components/Areas.vue";
+import AddArea from "./components/AddArea.vue";
+import EditArea from "./components/EditArea.vue";
+import Area from "./components/Area.vue";
 import Node from "./components/Nodes.vue";
 
 export const routes = [
@@ -11,6 +13,7 @@ export const routes = [
     },
     {
         path: "/dashboard",
+        name: "dashboard",
         component: Dashboard
     },
     {
@@ -19,10 +22,18 @@ export const routes = [
     },
     {
         path: "/area",
-        component: Areas
+        component: Area,
+        children: [
+            {path: "/" ,component:AddArea},
+            {path: ":id", component: EditArea}
+        ]
     },
     {
         path: "/node",
         component: Node
+    },
+    {
+        path: "*",
+        redirect: {name: "dashboard"}
     }
 ];
