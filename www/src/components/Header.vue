@@ -16,6 +16,9 @@
                         <router-link :to="{name: routsName.addArea()}" active-class="active" exact><a>Area</a></router-link>
                     </b-nav-item>
                     <b-nav-item>
+                        <router-link :to="{name: routsName.addNode()}" active-class="active" exact><a>Node</a></router-link>
+                    </b-nav-item>
+                    <b-nav-item>
                         <router-link :to="{name: routsName.setting()}" active-class="active" exact><a>Setting</a></router-link>
                     </b-nav-item>
                 </b-navbar-nav>

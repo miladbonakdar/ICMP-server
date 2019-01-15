@@ -12,11 +12,11 @@
                 Up : {{node.up}}
             </p>
             <div class="col">
-                <img @click.stop="editNode(index)" v-b-tooltip.hover title="Edit Node" src="../assets/edit.svg"
+                <img @click.stop="editNode()" v-b-tooltip.hover title="Edit Node" src="../assets/edit.svg"
                      class="icon">
             </div>
             <div class="col">
-                <img @click.stop="deleteNode(index)" v-b-tooltip.hover title="Delete Node" src="../assets/delete.svg"
+                <img @click.stop="deleteNode()" v-b-tooltip.hover title="Delete Node" src="../assets/delete.svg"
                      class="icon">
             </div>
         </div>
@@ -24,6 +24,8 @@
 </template>
 
 <script>
+    import routsName from "../routsName";
+
     export default {
         name: "AreaDetail",
         props: {
@@ -41,7 +43,7 @@
         },
         methods: {
             editNode() {
-                alert("hello");
+                this.$router.push({name: routsName.editNode(), params: {id: this.node.id}});
             },
             deleteNode() {
 

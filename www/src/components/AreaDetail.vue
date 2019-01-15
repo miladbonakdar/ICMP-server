@@ -8,15 +8,10 @@
             <p class="col server-down">
                 Total Down : {{area.totalDown}}
             </p>
-            <div class="col">
-                <p class="server-up">
-                    Total Up : {{area.totalUp}}
-                </p>
-            </div>
-            <div class="col">
-                <img @click.stop="editArea()" v-b-tooltip.hover title="Edit Area" src="../assets/edit.svg"
-                     class="icon">
-            </div>
+            <p class="col server-up">
+                Total Up : {{area.totalUp}}
+            </p>
+            <img @click.stop="editArea()" class="col icon" v-b-tooltip.hover title="Edit Area" src="../assets/edit.svg">
         </div>
     </div>
 </template>
@@ -26,8 +21,8 @@
 
     export default {
         name: "AreaDetail",
-        data(){
-            return{
+        data() {
+            return {
                 routsName
             };
         },
@@ -47,15 +42,15 @@
         },
         methods: {
             editArea() {
-                this.$router.push({ name: routsName.editArea(), params: {id: this.area.id} });
+                this.$router.push({name: routsName.editArea(), params: {id: this.area.id}});
             }
         },
         computed: {
-            getExpandIconClass(){
-                if(this.isExpand)
+            getExpandIconClass() {
+                if (this.isExpand)
                     return "oi oi-chevron-top";
                 else
-                    return"oi oi-chevron-bottom";
+                    return "oi oi-chevron-bottom";
             }
         }
     };
