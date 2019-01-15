@@ -1,5 +1,6 @@
 <template>
     <div role="tablist">
+        <h2>Dashboard</h2>
         <b-card no-body class="mb-1" v-for="(area, index) in areaTest" :key="area.id">
             <b-card-header style="background-color: white" header-tag="header" class="p-1" role="tab">
                 <div class="container-fluid" v-b-toggle="'accordion' + area.id">
@@ -30,9 +31,16 @@
                             </b-card-body>
                         </b-collapse>
                     </b-card>
+                    <b-button @click="goToNodePage()" block variant="success">
+                        Add New Node
+                    </b-button>
                 </b-card-body>
             </b-collapse>
         </b-card>
+        <b-button @click="goToAreaPage()" block variant="success">
+            Add New Area
+        </b-button>
+
     </div>
 </template>
 
@@ -41,6 +49,7 @@
     import AreaDetail from "./AreaDetail.vue";
     import NodeHeader from "./NodeHeader.vue";
     import NodeDetail from "./NodeDetail.vue";
+    import routsName from "../routsName";
 
     export default {
         data() {
@@ -51,8 +60,11 @@
             };
         },
         methods: {
-            editArea(index) {
-                alert(this.areaTest[0].name);
+            goToAreaPage() {
+                this.$router.push({name: routsName.addArea()});
+            },
+            goToNodePage() {
+                this.$router.push({name: routsName.addNode()});
             },
             getNodesCollapseState: function () {
                 let collapseState = [];
@@ -72,9 +84,7 @@
                 return collapseState;
             }
         },
-        computed: {
-
-        },
+        computed: {},
         components: {
             AreaDetail,
             NodeHeader,
@@ -84,5 +94,7 @@
 </script>
 
 <style scoped>
-
+    h2{
+        margin-bottom: 10px;
+    }
 </style>

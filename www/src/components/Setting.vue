@@ -53,18 +53,25 @@
 </template>
 
 <script>
+    import SettingData from "../Setting.json";
+
     export default {
         data() {
             return {
                 form: {
-                    isRedisEnabled: false,
-                    exportCsvFileAtHour: null,
-                    exportCsvFileAtMinute: null,
-                    isLoginEnabled: false,
-                    isCsvExportEnabled: false,
-                    pingHostsEvery: null
+                    isRedisEnabled: SettingData.isRedisEnabled,
+                    exportCsvFileAtHour: SettingData.exportCsvFileAtHour,
+                    exportCsvFileAtMinute: SettingData.exportCsvFileAtMinute,
+                    isLoginEnabled: SettingData.isLoginEnabled,
+                    isCsvExportEnabled: SettingData.isCsvExportEnabled,
+                    pingHostsEvery: SettingData.pingHostsEvery
                 },
-                csvExportTime: null,
+                csvExportTime: (
+                    (SettingData.exportCsvFileAtHour < 10 ? "0" + SettingData.exportCsvFileAtHour:SettingData.exportCsvFileAtHour) +
+                    ":" +
+                    (SettingData.exportCsvFileAtMinute < 10 ?"0" + SettingData.exportCsvFileAtMinute:SettingData.exportCsvFileAtMinute)
+                )
+                ,
                 show: true
             };
         },
