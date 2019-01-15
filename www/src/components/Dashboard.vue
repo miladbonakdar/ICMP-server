@@ -10,7 +10,7 @@
                     <h5>Next Update: {{nextUpdate}}</h5>
                 </b-col>
             </b-row>
-            <div style="align-items: center;">
+            <div>
                 <b-button id="pingNow" variant="primary">
                     Ping Now
                 </b-button>
