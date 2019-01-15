@@ -1,6 +1,21 @@
 <template>
     <div role="tablist">
         <h2>Dashboard</h2>
+        <b-container id="generalInfo">
+            <b-row>
+                <b-col>
+                    <h5>Last Update: {{lastUpdate}}</h5>
+                </b-col>
+                <b-col>
+                    <h5>Next Update: {{nextUpdate}}</h5>
+                </b-col>
+            </b-row>
+            <div style="align-items: center;">
+                <b-button id="pingNow" variant="primary">
+                    Ping Now
+                </b-button>
+            </div>
+        </b-container>
         <b-card no-body class="mb-1" v-for="(area, index) in areaTest" :key="area.id">
             <b-card-header style="background-color: white" header-tag="header" class="p-1" role="tab">
                 <div class="container-fluid" v-b-toggle="'accordion' + area.id">
@@ -54,6 +69,8 @@
     export default {
         data() {
             return {
+                lastUpdate: "08:50",
+                nextUpdate: "15:55",
                 areaTest: AreaData,
                 nodesCollapseState: this.getNodesCollapseState(),
                 areasCollapseState: this.getAreasCollapseState()
@@ -96,5 +113,18 @@
 <style scoped>
     h2{
         margin-bottom: 10px;
+    }
+    #generalInfo {
+        margin-bottom: 15px;
+        background-color: lightgrey;
+        padding: 10px;
+    }
+    #pingNow{
+        width: 250px;
+        margin: 0 auto;
+        display: block;
+    }
+    h5{
+        color: gray;
     }
 </style>
