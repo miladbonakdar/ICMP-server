@@ -1,17 +1,38 @@
 <template>
-    <div>
-        <span style="position: absolute; right: 10px; top: 15px; color: gray;" :class="getExpandIconClass"></span>
-        <div class="row" style="margin-right: 12px">
+    <div style="border-width: 0 ">
+        <div class="row" style="margin-right: 12px;">
             <div class="col">
                 <h4>{{area.name}}</h4>
             </div>
-            <p class="col server-down">
-                Total Down : {{area.totalDown}}
-            </p>
-            <p class="col server-up">
-                Total Up : {{area.totalUp}}
-            </p>
-            <img @click.stop="editArea()" class="col icon" v-b-tooltip.hover title="Edit Area" src="../assets/edit.svg">
+            <div class="col">
+                <p class="server-down text-danger">
+                    Total Down : {{area.totalDown}}
+                </p>
+            </div>
+            <div class="col">
+                <p class="server-up text-success">
+                    Total Up : {{area.totalUp}}
+                </p>
+            </div>
+            <div class="col">
+                <div style="float: right">
+                    <img
+                            @click.stop="editArea()"
+                            class="icon"
+                            v-b-tooltip.hover title="Edit Area"
+                            src="../assets/edit.svg">
+                    <img
+                            @click.stop="deleteArea()"
+                            class="icon"
+                            v-b-tooltip.hover title="Delete Area"
+                            src="../assets/delete.svg">
+                    <span
+                            id="expand-icon"
+                            v-b-tooltip.hover :title="expandIconTooltipTitle"
+                            :class="expandIconClass"
+                    ></span>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -42,15 +63,24 @@
         },
         methods: {
             editArea() {
-                this.$router.push({name: routsName.editArea(), params: {id: this.area.id}});
+                this.$router.push({name: routsName.EDIT_AREA, params: {id: this.area.id}});
+            },
+            deleteArea() {
+
             }
         },
         computed: {
-            getExpandIconClass() {
+            expandIconClass() {
                 if (this.isExpand)
                     return "oi oi-chevron-top";
                 else
                     return "oi oi-chevron-bottom";
+            },
+            expandIconTooltipTitle(){
+                if(this.isExpand)
+                    return "Hide Area Detail";
+                else
+                    return "Show Area Detail";
             }
         }
     };
@@ -58,21 +88,29 @@
 
 <style scoped>
     .server-up {
-        color: green;
         font-weight: bold;
         margin-top: 7px;
         margin-bottom: 0;
     }
+
     .server-down {
-        color: red;
         font-weight: bold;
         margin-top: 7px;
         margin-bottom: 0;
     }
+
     .icon {
         width: 20px;
         height: 20px;
-        margin-top: 7px;
+        margin: 7px 10px 0;
+        cursor: pointer;
+    }
+
+    #expand-icon {
+        top: 7px;
+        margin-left: 10px;
         margin-bottom: 0;
+        color: gray;
+        cursor: pointer;
     }
 </style>

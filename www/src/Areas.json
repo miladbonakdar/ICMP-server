@@ -8,6 +8,7 @@
     "name": "areaTwo",
     "totalDown": 0,
     "totalUp": 0,
+    "isExpand": false,
     "nodes": [
       {
         "id": "cjqtrysla0000skw4d64kjxjv",
@@ -59,6 +60,7 @@
     "name": "areaOne",
     "totalDown": 0,
     "totalUp": 0,
+    "isExpand": false,
     "nodes": [
       {
         "id": "cjqtrz7350002skw4wqgg9xfs",
@@ -97,6 +99,7 @@
     "name": "areaOne",
     "totalDown": 0,
     "totalUp": 0,
+    "isExpand": false,
     "nodes": [
       {
         "id": "cjqtrz7350002skw4wqgg9xfs",

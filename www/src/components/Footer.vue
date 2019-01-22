@@ -1,41 +1,49 @@
 <template>
     <div id="footer">
         <b-row>
-            <b-col>
-                <p align="center"><a href="https://github.com/miladbonakdar/ICMP-server">Github</a></p>
-            </b-col>
-            <b-col>
-                <p align="center">Made with <span class="heart">❤</span> in Iran</p>
-            </b-col>
-            <b-col>
-                <p align="center">v 1.0.0</p>
-            </b-col>
+            <p>ICMP Server</p>
+            <b-row style="position: absolute; right: 20px;">
+                <p align="center">Made with <span class="heart">❤</span>  Please like us on</p>
+                <a href="https://github.com/miladbonakdar/ICMP-server">
+                    <img src="../assets/github-logo.svg">
+                </a>
+                <p>v{{version}}</p>
+            </b-row>
         </b-row>
     </div>
 </template>
 
 <script>
     export default {
-        name: "Footer"
+        name: "Footer",
+        data() {
+            return {
+                version: "1.0.0"
+            };
+        }
     };
 </script>
 
 <style scoped>
     #footer{
-        background-color: #563D7C;
+        height: 25px;
+        /*background-color: #ea8685;*/
+        background-color: #00d2d3;
         position: fixed;
         width: 100%;
         bottom: 0;
+        padding: 0 20px 0;
     }
-    a{
-        color: white;
-        text-decoration: none;
+    a img{
+        width: 20px;
+        height: 20px;
+        margin-bottom: 5px;
     }
     .heart{
         color:#e25555;
     }
     p{
+        padding: 0 10px 0;
         color: white;
-        margin-top: 5px;
     }
 </style>

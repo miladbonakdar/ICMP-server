@@ -13,37 +13,37 @@ export const routes = [
     {
         path: "/login",
         component: Login,
-        name: routsName.login()
+        name: routsName.LOGIN
     },
     {
         path: "/dashboard",
-        name: routsName.dashboard(),
+        name: routsName.DASHBOARD,
         component: Dashboard
     },
     {
         path: "/setting",
-        name: routsName.setting(),
+        name: routsName.SETTING,
         component: Setting
     },
     {
-        path: "/area",
-        name: routsName.area(),
+        path: "/areas",
+        name: routsName.AREA,
         component: Area,
         children: [
-            {path: "", name: routsName.addArea(),component:AddArea},
-            {path: ":id", name: routsName.editArea(), component: EditArea}
+            {path: "", name: routsName.ADD_AREA, component:AddArea},
+            {path: ":id", name: routsName.EDIT_AREA, component: EditArea}
         ]
     },
     {
         path: "/node",
         component: Node,
         children: [
-            {path: "", name: routsName.addNode(),component:AddNode},
-            {path: ":id", name: routsName.editNode(), component: EditNode}
+            {path: "", name: routsName.ADD_NODE,component:AddNode},
+            {path: ":id", name: routsName.EDIT_NODE, component: EditNode}
         ]
     },
     {
         path: "*",
-        redirect: {name: "dashboard"}
+        redirect: {name: routsName.DASHBOARD}
     }
 ];

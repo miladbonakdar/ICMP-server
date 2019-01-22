@@ -12,7 +12,7 @@ module.exports = {
         try {
             const areaRepo = new AreaRepository();
             let area = areaRepo.addArea(req.body);
-            response.success(res, area, "area created successfuly");
+            response.success(res, area, "areas created successfuly");
         } catch (e) {
             response.internalServerError(res, e);
         }
@@ -38,7 +38,7 @@ module.exports = {
         try {
             const areaRepo = new AreaRepository();
             let area = areaRepo.updateArea(req.body);
-            response.success(res, area, "area updated successfuly");
+            response.success(res, area, "areas updated successfuly");
         } catch (e) {
             response.internalServerError(res, e);
         }
@@ -52,7 +52,7 @@ module.exports = {
             if (!req.params.id) response.badRequest(res, "id");
             const areaRepo = new AreaRepository();
             areaRepo.deleteArea(req.params.id);
-            response.success(res, {}, "area deleted successfuly");
+            response.success(res, {}, "areas deleted successfuly");
         } catch (e) {
             response.internalServerError(res, e);
         }

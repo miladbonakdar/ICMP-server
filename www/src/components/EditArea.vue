@@ -1,7 +1,8 @@
 <template>
     <div>
         <h2>Edit Area</h2>
-        <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+        <hr>
+        <b-form @submit="onSubmit" v-if="show">
             <b-form-group id="exampleInputGroup1"
                           label="Area Name:"
                           label-for="areaNameInput">
@@ -13,16 +14,19 @@
                 </b-form-input>
             </b-form-group>
             <b-button type="submit" variant="primary">Submit</b-button>
-            <b-button type="reset" variant="danger">Reset</b-button>
+            <b-button @click="onCancel" variant="outline-secondary">Cancel</b-button>
         </b-form>
     </div>
 </template>
 
 <script>
     import AreaData from "../Areas.json";
+    import routsName from "../routsName";
 
     export default {
-        name: "Area",
+        metaInfo: {
+            title: "Edit Area - ICMP Server"
+        },
         data() {
             return {
                 area: AreaData[0],
@@ -37,15 +41,9 @@
                 evt.preventDefault();
                 alert(JSON.stringify(this.form));
             },
-            onReset(evt) {
+            onCancel(evt) {
                 evt.preventDefault();
-                /* Reset our form values */
-                this.form.areaName = this.area.name;
-                /* Trick to reset/clear native browser form validation state */
-                this.show = false;
-                this.$nextTick(() => {  
-                    this.show = true;
-                });
+                this.$router.push({name: routsName.DASHBOARD})
             }
         }
     };

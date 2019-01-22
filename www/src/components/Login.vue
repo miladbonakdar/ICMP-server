@@ -1,7 +1,8 @@
 <template>
     <div>
         <h2>Login</h2>
-        <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+        <hr>
+        <b-form @submit="onSubmit" v-if="show">
             <b-form-group id="usernameInputGroup"
                           label="Your Username:"
                           label-for="Username">
@@ -23,13 +24,17 @@
                 </b-form-input>
             </b-form-group>
             <b-button type="submit" variant="primary">Submit</b-button>
-            <b-button type="reset" variant="danger">Reset</b-button>
         </b-form>
     </div>
 </template>
 
 <script>
+    import routsName from "../routsName";
+
     export default {
+        metaInfo: {
+            title: "Login - ICMP Server"
+        },
         data () {
             return {
                 form: {
@@ -43,15 +48,6 @@
             onSubmit (evt) {
                 evt.preventDefault();
                 alert(JSON.stringify(this.form));
-            },
-            onReset (evt) {
-                evt.preventDefault();
-                /* Reset our form values */
-                this.form.username = '';
-                this.form.password = '';
-                /* Trick to reset/clear native browser form validation state */
-                this.show = false;
-                this.$nextTick(() => { this.show = true });
             }
         }
     }
