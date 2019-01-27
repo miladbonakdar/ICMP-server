@@ -42,22 +42,9 @@
 
     export default {
         name: "AreaDetail",
-        data() {
-            return {
-                routsName
-            };
-        },
         props: {
             area: {
                 type: Object,
-                required: true
-            },
-            index: {
-                type: Number,
-                required: true
-            },
-            isExpand: {
-                type: Boolean,
                 required: true
             }
         },
@@ -71,13 +58,13 @@
         },
         computed: {
             expandIconClass() {
-                if (this.isExpand)
+                if (this.area.isExpand)
                     return "oi oi-chevron-top";
                 else
                     return "oi oi-chevron-bottom";
             },
             expandIconTooltipTitle(){
-                if(this.isExpand)
+                if(this.area.isExpand)
                     return "Hide Area Detail";
                 else
                     return "Show Area Detail";

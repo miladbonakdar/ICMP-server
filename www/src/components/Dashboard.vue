@@ -21,29 +21,27 @@
             </b-row>
         </b-container>
         <b-card no-body class="mb-1 area-custom-card border-success" v-for="(area, index) in areas" :key="area.id">
-            <b-card-header header-tag="header" class="p-1 card-header" role="tab">
-                <div class="container-fluid">
-                    <area-detail :area="area" :index="index" v-b-toggle="'accordion' + area.id"
-                                 :isExpand="areasCollapseState[index]"></area-detail>
+            <b-card-header  header-tag="header" class="p-1 card-header" role="tab">
+                <div class="container-fluid" >
+                    <area-detail :area="area" v-b-toggle="'accordion' + area.id"></area-detail>
                 </div>
             </b-card-header>
 
-            <b-collapse v-model="areasCollapseState[index]" :id="'accordion' + area.id" accordion="my-accordion"
+            <b-collapse v-model="areas[index].isExpand" :id="'accordion' + area.id" accordion="my-accordion"
                         role="tabpanel">
                 <b-card-body>
                     <b-card no-body class="mb-1 node-custom-card border-danger" v-for="(node, nodeIndex) in area.nodes"
                             :key="node.id">
                         <b-card-header header-tag="header" class="p-1 card-header" role="tab">
-                            <div class="container-fluid" v-b-toggle="'node-accordion' + node.id">
+                            <div class="container-fluid"  v-b-toggle="'node-accordion' + node.id">
                                 <node-header
                                         :node="node"
                                         :index="nodeIndex"
-                                        :isExpand="nodesCollapseState[index][nodeIndex]"
                                 ></node-header>
                             </div>
                         </b-card-header>
                         <b-collapse
-                                v-model="nodesCollapseState[index][nodeIndex]"
+                                v-model="areas[index].nodes[nodeIndex].isExpand"
                                 :id="'node-accordion' + node.id"
                                 accordion="my-node-accordion"
                                 role="tabpanel">
@@ -73,7 +71,7 @@
     import NodeDetail from "./NodeDetail.vue";
     import routsName from "../routsName";
     import * as types from "../store/types";
-    import {mapGetters} from "vuex";
+    import {mapGetters, mapActions} from "vuex";
     import AreaData from "../Areas.json"
 
     export default {
@@ -94,13 +92,16 @@
             })
         },
         methods: {
+            ...mapActions({
+                toggleAreaIsExpand: types.TOGGLE_AREA_IS_EXPAND
+            }),
             goToAreaPage() {
                 this.$router.push({name: routsName.ADD_AREA});
             },
             goToNodePage() {
                 this.$router.push({name: routsName.ADD_NODE});
             },
-            getNodesCollapseState: function () {
+            getNodesCollapseState() {
                 let collapseState = [];
                 for (let i = 0; i < AreaData.length ; i++) {
                     collapseState[i] = [];
@@ -110,7 +111,7 @@
                 }
                 return collapseState;
             },
-            getAreasCollapseState: function () {
+            getAreasCollapseState() {
                 let collapseState = [];
                 for (let i = 0; i < AreaData.length; i++) {
                     collapseState[i] = false;

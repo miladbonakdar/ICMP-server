@@ -43,18 +43,10 @@
             node: {
                 type: Object,
                 required: true
-            },
-            index: {
-                type: Number,
-                required: true
-            },
-            isExpand: {
-                required: true
             }
         },
         methods: {
             editNode() {
-                this.$store.dispatch(types.UPDATE_SHOW_LOADING, true);
                 this.$router.push({name: routsName.EDIT_NODE, params: {id: this.node.id}});
             },
             deleteNode() {
@@ -63,13 +55,13 @@
         },
         computed: {
             expandIconClass(){
-                if(this.isExpand)
+                if(this.node.isExpand)
                     return "oi oi-chevron-top";
                 else
                     return"oi oi-chevron-bottom";
             },
             expandIconTooltipTitle(){
-                if(this.isExpand)
+                if(this.node.isExpand)
                     return "Hide Node Detail";
                 else
                     return "Show Node Detail";
