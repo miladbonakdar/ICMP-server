@@ -33,10 +33,10 @@ module.exports = class NodeRepository extends Repository {
      *
      */
     addNode(requestBody) {
+        let parentArea = this.get(requestBody.parent);
+        requestBody.path = `${parentArea.path}/nodes[${parentArea.nodes.length}]`;
         let newNode = new NodeModel(requestBody);
-        let parentArea = this.get(newNode.parent);
         newNode.parent = parentArea.path;
-        newNode.path = `${parentArea.path}/nodes[${parentArea.nodes.length}]`;
         this.add(newNode);
         return newNode;
     }
@@ -61,7 +61,7 @@ module.exports = class NodeRepository extends Repository {
             if (nodeToDelete) return;
             nodeToDelete = area.nodes.filter(node => node.id == id)[0];
         });
-        if (!nodeToDelete) throw "404 ,the node is not valid to delete";
+        if (!nodeToDelete) throw new Error("404 ,the node is not valid to delete");
         this.db.delete(nodeToDelete.path);
         return;
     }
@@ -72,11 +72,11 @@ module.exports = class NodeRepository extends Repository {
     getNodeById(id) {
         let baseItem = this.get("/");
         let nodeToReturn;
-        baseItem.areas.forEach(area => {
-            if (nodeToReturn) return;
+        for (const area of baseItem.areas) {
             nodeToReturn = area.nodes.filter(node => node.id == id)[0];
-        });
-        if (!nodeToReturn) throw "404 ,the node was not found";
+            if (nodeToReturn) break;
+        }
+        if (!nodeToReturn) throw new Error("404 ,the node was not found");
         return nodeToReturn;
     }
 
@@ -84,6 +84,6 @@ module.exports = class NodeRepository extends Repository {
      *
      */
     getNodeByIndex(index) {
-        throw "not implimented method";
+        throw new Error("not implimented method");
     }
 };

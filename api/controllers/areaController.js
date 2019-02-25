@@ -1,88 +1,66 @@
 const areaStatics = require("../statics/area_statics");
 const AreaRepository = require("../../repositories/areaRepository");
 const response = require("../utils/response");
+const check = require("../utils/checkApifunctions").check;
 
 module.exports = {
     controllerName: "area",
 
     /** TODO: add description
-     *
+     *  FIXME: unitTest
      */
-    [areaStatics.create]: (req, res) => {
-        try {
-            const areaRepo = new AreaRepository();
-            let area = areaRepo.addArea(req.body);
-            response.success(res, area, "areas created successfuly");
-        } catch (e) {
-            response.internalServerError(res, e);
-        }
-    },
+
+    [areaStatics.create]: check((req, res) => {
+        const areaRepo = new AreaRepository();
+        let area = areaRepo.addArea(req.body);
+        response.success(res, area, "area created successfuly");
+    }),
+
+    /** TODO: add description
+     *  
+     */
+    [areaStatics.getAll]: check((req, res) => {
+        const areaRepo = new AreaRepository();
+        let areas = areaRepo.getAreas();
+        response.success(res, areas);
+    }),
 
     /** TODO: add description
      *
      */
-    [areaStatics.getAll]: (req, res) => {
-        try {
-            const areaRepo = new AreaRepository();
-            let areas = areaRepo.getAreas();
-            response.success(res, areas);
-        } catch (e) {
-            response.internalServerError(res, e);
-        }
-    },
+    [areaStatics.update]: check((req, res) => {
+        const areaRepo = new AreaRepository();
+        let area = areaRepo.updateArea(req.body);
+        response.success(res, area, "area updated successfuly");
+    }),
+  
+    /** TODO: add description
+     *
+     */
+    [areaStatics.delete]: check((req, res) => {
+        if (!req.params.id) response.badRequest(res, "id");
+        const areaRepo = new AreaRepository();
+        areaRepo.deleteArea(req.params.id);
+        response.success(res, {}, "area deleted successfuly");
+    }),
 
     /** TODO: add description
      *
      */
-    [areaStatics.update]: (req, res) => {
-        try {
-            const areaRepo = new AreaRepository();
-            let area = areaRepo.updateArea(req.body);
-            response.success(res, area, "areas updated successfuly");
-        } catch (e) {
-            response.internalServerError(res, e);
-        }
-    },
+    [areaStatics.get]: check((req, res) => {
+        if (!req.params.id) response.badRequest(res, "id");
+        const areaRepo = new AreaRepository();
+        let area = areaRepo.getAreaById(req.params.id);
+        response.success(res, area);
+    }),
 
     /** TODO: add description
      *
      */
-    [areaStatics.delete]: (req, res) => {
-        try {
-            if (!req.params.id) response.badRequest(res, "id");
-            const areaRepo = new AreaRepository();
-            areaRepo.deleteArea(req.params.id);
-            response.success(res, {}, "areas deleted successfuly");
-        } catch (e) {
-            response.internalServerError(res, e);
-        }
-    },
-
-    /** TODO: add description
-     *
-     */
-    [areaStatics.get]: (req, res) => {
-        try {
-            if (!req.params.id) response.badRequest(res, "id");
-            const areaRepo = new AreaRepository();
-            let area = areaRepo.getAreaById(req.params.id);
-            response.success(res, area);
-        } catch (e) {
-            response.internalServerError(res, e);
-        }
-    },
-
-    /** TODO: add description
-     *
-     */
-    [areaStatics.getByIndex]: (req, res) => {
-        try {
-            if (!req.params.index) response.badRequest(res, "index");
-            const areaRepo = new AreaRepository();
-            let area = areaRepo.getAreaByIndex(req.params.index);
-            response.success(res, area);
-        } catch (e) {
-            response.internalServerError(res, e);
-        }
-    }
+    [areaStatics.getByIndex]: check((req, res) => {
+        if (!req.params.index) response.badRequest(res, "index");
+        const areaRepo = new AreaRepository();
+        let area = areaRepo.getAreaByIndex(req.params.index);
+        response.success(res, area);
+    })
 };

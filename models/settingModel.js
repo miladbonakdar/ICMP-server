@@ -1,7 +1,7 @@
 const validator = require("./dataValidator");
 module.exports = class Setting {
     /** TODO: add description
-     *
+     *  FIXME: unitTest
      */
     constructor(data = null) {
         this.isRedisEnabled = validator(data, "isRedisEnabled") || false;

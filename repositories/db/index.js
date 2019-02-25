@@ -3,19 +3,20 @@ const logDb = require("./logDb");
 const settingDb = require("./settingDb");
 
 module.exports = {
-    /**
+    /**  FIXME: unitTest
      * @param  string dbName
      * @returns database object
      */
     getDb(dbName) {
+        if(!dbName)throw new Error("db nams is empty");
         if (dbName.toLowerCase() == "maindb") return mainDb();
         else if (dbName.toLowerCase() == "logdb") return logDb(new Date());
         else if (dbName.toLowerCase() == "settingdb")
-            return logDb(new settingDb());
-        else throw "db nams is not valid";
+            return settingDb();
+        else throw new Error("db nams is not valid");
     },
 
-    /**
+    /**  
      * @returns {db object} main database object
      */
     getMainDb() {
@@ -23,23 +24,16 @@ module.exports = {
     },
 
     /** TODO: add description
-     *
+     *  
      */
     getSettingDb() {
         return settingDb();
     },
 
     /** TODO: add description
-     *
+     *  
      */
-    getLastLogDb() {
-        return logDb(new Date());
-    },
-
-    /** TODO: add description
-     *
-     */
-    getLogDb(date) {
+    getLogDb(date = new Date()) {
         return logDb(date);
     }
 };

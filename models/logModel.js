@@ -2,7 +2,7 @@ const validator = require("./dataValidator");
 const ItemBase = require("./itemBase");
 module.exports = class Node extends ItemBase {
     /** TODO: add description
-     *
+     *  FIXME: unitTest
      */
     constructor(data = null) {
         super(data);
@@ -14,10 +14,11 @@ module.exports = class Node extends ItemBase {
         this.nodeId = validator(data, "nodeId") || null;
         this.nodePath = validator(data, "nodePath") || null;
         this.isAlive = validator(data, "isAlive") || false;
+        if (this.path == "/") throw new Error("the path is not valid");
     }
 
     /** TODO: add description
-     *
+     *  FIXME: unitTest
      */
     getCsvString() {
         return `${this.date},${this.date},${this.areaName},${this.nodeName},${

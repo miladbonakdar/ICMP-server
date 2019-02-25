@@ -7,7 +7,7 @@ module.exports = class LogRepository extends Repository {
     /** TODO: add description
      *
      */
-    constructor(db = database.getLastLogDb()) {
+    constructor(db = database.getLogDb()) {
         super(db);
     }
 
@@ -68,7 +68,7 @@ module.exports = class LogRepository extends Repository {
      */
     getLogsForCsvExport() {
         logBase = this.get("/");
-        if (!logBase.logEvents) throw "there is no log saved yet";
+        if (!logBase.logEvents) throw new Error("there is no log saved yet");
         return _.spread(_.union)(logBase.logEvents.map(item => item.logs));
     }
 };

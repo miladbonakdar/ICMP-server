@@ -9,6 +9,7 @@ module.exports = class ItemBase {
         this.parent = validator(data, "parent") || "/";
         this.path = validator(data, "path") || "/";
         this.createdOn = validator(data, "createdOn") || new Date();
+        this.updatedOn = new Date();
         this.areas = validator(data, "areas") || undefined;
         this.logs = validator(data, "logs") || undefined;
     }
