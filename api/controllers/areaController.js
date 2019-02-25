@@ -9,6 +9,7 @@ module.exports = {
     /** TODO: add description
      *  FIXME: unitTest
      */
+
     [areaStatics.create]: check((req, res) => {
         const areaRepo = new AreaRepository();
         let area = areaRepo.addArea(req.body);
@@ -32,7 +33,7 @@ module.exports = {
         let area = areaRepo.updateArea(req.body);
         response.success(res, area, "area updated successfuly");
     }),
-
+  
     /** TODO: add description
      *
      */

@@ -10,35 +10,35 @@ module.exports = router => {
         .get(areaController[areaStatics.getAll]);
 
     /** TODO: add description
-     * add an area
+     * add an areas
      */
     router
         .route(baseUrl(areaController.controllerName))
         .post(areaController[areaStatics.create]);
 
     /** TODO: add description
-     * update an area
+     * update an areas
      */
     router
         .route(baseUrl(areaController.controllerName))
         .put(areaController[areaStatics.update]);
 
     /** TODO: add description
-     * delete an area
+     * delete an areas
      */
     router
         .route(baseUrl(areaController.controllerName, undefined, "id"))
         .delete(areaController[areaStatics.delete]);
 
     /** TODO: add description
-     * get an area by item id
+     * get an areas by item id
      */
     router
         .route(baseUrl(areaController.controllerName, undefined, "id"))
         .get(areaController[areaStatics.get]);
 
     /** TODO: add description
-     * get an area by item index
+     * get an areas by item index
      */
     router
         .route(

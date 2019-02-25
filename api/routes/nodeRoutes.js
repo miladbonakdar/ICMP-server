@@ -38,7 +38,7 @@ module.exports = router => {
         .get(nodeController[nodeStatics.get]);
 
     /** TODO: add description
-     * get an area by item index
+     * get an areas by item index
      */
     router
         .route(
