@@ -8,7 +8,7 @@
                           label-for="areaNameInput">
                 <b-form-input id="areaNameInput"
                               type="text"
-                              v-model="form.areaName"
+                              v-model="form.name"
                               required
                               placeholder="Enter area name">
                 </b-form-input>
@@ -28,7 +28,7 @@
         data() {
             return {
                 form: {
-                    areaName: ""
+                    name: ""
                 },
                 show: true
             };
@@ -36,6 +36,9 @@
         methods: {
             onSubmit(evt) {
                 evt.preventDefault();
+                this.$gate.area.create(this.form).then((res)=>{
+                    console.log(res);
+                })
                 alert(JSON.stringify(this.form));
             },
             onCancel(evt) {

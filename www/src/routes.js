@@ -35,12 +35,9 @@ export const routes = [
         ]
     },
     {
-        path: "/node",
-        component: Node,
-        children: [
-            {path: "", name: routsName.ADD_NODE,component:AddNode},
-            {path: ":id", name: routsName.EDIT_NODE, component: EditNode}
-        ]
+        path: "/node/:id",
+        name: routsName.NODE,
+        component: Node
     },
     {
         path: "*",

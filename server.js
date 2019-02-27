@@ -5,7 +5,10 @@ const cronJobTaskRunner = require("./cron");
 const settingRepository = new (require("./repositories/settingRepository"))();
 const redisServer = require("./repositories/redis");
 const path = require("path");
+const cors = require("cors");
 const app = express();
+
+app.use(cors());
 // for socket
 const http = require("http").Server(app);
 const io = require("socket.io")(http);

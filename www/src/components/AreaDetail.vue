@@ -53,7 +53,7 @@
                 this.$router.push({name: routsName.EDIT_AREA, params: {id: this.area.id}});
             },
             deleteArea() {
-
+                
             }
         },
         computed: {

@@ -21,6 +21,7 @@
     "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
     "cuid": "^2.1.4",
     "express": "^4.16.4",
     "lodash": "^4.17.11",

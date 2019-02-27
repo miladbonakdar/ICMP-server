@@ -9,11 +9,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import Loading from "./components/Loading.vue";
 import {store} from "./store/store";
+import VueCrud from './vueCrud';
+import CrudlyConfig from './crudlyConfig';
 
 Vue.use(BootstrapVue);
 Vue.use(VueRouter);
 Vue.use(Meta);
 Vue.use(VueMoment);
+Vue.use(VueCrud, CrudlyConfig);
 
 Vue.component("app-loading", Loading);
 
