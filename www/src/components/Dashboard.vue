@@ -76,74 +76,77 @@
 </template>
 
 <script>
-    import AreaDetail from "./AreaDetail.vue";
-    import NodeHeader from "./NodeHeader.vue";
-    import NodeDetail from "./NodeDetail.vue";
-    import routsName from "../routsName";
-    import * as types from "../store/types";
-    import {mapGetters, mapActions} from "vuex";
-    import AreaData from "../Areas.json";
+import AreaDetail from "./AreaDetail.vue";
+import NodeHeader from "./NodeHeader.vue";
+import NodeDetail from "./NodeDetail.vue";
+import routsName from "../routsName";
+import * as types from "../store/types";
+import { mapGetters, mapActions } from "vuex";
 
-    export default {
-        metaInfo: {
-            title: "Dashboard - ICMP Server"
-        },
-        data() {
-            return {
-                lastUpdate: "08:50",
-                nextUpdate: "15:55",
-                nodesCollapseState: this.getNodesCollapseState(),
-                areasCollapseState: this.getAreasCollapseState()
-            };
-        },
-        computed: {
-            ...mapGetters({
-                areas: types.AREAS
-            })
-        },
-        methods: {
-            ...mapActions({
-                toggleAreaIsExpand: types.TOGGLE_AREA_IS_EXPAND
-            }),
-            goToAreaPage() {
-                this.$router.push({name: routsName.ADD_AREA});
-            },
-            goToNodePage() {
-                this.$router.push({name: routsName.ADD_NODE});
-            },
-            getNodesCollapseState() {
-                let collapseState = [];
-                for (let i = 0; i < AreaData.length ; i++) {
-                    collapseState[i] = [];
-                    for (let j = 0; j < AreaData[i].nodes; j++) {
-                        collapseState[i][j] = false;
-                    }
-                }
-                return collapseState;
-            },
-            getAreasCollapseState() {
-                let collapseState = [];
-                for (let i = 0; i < AreaData.length; i++) {
-                    collapseState[i] = false;
-                }
-                return collapseState;
-            }
-        },
-        components: {
-            AreaDetail,
-            NodeHeader,
-            NodeDetail
-        },
-        created: function(){
-            this.$gate.area.getAll().then((res)=>{
-                console.log(res);
-            }).catch((error)=>{
-
-            });
-        }
+export default {
+  metaInfo: {
+    title: "Dashboard - ICMP Server"
+  },
+  data() {
+    return {
+      lastUpdate: "08:50",
+      nextUpdate: "15:55",
+      nodesCollapseState: [],
+      areasCollapseState: []
     };
-
-    
+  },
+  computed: {
+    ...mapGetters({
+      areas: types.AREAS
+    })
+  },
+  methods: {
+    ...mapActions({
+      toggleAreaIsExpand: types.TOGGLE_AREA_IS_EXPAND,
+      setArea: types.SET_AREAS
+    }),
+    goToAreaPage() {
+      this.$router.push({ name: routsName.AREA, params: { id: "new" } });
+    },
+    goToNodePage() {
+      this.$router.push({ name: routsName.NODE, params: { id: "new" } });
+    },
+    getNodesCollapseState() {
+      let collapseState = [];
+      for (let i = 0; i < this.areas.length; i++) {
+        collapseState[i] = [];
+        for (let j = 0; j < this.areas[i].nodes; j++) {
+          collapseState[i][j] = false;
+        }
+      }
+      return collapseState;
+    },
+    getAreasCollapseState() {
+      let collapseState = [];
+      for (let i = 0; i < this.areas.length; i++) {
+        collapseState[i] = false;
+      }
+      return collapseState;
+    }
+  },
+  components: {
+    AreaDetail,
+    NodeHeader,
+    NodeDetail
+  },
+  created: function() {
+    this.$gate.area
+      .getAll()
+      .then(res => {
+        console.log(res);
+        this.setArea(res.data.data);
+        this.$toasted.global.my_app_error();
+        this.areasCollapseState = this.getAreasCollapseState();
+        this.nodesCollapseState = this.getNodesCollapseState();
+      })
+      .catch(error => {});
+  }
+};
 </script>
 
 <style scoped>

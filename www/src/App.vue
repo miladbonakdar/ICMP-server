@@ -18,8 +18,6 @@
     import Footer from "./components/Footer.vue";
     import * as types from "./store/types";
     import {mapGetters, mapActions} from "vuex";
-    import Areas from "./Areas.json";
-
 
     export default {
         name: "app",
@@ -27,9 +25,6 @@
             return {
 
             };
-        },
-        beforeCreate() {
-            this.$store.dispatch(types.SET_AREAS, Areas);
         },
         methods: {
             ...mapActions({

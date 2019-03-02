@@ -50,7 +50,7 @@
         },
         methods: {
             editArea() {
-                this.$router.push({name: routsName.EDIT_AREA, params: {id: this.area.id}});
+                this.$router.push({name: routsName.AREA, params: {id: this.area.id}});
             },
             deleteArea() {
                 
