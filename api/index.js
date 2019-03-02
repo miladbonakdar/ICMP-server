@@ -23,7 +23,7 @@ const setupMiddlewares = app => {
  */
 module.exports = app => {
     setupMiddlewares(app);
-    app.listen(process.env.PORT || 3000, onServerStartedSuccessfuly);
+    app.listen(3000, onServerStartedSuccessfuly);
     routes(app);
     app.use(defaultRoute);
     app.use(errorHandler);

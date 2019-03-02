@@ -7,7 +7,7 @@ module.exports = class Area extends ItemBase {
     constructor(data = null) {
         super(data);
         this.name = validator(data, "name", true);
-        this.totalDwon = validator(data, "totalDwon") || 0;
+        this.totalDown = validator(data, "totalDown") || 0;
         this.totalUp = validator(data, "totalUp") || 0;
         this.nodes = validator(data, "nodes") || [];
         if (this.path == "/") throw new Error("the path is not valid");

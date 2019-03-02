@@ -1,42 +1,30 @@
-const ping = require("ping");
+const pingHost = require("./pingHost");
 const areaRepository = new (require("../repositories/areaRepository"))();
 const logRepository = new (require("../repositories/logRepository"))();
 
 /** TODO: add description
  *
  */
-const pingHost = async (hostName = "localhost") => {
-    try {
-        let pingResponse = await ping.promise.probe(hostName);
-        return pingResponse.alive;
-    } catch (exception) {
-        return false;
-    }
-};
-
-/** TODO: add description
- *
- */
 const pingNode = async node => {
-    node.alive = await pingHost(node.hostNmae);
+    node.alive = await pingHost(node.hostName);
 };
 
 /** TODO: add description
  *
  */
 const pingNodes = async nodes => {
-    nodes.forEach(async item => {
-        await pingNode(item.node);
-    });
+    for (const item of nodes) {
+        await pingNode(item);
+    }
 };
 
 /** TODO: add description
  *
  */
 const pingAreas = async areas => {
-    areas.forEach(async item => {
+    for (const item of areas) {
         await pingNodes(item.nodes);
-    });
+    }
 };
 
 /** TODO: add description

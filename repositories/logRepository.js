@@ -42,6 +42,13 @@ module.exports = class LogRepository extends Repository {
         });
         return logs;
     }
+    
+    /** TODO: add description
+     *
+     */
+    getLastLog() {
+        
+    }
 
     /** TODO: add description
      *

@@ -49,7 +49,7 @@ test(
 );
 
 test(
-    "jsonLineFromObject shoild return a line of csv",
+    "jsonLineFromObject should return a line of csv",
     check(() => {
         const converter = new CsvConverter(
             csvData.validCsvObjectArray,

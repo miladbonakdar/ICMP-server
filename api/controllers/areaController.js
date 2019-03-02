@@ -7,7 +7,7 @@ module.exports = {
     controllerName: "area",
 
     /** TODO: add description
-     *  FIXME: unitTest
+     * 
      */
 
     [areaStatics.create]: check((req, res) => {
