@@ -1,5 +1,4 @@
 /** TODO: add description
- *  FIXME: unitTest
  */
 const checkAsync = fn =>
     function asyncUtilWrap(...args) {
@@ -9,7 +8,6 @@ const checkAsync = fn =>
     };
 
 /** TODO: add description
- *  FIXME: unitTest
  */
 const check = fn =>
     function utilWrap(req, res, next) {
@@ -21,6 +19,6 @@ const check = fn =>
     };
 
 module.exports = {
-    checkAsync,
-    check
+    check,
+    checkAsync
 };

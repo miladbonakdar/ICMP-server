@@ -1,16 +1,18 @@
 const publicStatics = require("../statics/public_statics");
 const response = require("../utils/response");
-const check = require("../utils/checkApifunctions").check;
+const { check, checkAsync } = require("../utils/checkApifunctions");
 const version = require("../../package.json").version;
-const pingHosts = require("../../cron/onPingCronJobFinished").pingHosts;
+const pingHosts = require("../../cron/onPingCronJobFinished");
+const logRepository = require("../../repositories/logRepository");
 
 module.exports = {
-    controllerName: "setting",
+    controllerName: "public",
 
     /** TODO: add description
      *
      */
     [publicStatics.getExecutationTimes]: check((req, res) => {
+        logRepo = new logRepository();
         response.success(
             res,
             {
@@ -37,13 +39,8 @@ module.exports = {
     /** TODO: add description
      *
      */
-    [publicStatics.pingNodes]: check((req, res) => {
-        pingHosts()
-            .then(() => {
-                response.success(res);
-            })
-            .catch(err => {
-                throw new Error(err);
-            });
+    [publicStatics.pingNodes]: checkAsync(async (req, res) => {
+        await pingHosts();
+        response.success(res);
     })
 };

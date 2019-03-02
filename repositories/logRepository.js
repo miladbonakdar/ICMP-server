@@ -47,7 +47,7 @@ module.exports = class LogRepository extends Repository {
      *
      */
     getLastLog() {
-        //FIXME: here is not complited
+        
     }
 
     /** TODO: add description
