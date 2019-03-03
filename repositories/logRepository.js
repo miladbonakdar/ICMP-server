@@ -49,7 +49,7 @@ module.exports = class LogRepository extends Repository {
      *
      */
     getLastLog() {
-        
+        return this.get("/logEvents[-1]");
     }
 
     /** TODO: add description
