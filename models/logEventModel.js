@@ -10,6 +10,7 @@ module.exports = class LogEvent extends ItemBase {
         this.totalUp = validator(data, "totalUp") || 0;
         this.totalDevices = validator(data, "totalDevices") || 0;
         this.totalAreas = validator(data, "totalAreas") || 0;
+        this.logs = validator(data, "logs") || [];
         if (this.path == "/") throw new Error("the path is not valid");
     }
 };
