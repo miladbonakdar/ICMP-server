@@ -9,14 +9,21 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import Loading from "./components/Loading.vue";
 import {store} from "./store/store";
-import VueCrud from './vueCrud';
-import CrudlyConfig from './crudlyConfig';
+import VueCrud from "./vueCrud";
+import CrudlyConfig from "./crudlyConfig";
+import Toasted from "vue-toasted";
 
 Vue.use(BootstrapVue);
 Vue.use(VueRouter);
 Vue.use(Meta);
 Vue.use(VueMoment);
 Vue.use(VueCrud, CrudlyConfig);
+Vue.use(Toasted);
+
+Vue.toasted.register("my_app_error", "Oops.. Something Went Wrong..", {
+    type : "error",
+    icon : "error_outline"
+})
 
 Vue.component("app-loading", Loading);
 

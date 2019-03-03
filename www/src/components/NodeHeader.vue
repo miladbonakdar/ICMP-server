@@ -47,7 +47,7 @@
         },
         methods: {
             editNode() {
-                this.$router.push({name: routsName.EDIT_NODE, params: {id: this.node.id}});
+                this.$router.push({name: routsName.NODE, params: {id: this.node.id}});
             },
             deleteNode() {
 

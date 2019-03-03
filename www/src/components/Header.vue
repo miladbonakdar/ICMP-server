@@ -13,10 +13,10 @@
                         <router-link :to="{name: routsName.DASHBOARD}" active-class="active" exact><a>Dashboard</a></router-link>
                     </b-nav-item>
                     <b-nav-item>
-                        <router-link :to="{name: routsName.ADD_AREA}" active-class="active" exact><a>Area</a></router-link>
+                        <router-link :to="{name: routsName.AREA, params: {id: 'new'}}" active-class="active" exact><a>Area</a></router-link>
                     </b-nav-item>
                     <b-nav-item>
-                        <router-link :to="{name: routsName.ADD_NODE}" active-class="active" exact><a>Node</a></router-link>
+                        <router-link :to="{name: routsName.NODE, params: {id: 'new'}}" active-class="active" exact><a>Node</a></router-link>
                     </b-nav-item>
                     <b-nav-item>
                         <router-link :to="{name: routsName.SETTING}" active-class="active" exact><a>Setting</a></router-link>

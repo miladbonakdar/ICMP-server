@@ -54,7 +54,6 @@
 </template>
 
 <script>
-    import SettingData from "../Setting.json";
     import routsName from "../routsName";
 
     export default {
@@ -64,30 +63,34 @@
         data() {
             return {
                 form: {
-                    isRedisEnabled: SettingData.isRedisEnabled,
-                    exportCsvFileAtHour: SettingData.exportCsvFileAtHour,
-                    exportCsvFileAtMinute: SettingData.exportCsvFileAtMinute,
-                    isLoginEnabled: SettingData.isLoginEnabled,
-                    isCsvExportEnabled: SettingData.isCsvExportEnabled,
-                    pingHostsEvery: SettingData.pingHostsEvery
+                    isRedisEnabled: null,
+                    exportCsvFileAtHour: null,
+                    exportCsvFileAtMinute: null,
+                    isLoginEnabled: null,
+                    isCsvExportEnabled: null,
+                    pingHostsEvery: null
                 },
-                csvExportTime: (
-                    (SettingData.exportCsvFileAtHour < 10 ? "0" + SettingData.exportCsvFileAtHour:SettingData.exportCsvFileAtHour) +
-                    ":" +
-                    (SettingData.exportCsvFileAtMinute < 10 ?"0" + SettingData.exportCsvFileAtMinute:SettingData.exportCsvFileAtMinute)
-                )
-                ,
+                csvExportTime: null,
                 show: true
             };
         },
         methods: {
             onSubmit(evt) {
                 evt.preventDefault();
-                alert(JSON.stringify(this.form));
+                this.$gate.setting.update(this.form).then(res =>{
+                    alert("success");
+                });
             },
             onCancel(evt) {
                 evt.preventDefault();
                 this.$router.push({name: routsName.DASHBOARD})
+            },
+            setCsvExpoetTime(setting){
+                this.csvExportTime = (
+                    (setting.exportCsvFileAtHour.length === 1 ? "0" + setting.exportCsvFileAtHour:setting.exportCsvFileAtHour) +
+                    ":" +
+                    (setting.exportCsvFileAtMinute.length === 1 ?"0" + setting.exportCsvFileAtMinute:setting.exportCsvFileAtMinute)
+                )
             }
         },
         watch: {
@@ -96,6 +99,12 @@
                 this.form.exportCsvFileAtHour = time[0];
                 this.form.exportCsvFileAtMinute = time[1];
             }
+        },
+        created() {
+            this.$gate.setting.get().then(res => {
+                    this.form = res.data.data;
+                    this.setCsvExpoetTime(res.data.data)
+            });
         }
     };
 </script>
