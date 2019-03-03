@@ -26,7 +26,7 @@ module.exports = class AreaRepository extends Repository {
      *
      */
     getConvertedAreas() {
-        return this.get("/").areas;
+        return this.get("/").areas || [];
     }
 
     /** TODO: add description

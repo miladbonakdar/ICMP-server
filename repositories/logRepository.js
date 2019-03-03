@@ -3,6 +3,7 @@ const Repository = require("./repository");
 const _ = require("lodash");
 const LogEvent = require("../models/logEventModel");
 const Log = require("../models/logModel");
+const ItemBase = require("../models/itemBase");
 module.exports = class LogRepository extends Repository {
     /** TODO: add description
      *
@@ -15,16 +16,17 @@ module.exports = class LogRepository extends Repository {
      *
      */
     createLogModel(area, node, parentPath, index) {
-        let newLog = new Log();
+        let newLog = {};
         newLog.path = `${parentPath}/logs[${index}]`;
         newLog.parent = parentPath;
         newLog.areaId = area.id;
         newLog.areaName = area.name;
         newLog.ip = node.ip;
-        newLog.isAlive = node.isAlive;
+        newLog.isAlive = node.alive;
         newLog.nodeId = node.id;
         newLog.nodeName = node.name;
         newLog.nodePath = node.path;
+        newLog = new Log(newLog);
         return newLog;
     }
 
@@ -54,15 +56,16 @@ module.exports = class LogRepository extends Repository {
      *
      */
     saveAreasLog(areas) {
-        let newLogEvent = new LogEvent();
-        newLogEvent.totalAreas = areas.length;
         let baseItem = new ItemBase(this.get("/"));
-        if (!baseItem.areas) {
-            baseItem.areas = [];
+        if (!baseItem.logEvents) {
+            baseItem.logEvents = [];
             this.add(baseItem);
         }
+        let newLogEvent = {};
+        newLogEvent.totalAreas = areas.length;
         newLogEvent.path = `/logEvents[${baseItem.logEvents.length}]`;
         const deviceLogs = this.getLogsFromAreas(areas, newLogEvent.path);
+        newLogEvent = new LogEvent(newLogEvent);
         newLogEvent.logs = deviceLogs;
         newLogEvent.totalDevices = deviceLogs.length;
         newLogEvent.totalUp = deviceLogs.filter(log => log.isAlive).length;
@@ -74,7 +77,7 @@ module.exports = class LogRepository extends Repository {
      *
      */
     getLogsForCsvExport() {
-        logBase = this.get("/");
+        let logBase = this.get("/");
         if (!logBase.logEvents) throw new Error("there is no log saved yet");
         return _.spread(_.union)(logBase.logEvents.map(item => item.logs));
     }

@@ -11,6 +11,6 @@ module.exports = class ItemBase {
         this.createdOn = validator(data, "createdOn") || new Date();
         this.updatedOn = new Date();
         this.areas = validator(data, "areas") || undefined;
-        this.logs = validator(data, "logs") || undefined;
+        this.logEvents = validator(data, "logEvents") || undefined;
     }
 };
