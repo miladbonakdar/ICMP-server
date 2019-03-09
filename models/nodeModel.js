@@ -8,7 +8,6 @@ module.exports = class Node extends ItemBase {
         super(data);
         this.name = validator(data, "name",true) || null;
         this.hostName = validator(data, "hostName",true) || null;
-        this.ip = validator(data, "hostName") || null;
         this.alive = validator(data, "alive") || false;
         if (this.path == "/") throw new Error("the path is not valid");
     }

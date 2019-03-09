@@ -1,9 +1,9 @@
-const publicStatics = require ("../statics/public_statics");
-const response = require ("../utils/response");
-const {check, checkAsync} = require ("../utils/checkApifunctions");
-const version = require ("../../package.json").version;
-const pingHosts = require ("../../cron/onPingCronJobFinished");
-const logRepository = require ("../../repositories/logRepository");
+const publicStatics = require("../statics/public_statics");
+const response = require("../utils/response");
+const { check, checkAsync } = require("../utils/checkApifunctions");
+const version = require("../../package.json").version;
+const pingHosts = require("../../cron/onPingCronJobFinished");
+const logRepository = require("../../repositories/logRepository");
 
 module.exports = {
     controllerName: "public",
@@ -11,27 +11,27 @@ module.exports = {
     /** TODO: add description
      *
      */
-    [publicStatics.getExecutationTimes]: check ((req, res) => {
-        let lastLog = (new logRepository ()).getLastLog ();
+    [publicStatics.getExecutationTimes]: check((req, res) => {
+        let lastLog = new logRepository().getLastLog();
         if (lastLog)
-            response.success (
+            response.success(
                 res,
                 {
-                    lastExecute: lastLog.createdOn,
+                    lastExecute: lastLog.createdOn
                 },
                 "complited successfuly"
             );
-        else throw new Error ("there is not any log yet");
+        else throw new Error("there is not any log yet");
     }),
 
     /** TODO: add description
      *
      */
-    [publicStatics.getSiteInfo]: check ((req, res) => {
-        response.success (
+    [publicStatics.getSiteInfo]: check((req, res) => {
+        response.success(
             res,
             {
-                siteVersion: version,
+                siteVersion: version
             },
             "complited successfuly"
         );
@@ -40,8 +40,8 @@ module.exports = {
     /** TODO: add description
      *
      */
-    [publicStatics.pingNodes]: checkAsync (async (req, res) => {
-        await pingHosts ();
-        response.success (res);
-    }),
+    [publicStatics.pingNodes]: checkAsync(async (req, res) => {
+        await pingHosts();
+        response.success(res);
+    })
 };
