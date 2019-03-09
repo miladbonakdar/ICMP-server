@@ -11,7 +11,7 @@ module.exports = {
     /** TODO: add description
      *
      */
-    [publicStatics.getExecutationTimes]: check((req, res) => {
+    [publicStatics.getExecutationTimes.name]: check((req, res) => {
         let lastLog = new logRepository().getLastLog();
         if (lastLog)
             response.success(
@@ -27,7 +27,7 @@ module.exports = {
     /** TODO: add description
      *
      */
-    [publicStatics.getSiteInfo]: check((req, res) => {
+    [publicStatics.getSiteInfo.name]: check((req, res) => {
         response.success(
             res,
             {
@@ -40,7 +40,7 @@ module.exports = {
     /** TODO: add description
      *
      */
-    [publicStatics.pingNodes]: checkAsync(async (req, res) => {
+    [publicStatics.pingNodes.name]: checkAsync(async (req, res) => {
         await pingHosts();
         response.success(res);
     })

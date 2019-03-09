@@ -7,19 +7,23 @@ module.exports = router => {
      */
     router
         .route(baseUrl(settingController.controllerName))
-        .put(settingController[settingStatics.update]);
+        [settingStatics.update.method](
+            settingController[settingStatics.update.name]
+        );
 
     /** TODO: add description
      * delete the setting and set it to default
      */
     router
         .route(baseUrl(settingController.controllerName))
-        .delete(settingController[settingStatics.delete]);
+        [settingStatics.delete.method](
+            settingController[settingStatics.delete.name]
+        );
 
     /** TODO: add description
      * get the setting
      */
     router
         .route(baseUrl(settingController.controllerName))
-        .get(settingController[settingStatics.get]);
+        [settingStatics.get.method](settingController[settingStatics.get.name]);
 };

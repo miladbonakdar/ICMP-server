@@ -7,35 +7,35 @@ module.exports = router => {
      */
     router
         .route(baseUrl(nodeController.controllerName))
-        .get(nodeController[nodeStatics.getAll]);
+        [nodeStatics.getAll.method](nodeController[nodeStatics.getAll.name]);
 
     /** TODO: add description
      * add an node
      */
     router
         .route(baseUrl(nodeController.controllerName))
-        .post(nodeController[nodeStatics.create]);
+        [nodeStatics.create.method](nodeController[nodeStatics.create.name]);
 
     /** TODO: add description
      * update an node
      */
     router
         .route(baseUrl(nodeController.controllerName))
-        .put(nodeController[nodeStatics.update]);
+        [nodeStatics.update.method](nodeController[nodeStatics.update.name]);
 
     /** TODO: add description
      * delete an node
      */
     router
         .route(baseUrl(nodeController.controllerName, undefined, "id"))
-        .delete(nodeController[nodeStatics.delete]);
+        [nodeStatics.delete.method](nodeController[nodeStatics.delete.name]);
 
     /** TODO: add description
      * get an node
      */
     router
         .route(baseUrl(nodeController.controllerName, undefined, "id"))
-        .get(nodeController[nodeStatics.get]);
+        [nodeStatics.get.method](nodeController[nodeStatics.get.name]);
 
     /** TODO: add description
      * get an areas by item index
@@ -44,9 +44,11 @@ module.exports = router => {
         .route(
             baseUrl(
                 nodeController.controllerName,
-                nodeStatics.getByIndex,
+                nodeStatics.getByIndex.name,
                 "index"
             )
         )
-        .get(nodeController[nodeStatics.getByIndex]);
+        [nodeStatics.getByIndex.method](
+            nodeController[nodeStatics.getByIndex.name]
+        );
 };

@@ -9,7 +9,7 @@ module.exports = {
     /** TODO: add description
      *
      */
-    [nodeStatics.create]: check((req, res, next) => {
+    [nodeStatics.create.name]: check((req, res, next) => {
         const nodeRepo = new NodeRepository();
         let node = nodeRepo.addNode(req.body);
         response.success(res, node, "node created successfuly");
@@ -18,7 +18,7 @@ module.exports = {
     /** TODO: add description
      *
      */
-    [nodeStatics.getAll]: check((_, res) => {
+    [nodeStatics.getAll.name]: check((_, res) => {
         const nodeRepo = new NodeRepository();
         let nodes = nodeRepo.getNodes();
         response.success(res, nodes);
@@ -27,7 +27,7 @@ module.exports = {
     /** TODO: add description
      *
      */
-    [nodeStatics.update]: check((req, res) => {
+    [nodeStatics.update.name]: check((req, res) => {
         const nodeRepo = new NodeRepository();
         let node = nodeRepo.updateNode(req.body);
         response.success(res, node, "node updated successfuly");
@@ -36,7 +36,7 @@ module.exports = {
     /** TODO: add description
      *
      */
-    [nodeStatics.delete]: check((req, res) => {
+    [nodeStatics.delete.name]: check((req, res) => {
         if (!req.params.id) response.badRequest(res, "id");
         const nodeRepo = new NodeRepository();
         nodeRepo.deleteNode(req.params.id);
@@ -46,7 +46,7 @@ module.exports = {
     /** TODO: add description
      *
      */
-    [nodeStatics.get]: check((req, res) => {
+    [nodeStatics.get.name]: check((req, res) => {
         if (!req.params.id) response.badRequest(res, "id");
         const nodeRepo = new NodeRepository();
         let node = nodeRepo.getNodeById(req.params.id);
@@ -56,7 +56,7 @@ module.exports = {
     /** TODO: add description
      *
      */
-    [nodeStatics.getByIndex]: check((req, res) => {
+    [nodeStatics.getByIndex.name]: check((req, res) => {
         if (!req.params.index) response.badRequest(res, "index");
         const nodeRepo = new NodeRepository();
         let node = nodeRepo.getNodeByIndex(req.params.index);

@@ -7,35 +7,43 @@ module.exports = router => {
      */
     router
         .route(baseUrl(areaController.controllerName))
-        .get(areaController[areaStatics.getAll]);
+        [areaStatics.getAll.method](
+            areaController[areaStatics.getAll.name]
+        );
 
     /** TODO: add description
      * add an areas
      */
     router
         .route(baseUrl(areaController.controllerName))
-        .post(areaController[areaStatics.create]);
+        [areaStatics.create.method](
+            areaController[areaStatics.create.name]
+        );
 
     /** TODO: add description
      * update an areas
      */
     router
         .route(baseUrl(areaController.controllerName))
-        .put(areaController[areaStatics.update]);
+        [areaStatics.update.method](
+            areaController[areaStatics.update.name]
+        );
 
     /** TODO: add description
      * delete an areas
      */
     router
         .route(baseUrl(areaController.controllerName, undefined, "id"))
-        .delete(areaController[areaStatics.delete]);
+        [areaStatics.delete.method](
+            areaController[areaStatics.delete.name]
+        );
 
     /** TODO: add description
      * get an areas by item id
      */
     router
         .route(baseUrl(areaController.controllerName, undefined, "id"))
-        .get(areaController[areaStatics.get]);
+        [areaStatics.get.method](areaController[areaStatics.get.name]);
 
     /** TODO: add description
      * get an areas by item index
@@ -44,9 +52,11 @@ module.exports = router => {
         .route(
             baseUrl(
                 areaController.controllerName,
-                areaStatics.getByIndex,
+                areaStatics.getByIndex.name,
                 "index"
             )
         )
-        .get(areaController[areaStatics.getByIndex]);
+        [areaStatics.getByIndex.method](
+            areaController[areaStatics.getByIndex.name]
+        );
 };

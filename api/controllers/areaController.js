@@ -7,19 +7,19 @@ module.exports = {
     controllerName: "area",
 
     /** TODO: add description
-     * 
+     *
      */
 
-    [areaStatics.create]: check((req, res) => {
+    [areaStatics.create.name]: check((req, res) => {
         const areaRepo = new AreaRepository();
         let area = areaRepo.addArea(req.body);
         response.success(res, area, "area created successfuly");
     }),
 
     /** TODO: add description
-     *  
+     *
      */
-    [areaStatics.getAll]: check((req, res) => {
+    [areaStatics.getAll.name]: check((req, res) => {
         const areaRepo = new AreaRepository();
         let areas = areaRepo.getAreas();
         response.success(res, areas);
@@ -28,16 +28,16 @@ module.exports = {
     /** TODO: add description
      *
      */
-    [areaStatics.update]: check((req, res) => {
+    [areaStatics.update.name]: check((req, res) => {
         const areaRepo = new AreaRepository();
         let area = areaRepo.updateArea(req.body);
         response.success(res, area, "area updated successfuly");
     }),
-  
+
     /** TODO: add description
      *
      */
-    [areaStatics.delete]: check((req, res) => {
+    [areaStatics.delete.name]: check((req, res) => {
         if (!req.params.id) response.badRequest(res, "id");
         const areaRepo = new AreaRepository();
         areaRepo.deleteArea(req.params.id);
@@ -47,7 +47,7 @@ module.exports = {
     /** TODO: add description
      *
      */
-    [areaStatics.get]: check((req, res) => {
+    [areaStatics.get.name]: check((req, res) => {
         if (!req.params.id) response.badRequest(res, "id");
         const areaRepo = new AreaRepository();
         let area = areaRepo.getAreaById(req.params.id);
@@ -57,7 +57,7 @@ module.exports = {
     /** TODO: add description
      *
      */
-    [areaStatics.getByIndex]: check((req, res) => {
+    [areaStatics.getByIndex.name]: check((req, res) => {
         if (!req.params.index) response.badRequest(res, "index");
         const areaRepo = new AreaRepository();
         let area = areaRepo.getAreaByIndex(req.params.index);
