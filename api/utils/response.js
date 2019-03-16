@@ -55,4 +55,18 @@ response.internalServerError = function(res, e) {
     response.echo(res, e.message, {}, false, 500);
 };
 
+/** TODO: add description
+ *  FIXME: unitTest
+ */
+response.exportCsv = function(res, filename, content) {
+    if (typeof content != "string" || typeof filename != "string")
+        throw new Error("Data to export is not valid");
+    res.setHeader(
+        "Content-Disposition",
+        `attachment; filename=${filename}.csv`
+    );
+    res.setHeader("Content-Type", "text/csv");
+    res.send(content);
+};
+
 module.exports = response;

@@ -2,7 +2,7 @@ const fs = require("fs");
 const endOfLine = require("os").EOL;
 module.exports = class CsvConverter {
     /** TODO: add description
-     *  
+     *
      */
     constructor(arrayOfObjects, headerObject, pathToSave = __dirname) {
         if (!arrayOfObjects || typeof arrayOfObjects != "object")
@@ -20,15 +20,16 @@ module.exports = class CsvConverter {
     }
 
     /** TODO: add description
-     *  
+     *
      */
     convert() {
         this.createHeader();
         this.createBody();
+        return this.dataString;
     }
 
     /** TODO: add description
-     *  
+     *
      */
     createHeader() {
         this.dataString = "";
@@ -36,7 +37,7 @@ module.exports = class CsvConverter {
     }
 
     /** TODO: add description
-     *  
+     *
      */
     createBody() {
         this.array.forEach(item => {
@@ -45,7 +46,7 @@ module.exports = class CsvConverter {
     }
 
     /** TODO: add description
-     *  
+     *
      */
     jsonLineFromObject(item) {
         let line = "";
@@ -58,7 +59,7 @@ module.exports = class CsvConverter {
     }
 
     /** TODO: add description
-     *  
+     *
      */
     async saveToFileAsync(path = this.path) {
         if (!path.toLowerCase().endsWith(".csv")) path += ".csv";

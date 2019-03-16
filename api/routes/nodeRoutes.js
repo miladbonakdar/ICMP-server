@@ -51,4 +51,19 @@ module.exports = router => {
         [nodeStatics.getByIndex.method](
             nodeController[nodeStatics.getByIndex.name]
         );
+
+    /** TODO: add description
+     * get an node
+     */
+    router
+        .route(
+            baseUrl(
+                nodeController.controllerName,
+                nodeStatics.exportCsv.name,
+                "type"
+            )
+        )
+        [nodeStatics.exportCsv.method](
+            nodeController[nodeStatics.exportCsv.name]
+        );
 };

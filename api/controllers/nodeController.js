@@ -1,7 +1,9 @@
 const nodeStatics = require("../statics/node_statics");
 const NodeRepository = require("../../repositories/nodeRepository");
 const response = require("../utils/response");
+const csvConvertor = require("../../utils/csvConverter");
 const check = require("../utils/checkApifunctions").check;
+const NodeModel = require("../../models/nodeModel");
 
 module.exports = {
     controllerName: "node",
@@ -61,5 +63,22 @@ module.exports = {
         const nodeRepo = new NodeRepository();
         let node = nodeRepo.getNodeByIndex(req.params.index);
         response.success(res, node);
+    }),
+
+    /** TODO: add description
+     *
+     */
+    [nodeStatics.exportCsv.name]: check((req, res) => {//http://localhost:3000/api/v1/node/export/csv
+        const nodeRepo = new NodeRepository();
+        const nodes = nodeRepo.getNodes();
+        if (nodes.length == 0) response.notFound(res);
+        if (req.params.type.toLowerCase() == "csv") {
+            const date = new Date();
+            response.exportCsv(
+                res,
+                `nodes Export - ${date.getFullYear()}-${date.getMonth()}-${date.getDate()}-${date.getDay()}`,
+                new csvConvertor(nodes, NodeModel.prototype.csvExportHeader).convert()
+            );
+        } else response.badRequest(res, "type");
     })
 };
