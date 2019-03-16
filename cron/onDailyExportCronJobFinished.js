@@ -15,4 +15,5 @@ module.exports = async () => {
     );
     csv.convert();
     await csv.saveToFileAsync();
+    console.log("csv file created");
 };

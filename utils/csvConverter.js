@@ -8,11 +8,10 @@ module.exports = class CsvConverter {
         if (!arrayOfObjects || typeof arrayOfObjects != "object")
             throw new Error("invalid converter parameter");
         if (arrayOfObjects.length == 0) throw new Error("array is empty");
-        if (
-            Object.keys(headerObject).length !=
-            Object.keys(arrayOfObjects[0]).length
-        )
-            throw new Error("header and the body are not in the same size");
+        this.sortObjectKeys(headerObject);
+        arrayOfObjects.forEach(element => {
+            this.sortObjectKeys(element);
+        });
         this.array = arrayOfObjects;
         this.header = headerObject;
         this.path = pathToSave;
@@ -33,7 +32,7 @@ module.exports = class CsvConverter {
      */
     createHeader() {
         this.dataString = "";
-        this.dataString += this.jsonLineFromObject(this.header);
+        this.dataString += this.csvLineFromObject(this.header);
     }
 
     /** TODO: add description
@@ -41,17 +40,31 @@ module.exports = class CsvConverter {
      */
     createBody() {
         this.array.forEach(item => {
-            this.dataString += this.jsonLineFromObject(item);
+            this.dataString += this.csvLineFromObjectValidateByHeader(item);
         });
     }
 
     /** TODO: add description
      *
      */
-    jsonLineFromObject(item) {
+    csvLineFromObject(item) {
         let line = "";
         Object.keys(item).forEach(key => {
-            line += item[key].toString() + ",";
+            line += (item[key] ? item[key].toString() : "") + ",";
+        });
+        if (line.endsWith(",")) line = line.substring(0, line.length - 1);
+        line += endOfLine;
+        return line;
+    }
+
+    /** TODO: add description
+     *
+     */
+    csvLineFromObjectValidateByHeader(item) {
+        let line = "";
+        Object.keys(item).forEach(key => {
+            if (this.header[key])
+                line += (item[key] ? item[key].toString() : "") + ",";
         });
         if (line.endsWith(",")) line = line.substring(0, line.length - 1);
         line += endOfLine;
@@ -69,5 +82,18 @@ module.exports = class CsvConverter {
                 else resolve(path);
             });
         });
+    }
+
+    /** TODO: add description
+     *
+     */
+    async sortObjectKeys(variable) {
+        const ordered = {};
+        Object.keys(variable)
+            .sort()
+            .forEach(function(key) {
+                ordered[key] = variable[key];
+            });
+        variable = ordered;
     }
 };

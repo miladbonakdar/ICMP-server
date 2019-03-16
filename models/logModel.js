@@ -7,7 +7,7 @@ module.exports = class Node extends ItemBase {
     constructor(data = null) {
         super(data);
         this.nodeName = validator(data, "nodeName") || null;
-        this.hostname = validator(data, "hostname") || null;
+        this.hostName = validator(data, "hostName") || null;
         this.areaName = validator(data, "areaName") || null;
         this.areaId = validator(data, "areaId") || null;
         this.nodeId = validator(data, "nodeId") || null;

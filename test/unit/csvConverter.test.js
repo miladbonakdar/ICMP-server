@@ -49,20 +49,20 @@ test(
 );
 
 test(
-    "jsonLineFromObject should return a line of csv",
+    "csvLineFromObject should return a line of csv",
     check(() => {
         const converter = new CsvConverter(
             csvData.validCsvObjectArray,
             csvData.validCsvHeaderObject
         );
         expect(
-            converter.jsonLineFromObject({
+            converter.csvLineFromObject({
                 name: "milad",
                 lastname: "bonakdar"
             })
         ).toBe("milad,bonakdar" + endOfLine);
         expect(
-            converter.jsonLineFromObject({
+            converter.csvLineFromObject({
                 name: "milad",
                 lastname: "bonakdar",
                 age: 24,
