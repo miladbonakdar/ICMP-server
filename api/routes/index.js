@@ -1,10 +1,12 @@
 const areaRoute = require("./areaRoutes");
 const nodeRoute = require("./nodeRoutes");
-const settingRout = require("./settingRoutes");
-const publicRout = require("./publicRoutes");
+const settingRoute = require("./settingRoutes");
+const publicRoute = require("./publicRoutes");
+const logRoute = require("./logRoutes");
 module.exports = app => {
     areaRoute(app);
     nodeRoute(app);
-    settingRout(app);
-    publicRout(app);
+    settingRoute(app);
+    publicRoute(app);
+    logRoute(app);
 };
