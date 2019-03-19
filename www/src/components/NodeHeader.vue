@@ -4,11 +4,8 @@
             <div class="col">
                 <h4>{{node.name}}</h4>
             </div>
-            <p class="col server-down text-danger">
-                Down : {{node.down}}
-            </p>
-            <p class="col server-up text-success">
-                Up : {{node.up}}
+            <p class="col node-status">
+                Status : <b-badge pill class="node-status" :variant="nodeStatusVariant">{{nodeStatus}}</b-badge>
             </p>
             <div class="col">
                 <div style="float: right;">
@@ -65,6 +62,18 @@
                     return "Hide Node Detail";
                 else
                     return "Show Node Detail";
+            },
+            nodeStatus(){
+                if(this.node.alive)
+                    return "Up";
+                else
+                    return "Down";
+            },
+            nodeStatusVariant(){
+                if(this.node.alive)
+                    return "success";
+                else
+                    return "danger";
             }
         }
     };
@@ -76,10 +85,11 @@
         margin-top: 7px;
         margin-bottom: 0;
     }
-    .server-down {
+    .node-status {
         font-weight: bold;
         margin-top: 7px;
         margin-bottom: 0;
+        font-size: medium
     }
     .icon {
         width: 20px;
