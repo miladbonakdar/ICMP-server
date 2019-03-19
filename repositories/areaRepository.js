@@ -77,8 +77,7 @@ module.exports = class AreaRepository extends Repository {
     deleteArea(id) {
         let baseItem = this.get("/");
         let areaToDelete = baseItem.areas.filter(area => area.id == id)[0];
-        if (!areaToDelete)
-            throw new Error("404 ,the area is not valid to delete");
+        if (!areaToDelete) throw new Error("404 ,the area is not valid to delete");
         this.db.delete(areaToDelete.path);
         return;
     }
@@ -98,8 +97,7 @@ module.exports = class AreaRepository extends Repository {
      */
     getAreaByIndex(index) {
         let baseItem = this.get("/");
-        if (!baseItem.areas[index])
-            throw new Error("404 ,the area was not found");
+        if (!baseItem.areas[index]) throw new Error("404 ,the area was not found");
         return baseItem.areas[index];
     }
 };

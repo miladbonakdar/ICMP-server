@@ -1,4 +1,5 @@
 const path = require("path");
+const fs = require("fs");
 module.exports = {
     /** TODO: add description
      *  FIXME: unitTest
@@ -19,16 +20,23 @@ module.exports = {
         };
     },
 
+    getFolderPath: () => {
+        const dir = path.join(__dirname, "public", "csvExports");
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, 744);
+        }
+        return dir;
+    },
+
     /** TODO: add description
      *  FIXME: unitTest
      */
     getFilePath: () => {
         const date = new Date();
-        path.join(
-            __dirname,
-            "public",
-            "csvExports",
-            `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}-${date.getDay()}`
+        const destination = path.join(
+            getFolderPath(),
+            `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}-${date.getDay()}.log.csv`
         );
+        return destination;
     }
 };

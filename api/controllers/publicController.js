@@ -4,6 +4,7 @@ const { check, checkAsync } = require("../utils/checkApifunctions");
 const version = require("../../package.json").version;
 const pingHosts = require("../../cron/onPingCronJobFinished");
 const logRepository = require("../../repositories/logRepository");
+const settingRepo = require("../../repositories/settingRepository");
 
 module.exports = {
     controllerName: "public",
@@ -12,16 +13,18 @@ module.exports = {
      *
      */
     [publicStatics.getExecutationTimes.name]: check((req, res) => {
-        let lastLog = new logRepository().getLastLog();
+        const lastLog = new logRepository().getLastLog();
+        const setting = new settingRepo().getSetting();
         if (lastLog)
             response.success(
                 res,
                 {
-                    lastExecute: lastLog.createdOn
+                    lastExecute: lastLog.createdOn,
+                    nextExecute: new Date(new Date(lastLog.createdOn).getTime() + setting.pingHostsEvery * 60000)
                 },
                 "complited successfuly"
             );
-        else throw new Error("there is not any log yet");
+        else response.notFound(res);
     }),
 
     /** TODO: add description

@@ -6,7 +6,7 @@ const JsonDB = require("node-json-db");
  *
  */
 const getDbName = date => {
-    return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}-${date.getDay()}.log.json`;
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}-${date.getDay()}.log.json`;
 };
 
 /** TODO: add description
@@ -17,7 +17,7 @@ const checkFolderExistAndCreateIfNot = date => {
     if (!fs.existsSync(baseDir)) {
         fs.mkdirSync(baseDir, 744);
     }
-    let dir = path.join(baseDir, `${date.getFullYear()}-${date.getMonth()}`);
+    let dir = path.join(baseDir, `${date.getFullYear()}-${date.getMonth() + 1}`);
     if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, 744);
     }
