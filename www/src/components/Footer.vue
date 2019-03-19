@@ -18,8 +18,17 @@
         name: "Footer",
         data() {
             return {
-                version: "1.0.0"
+                version: null
             };
+        },
+        created() {
+            this.$gate.public.info().then(res =>{
+                this.version = res.data.data.siteVersion;
+            });
+            
+            this.$gate.public.getTimes().then(res =>{
+                console.log(res);
+            });
         }
     };
 </script>

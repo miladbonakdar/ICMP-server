@@ -8,10 +8,6 @@
             <strong>HostName: </strong>
             {{node.hostName}}
         </p>
-        <p>
-            <strong>IP: </strong>
-            {{node.ip}}
-        </p>
     </div>
 </template>
 

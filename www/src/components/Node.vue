@@ -38,16 +38,6 @@
                               placeholder="Enter Host Name">
                 </b-form-input>
             </b-form-group>
-            <b-form-group id="ipAddressInputGroup"
-                          label="IP Address:"
-                          label-for="ipAddressInput">
-                <b-form-input id="ipAddressInput"
-                              type="text"
-                              v-model="form.ip"
-                              required
-                              placeholder="Enter IP Address">
-                </b-form-input>
-            </b-form-group>
             <b-button type="submit" variant="primary">Submit</b-button>
             <b-button @click="onCancel" variant="outline-secondary">Cancel</b-button>
         </b-form>
@@ -68,8 +58,7 @@
                 form: {
                     parent: null,
                     name: null,
-                    hostName: null,
-                    ip: null,
+                    hostName: null
                 },
                 show: true
             };

@@ -22,8 +22,10 @@ Vue.use(Toasted);
 
 Vue.toasted.register("my_app_error", "Oops.. Something Went Wrong..", {
     type : "error",
-    icon : "error_outline"
-})
+    duration : 5000,
+    theme : "bubble",
+    position : "bottom-center"
+});
 
 Vue.component("app-loading", Loading);
 

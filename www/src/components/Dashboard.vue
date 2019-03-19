@@ -13,7 +13,7 @@
         <b-col>
           <b-row>
             <b-row id="ping-now">
-              <h5>Ping now</h5>
+              <h5 @click="getPing">Ping now</h5>
               <img class="icon" src="../assets/refresh.svg">
             </b-row>
           </b-row>
@@ -127,6 +127,11 @@ export default {
         collapseState[i] = false;
       }
       return collapseState;
+    },
+    getPing(){
+      this.$gate.public.ping().then(res =>{
+        console.log(res);
+      });
     }
   },
   components: {
@@ -140,7 +145,7 @@ export default {
       .then(res => {
         console.log(res);
         this.setArea(res.data.data);
-        this.$toasted.global.my_app_error();
+        let myToast = this.$toasted.global.my_app_error();
         this.areasCollapseState = this.getAreasCollapseState();
         this.nodesCollapseState = this.getNodesCollapseState();
       })
