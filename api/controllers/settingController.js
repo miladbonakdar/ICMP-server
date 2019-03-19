@@ -9,7 +9,7 @@ module.exports = {
     /** TODO: add description
      *
      */
-    [settingStatics.update]: check((req, res) => {
+    [settingStatics.update.name]: check((req, res) => {
         const settingRepo = new SettingRepository();
         let setting = settingRepo.setSetting(req.body);
         response.success(res, setting, "setting updated successfuly");
@@ -18,7 +18,7 @@ module.exports = {
     /** TODO: add description
      *
      */
-    [settingStatics.delete]: check((req, res) => {
+    [settingStatics.delete.name]: check((req, res) => {
         const settingRepo = new SettingRepository();
         let setting = settingRepo.setDefault();
         response.success(res, setting);
@@ -27,7 +27,7 @@ module.exports = {
     /** TODO: add description
      *
      */
-    [settingStatics.get]: check((req, res) => {
+    [settingStatics.get.name]: check((req, res) => {
         const settingRepo = new SettingRepository();
         let setting = settingRepo.getSetting();
         response.success(res, setting);

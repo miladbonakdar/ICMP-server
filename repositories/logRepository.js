@@ -15,13 +15,48 @@ module.exports = class LogRepository extends Repository {
     /** TODO: add description
      *
      */
+    getLogEvents(dateString) {
+        let baseItem = this.getBaseItemFromDate(dateString);
+        baseItem.logEvents = baseItem.logEvents || [];
+        return baseItem.logEvents;
+    }
+
+    /** TODO: add description
+     *
+     */
+    getLog(dateString, id) {
+        let baseItem = this.getBaseItemFromDate(dateString);
+        let logToturn = null;
+        for (const logEvent of baseItem.logEvents) {
+            logToturn = logEvent.logs.filter(log => log.id == id)[0];
+            if (logToturn) break;
+        }
+        if (!logToturn) throw new Error("404 ,the node was not found");
+        return logToturn;
+    }
+
+    getBaseItemFromDate(dateString) {
+        let date = null;
+        if (!dateString || dateString.toLowerCase() == "now") date = new Date();
+        if (!date && Number.isNaN(Date.parse(dateString)))
+            throw new Error(
+                "The date value is not valid please check the value first"
+            );
+        else date = new Date(Date.parse(dateString));
+        const dbFile = database.getLogDb(date);
+        return dbFile.getData("/");
+    }
+
+    /** TODO: add description
+     *
+     */
     createLogModel(area, node, parentPath, index) {
         let newLog = {};
         newLog.path = `${parentPath}/logs[${index}]`;
         newLog.parent = parentPath;
         newLog.areaId = area.id;
         newLog.areaName = area.name;
-        newLog.ip = node.ip;
+        newLog.hostName = node.hostName;
         newLog.isAlive = node.alive;
         newLog.nodeId = node.id;
         newLog.nodeName = node.name;
@@ -44,7 +79,7 @@ module.exports = class LogRepository extends Repository {
         });
         return logs;
     }
-    
+
     /** TODO: add description
      *
      */

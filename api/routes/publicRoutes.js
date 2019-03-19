@@ -9,26 +9,38 @@ module.exports = router => {
         .route(
             baseUrl(
                 publicController.controllerName,
-                publicStatics.getExecutationTimes
+                publicStatics.getExecutationTimes.name
             )
         )
-        .get(publicController[publicStatics.getExecutationTimes]);
+        [publicStatics.getExecutationTimes.method](
+            publicController[publicStatics.getExecutationTimes.name]
+        );
 
     /** TODO: add description
      * delete the setting and set it to default
      */
     router
         .route(
-            baseUrl(publicController.controllerName, publicStatics.getSiteInfo)
+            baseUrl(
+                publicController.controllerName,
+                publicStatics.getSiteInfo.name
+            )
         )
-        .get(publicController[publicStatics.getSiteInfo]);
+        [publicStatics.getSiteInfo.method](
+            publicController[publicStatics.getSiteInfo.name]
+        );
 
     /** TODO: add description
      * get the setting
      */
     router
         .route(
-            baseUrl(publicController.controllerName, publicStatics.pingNodes)
+            baseUrl(
+                publicController.controllerName,
+                publicStatics.pingNodes.name
+            )
         )
-        .post(publicController[publicStatics.pingNodes]);
+        [publicStatics.pingNodes.method](
+            publicController[publicStatics.pingNodes.name]
+        );
 };

@@ -5,14 +5,17 @@ module.exports = {
      */
     getHeader: () => {
         return {
-            date: "Date",
+            parent: "Parent path",
+            path: "Node path",
+            createdOn: "Created od",
+            updatedOn: "Updated on",
             nodeName: "Node name",
-            ip: "Ip address",
+            hostName: "Ip address",
             areaName: "Area name",
-            areaId: "Area id",
-            nodeId: "Node id",
+            areaId: "Area Id",
+            nodeId: "Node Id",
             nodePath: "Node path",
-            isAlive: "Status"
+            isAlive: "Alive"
         };
     },
 

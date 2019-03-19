@@ -35,6 +35,7 @@ const pingHosts = async () => {
     await pingAreas(areas);
     areaRepository.saveAreas(areas);
     logRepository.saveAreasLog(areas);
+    console.log("ping nodes finished");
 };
 
 module.exports = pingHosts;
