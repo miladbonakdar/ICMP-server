@@ -12,9 +12,10 @@
         </b-col>
         <b-col>
           <b-row>
-            <b-row id="ping-now">
-              <h5 @click="getPing">Ping now</h5>
-              <img class="icon" src="../assets/refresh.svg">
+            <b-row id="ping-now" @click="getPing"
+                            v-b-tooltip.hover title="Ping Now" >
+              <h5>Ping Now</h5>
+              <img class="icon"src="../assets/refresh.svg">
             </b-row>
           </b-row>
         </b-col>
