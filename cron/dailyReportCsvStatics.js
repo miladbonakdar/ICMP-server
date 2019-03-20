@@ -1,5 +1,14 @@
 const path = require("path");
 const fs = require("fs");
+
+const getFolderPath = () => {
+    const dir = path.join(__baseDirname, "public", "csvExports");
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, 744);
+    }
+    return dir;
+};
+
 module.exports = {
     /** TODO: add description
      *  FIXME: unitTest
@@ -20,13 +29,7 @@ module.exports = {
         };
     },
 
-    getFolderPath: () => {
-        const dir = path.join(__dirname, "public", "csvExports");
-        if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir, 744);
-        }
-        return dir;
-    },
+    getFolderPath,
 
     /** TODO: add description
      *  FIXME: unitTest

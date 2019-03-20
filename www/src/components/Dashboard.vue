@@ -15,7 +15,7 @@
             <b-row id="ping-now" @click="getPing"
                             v-b-tooltip.hover title="Ping Now" >
               <h5>Ping Now</h5>
-              <img class="icon"src="../assets/refresh.svg">
+              <img class="icon" src="../assets/refresh.svg">
             </b-row>
           </b-row>
         </b-col>
