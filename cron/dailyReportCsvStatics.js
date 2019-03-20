@@ -38,7 +38,7 @@ module.exports = {
         const date = new Date();
         const destination = path.join(
             getFolderPath(),
-            `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}-${date.getDay()}.log.csv`
+            `${date.getNowFileName()}.log.csv`
         );
         return destination;
     }

@@ -6,7 +6,7 @@ const JsonDB = require("node-json-db");
  *
  */
 const getDbName = date => {
-    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}-${date.getDay()}.log.json`;
+    return `${date.getNowFileName()}.log.json`;
 };
 
 /** TODO: add description
