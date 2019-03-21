@@ -68,7 +68,8 @@ module.exports = {
     /** TODO: add description
      *
      */
-    [nodeStatics.exportCsv.name]: check((req, res) => {//http://localhost:3000/api/v1/node/export/csv
+    [nodeStatics.exportCsv.name]: check((req, res) => {
+        //http://localhost:3000/api/v1/node/export/csv
         const nodeRepo = new NodeRepository();
         const nodes = nodeRepo.getNodes();
         if (nodes.length == 0) response.notFound(res);
@@ -76,7 +77,7 @@ module.exports = {
             const date = new Date();
             response.exportCsv(
                 res,
-                `nodes Export - ${date.getFullYear()}-${date.getMonth()}-${date.getDate()}-${date.getDay()}`,
+                `nodes Export - ${date.getNowFileName()}`,
                 new csvConvertor(nodes, NodeModel.prototype.csvExportHeader).convert()
             );
         } else response.badRequest(res, "type");

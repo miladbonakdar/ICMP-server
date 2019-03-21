@@ -1,4 +1,6 @@
 require("./setGlobalVariables");
+require("./utils/foldersInitialiser");
+require("./utils/classExtentions")();
 const express = require("express");
 const api = require("./api");
 const cronJobTaskRunner = require("./cron");

@@ -39,9 +39,7 @@ module.exports = class LogRepository extends Repository {
         let date = null;
         if (!dateString || dateString.toLowerCase() == "now") date = new Date();
         if (!date && Number.isNaN(Date.parse(dateString)))
-            throw new Error(
-                "The date value is not valid please check the value first"
-            );
+            throw new Error("The date value is not valid please check the value first");
         else date = new Date(Date.parse(dateString));
         const dbFile = database.getLogDb(date);
         return dbFile.getData("/");
@@ -84,7 +82,12 @@ module.exports = class LogRepository extends Repository {
      *
      */
     getLastLog() {
-        return this.get("/logEvents[-1]");
+        try {
+            return this.get("/logEvents[-1]");
+        } catch (error) {
+            if (error.message.startsWith("path")) return null;
+            throw error;
+        }
     }
 
     /** TODO: add description
