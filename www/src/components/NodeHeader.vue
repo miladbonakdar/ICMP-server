@@ -15,7 +15,7 @@
                             src="../assets/edit.svg"
                             class="icon">
                     <img
-                            @click.stop="deleteNode()"
+                            @click.stop="showModal()"
                             v-b-tooltip.hover title="Delete Node"
                             src="../assets/delete.svg"
                             class="icon">
@@ -27,6 +27,13 @@
                 </div>
             </div>
         </div>
+        <b-modal
+            id="deleteNodeModal"
+            ref="modal"
+            title="Delete Node"
+            @ok="handleOk">
+            Are you sure you want to delete this node?
+        </b-modal>
     </div>
 </template>
 
@@ -48,6 +55,13 @@
             },
             deleteNode() {
 
+            },
+            handleOk(evt){
+                this.$gate.node.delete(this.node.id).then(res => console.log(res));
+            },
+            showModal(){
+                console.log("id: " + this.node.id);
+                this.$refs.modal.show();
             }
         },
         computed: {
