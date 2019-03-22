@@ -31,16 +31,18 @@ module.exports = class LogRepository extends Repository {
             logToturn = logEvent.logs.filter(log => log.id == id)[0];
             if (logToturn) break;
         }
-        if (!logToturn) throw new Error("404 ,the node was not found");
+        if (!logToturn) throw new Error("404 ,the log was not found");
         return logToturn;
     }
 
     getBaseItemFromDate(dateString) {
         let date = null;
         if (!dateString || dateString.toLowerCase() == "now") date = new Date();
-        if (!date && Number.isNaN(Date.parse(dateString)))
-            throw new Error("The date value is not valid please check the value first");
-        else date = new Date(Date.parse(dateString));
+        if (!date) {
+            if (Number.isNaN(Date.parse(dateString)))
+                throw new Error("The date value is not valid please check the value first");
+            else date = new Date(Date.parse(dateString));
+        }
         const dbFile = database.getLogDb(date);
         return dbFile.getData("/");
     }
@@ -114,8 +116,8 @@ module.exports = class LogRepository extends Repository {
     /** TODO: add description
      *
      */
-    getLogsForCsvExport() {
-        let logBase = this.get("/");
+    getLogsForCsvExport(dateString = null) {
+        let logBase = dateString ? this.getBaseItemFromDate(dateString) : this.get("/");
         if (!logBase.logEvents) throw new Error("there is no log saved yet");
         return _.spread(_.union)(logBase.logEvents.map(item => item.logs));
     }

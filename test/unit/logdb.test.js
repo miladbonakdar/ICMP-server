@@ -30,5 +30,5 @@ test(
     "check checkFolderExistAndCreateIfNot and getDbPath",
     checkForException(() => {
         db();
-    }, "date is not valid")
+    }, "date is not valid!")
 );
