@@ -1,7 +1,7 @@
 const nodeStatics = require("../statics/node_statics");
 const NodeRepository = require("../../repositories/nodeRepository");
 const response = require("../utils/response");
-const csvConvertor = require("../../utils/csvConverter");
+const csvConverter = require("../../utils/csvConverter");
 const check = require("../utils/checkApifunctions").check;
 const NodeModel = require("../../models/nodeModel");
 
@@ -78,7 +78,7 @@ module.exports = {
             response.exportCsv(
                 res,
                 `nodes Export - ${date.getNowFileName()}`,
-                new csvConvertor(nodes, NodeModel.prototype.csvExportHeader).convert()
+                new csvConverter(nodes, NodeModel.prototype.csvExportHeader).convert()
             );
         } else response.badRequest(res, "type");
     })

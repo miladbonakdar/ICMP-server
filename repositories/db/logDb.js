@@ -35,7 +35,8 @@ const getDbPath = date => {
  *
  */
 module.exports = date => {
-    if (!date) throw new Error("date is not valid");
+    if (!date) throw new Error("date is not valid!");
+    if (Number.isNaN(Date.parse(date))) throw new Error("The date parameter is not valid!");
     return new JsonDB(getDbPath(date), true, global.isDebugMode);
 };
 module.exports.getDbPath = getDbPath;
