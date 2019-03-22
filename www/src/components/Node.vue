@@ -9,6 +9,7 @@
                 <b-form-select id="areaSelect"
                                type="text"
                                v-model="form.parent"
+                               :disabled="editMode"
                                :options="areaOptions"
                                required
                                placeholder="Enter Username">
