@@ -22,7 +22,7 @@
                             v-b-tooltip.hover title="Edit Area"
                             src="../assets/edit.svg">
                     <img
-                            @click.stop="deleteArea()"
+                            @click.stop="showModal()"
                             class="icon"
                             v-b-tooltip.hover title="Delete Area"
                             src="../assets/delete.svg">
@@ -34,6 +34,15 @@
                 </div>
             </div>
         </div>
+
+        <b-modal
+            id="deleteAreaModal"
+            ref="modal"
+            title="Delete Area"
+            @ok="handleOk">
+            Are you sure you want to delete this area?
+        </b-modal>
+
     </div>
 </template>
 
@@ -54,6 +63,13 @@
             },
             deleteArea() {
                 
+            },
+            handleOk(evt){
+                this.$gate.area.delete(this.area.id).then(res => console.log(res));
+            },
+            showModal(){
+                console.log("id: " + this.area.id);
+                this.$refs.modal.show();
             }
         },
         computed: {

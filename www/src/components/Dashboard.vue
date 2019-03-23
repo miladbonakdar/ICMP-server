@@ -146,7 +146,6 @@ export default {
       .then(res => {
         console.log(res);
         this.setArea(res.data.data);
-        let myToast = this.$toasted.global.my_app_error();
         this.areasCollapseState = this.getAreasCollapseState();
         this.nodesCollapseState = this.getNodesCollapseState();
       })

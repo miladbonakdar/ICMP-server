@@ -1,7 +1,7 @@
 export default {
   root: "http://localhost:3000/api/v1",
   defaultActions: [
-    { type: "get", name: "getOne", url: "/:id" },
+    { type: "get", name: "get", url: "/:id" },
     { type: "get", name: "getAll" },
     { type: "put" },
     { type: "delete", url: "/:id" },
@@ -22,7 +22,7 @@ export default {
     {
       name: "setting",
       loadDefaults: false,
-      actions: [{ type: "get", name: "getOne" }, { type: "put" }]
+      actions: [{ type: "get", name: "get" }, { type: "put" }]
     },
     {
       name: "public",
