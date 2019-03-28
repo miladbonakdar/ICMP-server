@@ -22,7 +22,7 @@ module.exports = {
                     lastExecute: lastLog.createdOn,
                     nextExecute: new Date(new Date(lastLog.createdOn).getTime() + setting.pingHostsEvery * 60000)
                 },
-                "complited successfuly"
+                "completed successfuly"
             );
         else response.notFound(res);
     }),
@@ -36,7 +36,7 @@ module.exports = {
             {
                 siteVersion: version
             },
-            "complited successfuly"
+            "completed successfuly"
         );
     }),
 
