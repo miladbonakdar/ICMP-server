@@ -48,6 +48,8 @@
 
 <script>
     import routsName from "../routsName";
+    import * as types from "../store/types";
+    import {mapActions} from "vuex";
 
     export default {
         name: "AreaDetail",
@@ -58,17 +60,20 @@
             }
         },
         methods: {
+            ...mapActions({
+                deleteArea: types.DELETE_AREA
+            }),
             editArea() {
                 this.$router.push({name: routsName.AREA, params: {id: this.area.id}});
             },
-            deleteArea() {
-                
-            },
             handleOk(evt){
-                this.$gate.area.delete(this.area.id).then(res => console.log(res));
+                this.$gate.area.delete(this.area.id).then(res => {
+                    console.log(res);
+                    this.deleteArea(this.area.id);
+                    }
+                );
             },
             showModal(){
-                console.log("id: " + this.area.id);
                 this.$refs.modal.show();
             }
         },

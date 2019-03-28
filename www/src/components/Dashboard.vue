@@ -48,7 +48,7 @@
           >
             <b-card-header header-tag="header" class="p-1 card-header" role="tab">
               <div class="container-fluid" v-b-toggle="'node-accordion' + node.id">
-                <node-header :node="node" :index="nodeIndex"></node-header>
+                <node-header :area="area" :node="node" :index="nodeIndex"></node-header>
               </div>
             </b-card-header>
             <b-collapse
@@ -82,7 +82,7 @@ import NodeHeader from "./NodeHeader.vue";
 import NodeDetail from "./NodeDetail.vue";
 import routsName from "../routsName";
 import * as types from "../store/types";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapState, mapActions } from "vuex";
 
 export default {
   metaInfo: {
@@ -97,9 +97,9 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({
-      areas: types.AREAS
-    })
+    areas(){
+      return this.$store.state.areas.areas;
+    }
   },
   methods: {
     ...mapActions({
@@ -150,6 +150,13 @@ export default {
         this.nodesCollapseState = this.getNodesCollapseState();
       })
       .catch(error => {});
+  },
+  watch: {
+    areas(newValue, oldValue){
+      this.$forceUpdate();
+      this.nodesCollapseState = this.getNodesCollapseState();
+      this.areasCollapseState = this.getAreasCollapseState();
+    }
   }
 };
 </script>

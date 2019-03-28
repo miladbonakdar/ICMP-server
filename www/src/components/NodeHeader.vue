@@ -40,6 +40,7 @@
 <script>
     import routsName from "../routsName";
     import * as types from "../store/types";
+    import {mapActions} from "vuex";
 
     export default {
         name: "AreaDetail",
@@ -47,17 +48,27 @@
             node: {
                 type: Object,
                 required: true
+            },
+            area: {
+                type: Object,
+                required: true
             }
         },
         methods: {
+            ...mapActions({
+                deleteNode: types.DELETE_NODE
+            }),
             editNode() {
                 this.$router.push({name: routsName.NODE, params: {id: this.node.id}});
             },
-            deleteNode() {
-
-            },
             handleOk(evt){
-                this.$gate.node.delete(this.node.id).then(res => console.log(res));
+                this.$gate.node.delete(this.node.id).then(res => {
+                    console.log(res);
+                    let payload = {areaId: this.area.id, nodeId: this.node.id};
+                    console.log(payload);
+                    this.deleteNode(payload);
+                }
+                );
             },
             showModal(){
                 console.log("id: " + this.node.id);

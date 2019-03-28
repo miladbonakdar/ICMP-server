@@ -1,4 +1,5 @@
 import * as types from "../types";
+import _ from "lodash";
 
 const state = {
     areas:[]
@@ -15,6 +16,32 @@ const mutations = {
         state.areas = _areas;
     },
     [types.MUTATE_TOGGLE_AREA_IS_EXPAND]: state => {
+    },
+    [types.MUTATE_DELETE_AREA]: (state, areaId) => {
+        let _areas = [];
+        state.areas.forEach(element => {
+            if(element.id !== areaId){
+                _areas.push(element);
+            }
+        });
+        state.areas = _areas;
+    },
+    [types.MUTATE_DELETE_NODE]: (state, {areaId, nodeId}) => {
+        let _areas = [];
+        state.areas.forEach(element => {
+            if(element.id === areaId){
+                let _nodes = [];
+                element.nodes.forEach(node => {
+                    if(node.id != nodeId){
+                        _nodes.push(node);
+                    }
+                });
+                element.nodes = _nodes;
+            }
+            _areas.push(element);
+        });
+        console.log(areaId + "   " + nodeId);
+        state.areas = _areas;
     }
 };
 
@@ -24,6 +51,12 @@ const actions = {
     },
     [types.TOGGLE_AREA_IS_EXPAND]: ({ commit }) => {
         commit(types.MUTATE_TOGGLE_AREA_IS_EXPAND);
+    },
+    [types.DELETE_AREA]: ({ commit }, areaId) => {
+        commit(types.MUTATE_DELETE_AREA, areaId);
+    },
+    [types.DELETE_NODE]: ({ commit }, payload) => {
+        commit(types.MUTATE_DELETE_NODE, payload);
     }
 };
 
