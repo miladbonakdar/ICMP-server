@@ -67,8 +67,15 @@
                     let payload = {areaId: this.area.id, nodeId: this.node.id};
                     console.log(payload);
                     this.deleteNode(payload);
+                    this.$toasted.global.success({
+                        message: "Node deleted successfully"
+                    });
                 }
-                );
+                ).catch(error => {
+                    this.$toasted.global.error({
+                        message: "Error in deleting node"
+                    });
+                });
             },
             showModal(){
                 console.log("id: " + this.node.id);

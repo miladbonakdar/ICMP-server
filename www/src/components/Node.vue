@@ -71,12 +71,26 @@
                     this.$gate.node.update(this.form).then((res)=>{
                         console.log(res);
                         this.goToDashboard();
+                        this.$toasted.global.success({
+                               message: "Node updated successfully"
+                        });
+                    }).catch(error => {
+                        this.$toasted.global.error({
+                            message: "Error in updating node"
+                        });
                     });
                 }else{
                     this.$gate.node.create(this.form).then((res)=>{
                         console.log(res);
                         this.goToDashboard();
-                    }).catch(error => console.log(error));
+                        this.$toasted.global.success({
+                             message: "Node created successfully"
+                        });
+                    }).catch(error => {
+                        this.$toasted.global.error({
+                            message: "Error in creating node"
+                        });
+                    });
                 }
             },
             onCancel(evt) {

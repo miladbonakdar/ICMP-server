@@ -41,16 +41,30 @@
                 if(this.editMode){
                     this.$gate.area.update(this.form).then((res)=>{
                         this.goToDashboard();
-                    });
+                        this.$toasted.global.success({
+                            message: "Area updated successfully"
+                        })
+                    }).catch(error => {
+                        this.$toasted.global.error({
+                                message: "Error in updating area"
+                            });
+                    });;
                 }else{
                     this.$gate.area.create(this.form).then((res)=>{
                         this.goToDashboard();
-                    });
+                        this.$toasted.global.success({
+                            message: "Area created successfully"
+                        })
+                    }).catch(error => {
+                        this.$toasted.global.error({
+                            message: "Error in creating area"
+                        });
+                    });;
                 }
             },
             onCancel(evt) {
                 evt.preventDefault();
-                goToDashboard();
+                this.goToDashboard();
             },
             goToDashboard(){
                 this.$router.push({name: routsName.DASHBOARD});

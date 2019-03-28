@@ -70,8 +70,15 @@
                 this.$gate.area.delete(this.area.id).then(res => {
                     console.log(res);
                     this.deleteArea(this.area.id);
+                    this.$toasted.global.success({
+                        message: "Area deleted successfully"
+                    });
                     }
-                );
+                ).catch(error => {
+                    this.$toasted.global.error({
+                        message: "Error in deleting area"
+                    });
+                });
             },
             showModal(){
                 this.$refs.modal.show();

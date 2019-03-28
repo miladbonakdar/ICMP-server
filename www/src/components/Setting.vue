@@ -78,7 +78,14 @@
             onSubmit(evt) {
                 evt.preventDefault();
                 this.$gate.setting.update(this.form).then(res =>{
-                    alert("success");
+                    this.$toasted.global.success({
+                        message: "Setting updated successfully"
+                   });
+                   this.goToDashboard();
+                }).catch(error => {
+                    this.$toasted.global.error({
+                        message: "Error in updating setting"
+                   });
                 });
             },
             onCancel(evt) {
@@ -91,6 +98,9 @@
                     ":" +
                     (setting.exportCsvFileAtMinute.length === 1 ?"0" + setting.exportCsvFileAtMinute:setting.exportCsvFileAtMinute)
                 )
+            },
+            goToDashboard(){
+                this.$router.push({name: routsName.DASHBOARD});
             }
         },
         watch: {
