@@ -5,11 +5,9 @@ services:
         image: icmp-server
         build: .
         environment:
-            NODE_ENV: development
+            NODE_ENV: production
         ports:
             - 3000:3000
-            - 9229:9229
-        command: node --inspect=0.0.0.0:9229 server.js
         volumes:
             - "./database:/database"
             - "./public:/public"
