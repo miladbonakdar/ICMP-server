@@ -33,6 +33,6 @@ export const routes = [
     },
     {
         path: "*",
-        redirect: {name: routsName.DASHBOARD}
+        redirect: { name: routsName.DASHBOARD }
     }
 ];
