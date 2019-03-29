@@ -5,10 +5,10 @@
     <b-container id="generalInfo">
       <b-row>
         <b-col>
-          <h5>Last update: {{ [2007, 0, 29] | moment("from") }}</h5>
+          <h5>Last update: {{ lastUpdate | moment("from") }}</h5>
         </b-col>
         <b-col>
-          <h5 style="text-align: center;">Next update: {{ [2027, 0, 29] | moment("from") }}</h5>
+          <h5 style="text-align: center;">Next update: {{ nextUpdate | moment("from") }}</h5>
         </b-col>
         <b-col>
           <b-row id="ping-now">
@@ -89,8 +89,8 @@ export default {
   },
   data() {
     return {
-      lastUpdate: "08:50",
-      nextUpdate: "15:55",
+      lastUpdate: null,
+      nextUpdate: null,
       nodesCollapseState: [],
       areasCollapseState: []
     };
@@ -131,6 +131,23 @@ export default {
     getPing() {
       this.$gate.public.ping().then(res => {
         console.log(res);
+        this.updateDashboard();
+      });
+    },
+    updateDashboard(){
+      this.$gate.area
+      .getAll()
+      .then(res => {
+        console.log(res);
+        this.setArea(res.data.data);
+        this.areasCollapseState = this.getAreasCollapseState();
+        this.nodesCollapseState = this.getNodesCollapseState();
+      })
+      .catch(error => {});
+      this.$gate.public.getTimes().then(res => {
+        console.log(res);
+        this.lastUpdate = new Date(res.data.data.lastExecute);
+        this.nextUpdate = new Date(res.data.data.nextExecute);
       });
     }
   },
@@ -140,15 +157,7 @@ export default {
     NodeDetail
   },
   created: function() {
-    this.$gate.area
-      .getAll()
-      .then(res => {
-        console.log(res);
-        this.setArea(res.data.data);
-        this.areasCollapseState = this.getAreasCollapseState();
-        this.nodesCollapseState = this.getNodesCollapseState();
-      })
-      .catch(error => {});
+    this.updateDashboard();
   },
   watch: {
     areas(newValue, oldValue) {

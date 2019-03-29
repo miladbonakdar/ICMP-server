@@ -29,10 +29,6 @@ export default {
     this.$gate.public.info().then(res => {
       this.version = res.data.data.siteVersion;
     });
-
-    this.$gate.public.getTimes().then(res => {
-      console.log(res);
-    });
   }
 };
 </script>
