@@ -1,5 +1,3 @@
-const redisClient = require("./redis");
-
 module.exports = class Repository {
     /** TODO: add description
      *
@@ -7,14 +5,6 @@ module.exports = class Repository {
     constructor(db) {
         if (!db) throw new Error("db is not valid");
         this.db = db;
-        this.redis = redisClient;
-    }
-
-    /** TODO: add description
-     *
-     */
-    updateRedis(object, key) {
-        redisClient.set(key, object);
     }
 
     /** TODO: add description

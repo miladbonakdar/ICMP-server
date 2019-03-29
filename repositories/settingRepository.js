@@ -1,6 +1,5 @@
 const database = require("./db");
 const settingModel = require("../models/settingModel");
-const redisClient = require("./redis");
 
 module.exports = class SettingRepository {
     /** TODO: add description
@@ -13,19 +12,10 @@ module.exports = class SettingRepository {
     /** TODO: add description
      *
      */
-    updateInRedis(setting) {
-        redisClient.set(redisClient.statics.settingObjectKey, setting);
-    }
-
-    /** TODO: add description
-     *
-     */
     getSetting() {
         try {
-            let setting = redisClient.get(redisClient.statics.settingObjectKey);
-            if (!setting) setting = this.db.getData("/");
+            let setting = this.db.getData("/");
             if (Object.keys(setting).length == 0) return this.setSetting();
-            this.updateInRedis(setting);
             return new settingModel(setting);
         } catch (error) {
             console.log(error);
@@ -38,11 +28,7 @@ module.exports = class SettingRepository {
      */
     setSetting(setting) {
         let settingToSave = new settingModel(setting);
-        //TODO: we should use event emiter in here to stop services and clients
-        // if (!settingToSave.isCsvExportEnabled) cron.stop("csv");
-        // if (!settingToSave.isRedisEnabled) redisClient.stopRedisClient();
         this.db.push("/", settingToSave);
-        this.updateInRedis(settingToSave);
         return settingToSave;
     }
 

@@ -4,7 +4,6 @@ module.exports = class Setting {
      *  FIXME: unitTest
      */
     constructor(data = null) {
-        this.isRedisEnabled = validator(data, "isRedisEnabled") || false;
         this.isLoginEnabled = validator(data, "isLoginEnabled") || false;
         this.isCsvExportEnabled =
             validator(data, "isCsvExportEnabled") || false;

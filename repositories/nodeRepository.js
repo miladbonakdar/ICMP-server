@@ -14,19 +14,9 @@ module.exports = class NodeRepository extends Repository {
      *
      */
     getNodes() {
-        let nodes = this.redis.get(this.redis.statics.getNodesObjectKey);
-        if (nodes) return nodes;
         const areas = this.db.getData("/areas");
         nodes = _.spread(_.union)(areas.map(item => item.nodes));
-        this.updateRedis(nodes, this.redis.statics.getNodesObjectKey);
         return nodes;
-    }
-
-    /** TODO: add description
-     *
-     */
-    saveNodes(nodes) {
-        this.updateRedis(nodes, this.redis.statics.getNodesObjectKey);
     }
 
     /** TODO: add description
