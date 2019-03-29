@@ -24,6 +24,8 @@ const pingNodes = async nodes => {
 const pingAreas = async areas => {
     for (const item of areas) {
         await pingNodes(item.nodes);
+        item.totalUp = item.nodes.filter(node => node.alive).length;
+        item.totalDown = item.nodes.length - item.totalUp;
     }
 };
 
