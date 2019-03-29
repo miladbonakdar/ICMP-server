@@ -34,18 +34,6 @@
           <input
             type="checkbox"
             class="custom-control-input"
-            v-model="form.isRedisEnabled"
-            id="enableRedisCheckbox"
-            checked
-          >
-          <label class="custom-control-label" for="enableRedisCheckbox">isRedisEnabled</label>
-        </div>
-      </b-form-group>
-      <b-form-group>
-        <div class="custom-control custom-checkbox">
-          <input
-            type="checkbox"
-            class="custom-control-input"
             v-model="form.isLoginEnabled"
             id="enableLoginCheckbox"
             checked
@@ -81,7 +69,6 @@ export default {
   data() {
     return {
       form: {
-        isRedisEnabled: null,
         exportCsvFileAtHour: null,
         exportCsvFileAtMinute: null,
         isLoginEnabled: null,
