@@ -79,7 +79,24 @@ module.exports = class AreaRepository extends Repository {
         let areaToDelete = baseItem.areas.filter(area => area.id == id)[0];
         if (!areaToDelete) throw new Error("404 ,the area is not valid to delete");
         this.db.delete(areaToDelete.path);
+        this.updateAllAreaPath();
         return;
+    }
+
+    updateAllAreaPath() {
+        let baseItem = this.get("/");
+        if (!baseItem.areas) return;
+        for (let i = 0; i < baseItem.areas.length; i++) {
+            const newPath = `/areas[${i}]`;
+            baseItem.areas[i].path = newPath;
+            if (!baseItem.areas[i].nodes) continue;
+            for (let j = 0; j < baseItem.areas[i].nodes.length; j++) {
+                const newNodePath = `/areas[${i}]/nodes[${j}]`;
+                baseItem.areas[i].nodes[j].parent = newPath;
+                baseItem.areas[i].nodes[j].path = newNodePath;
+            }
+        }
+        this.db.push("/", baseItem);
     }
 
     /** TODO: add description

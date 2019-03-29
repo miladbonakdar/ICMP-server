@@ -1,6 +1,6 @@
 <template>
   <div role="tablist">
-    <h2>Dashboard</h2>
+    <h2 class="text-bold">Dashboard</h2>
     <hr>
     <b-container id="generalInfo">
       <b-row>
@@ -8,15 +8,14 @@
           <h5>Last update: {{ [2007, 0, 29] | moment("from") }}</h5>
         </b-col>
         <b-col>
-          <h5>Next update: {{ [2027, 0, 29] | moment("from") }}</h5>
+          <h5 style="text-align: center;">Next update: {{ [2027, 0, 29] | moment("from") }}</h5>
         </b-col>
         <b-col>
-          <b-row>
-            <b-row id="ping-now" @click="getPing"
-                            v-b-tooltip.hover title="Ping Now" >
-              <h5>Ping Now</h5>
-              <img class="icon" src="../assets/refresh.svg">
-            </b-row>
+          <b-row id="ping-now">
+            <b-button @click="getPing" size="sm" v-b-tooltip.hover title="Ping Now">
+              Ping now
+              <span class="oi oi-reload plus-icon"></span>
+            </b-button>
           </b-row>
         </b-col>
       </b-row>
@@ -62,14 +61,14 @@
               </b-card-body>
             </b-collapse>
           </b-card>
-          <b-button @click="goToNodePage()" style="color: white;" variant="warning">
+          <b-button @click="goToNodePage()" style="color: white;" variant="warning" size="sm">
             New Node
             <span class="oi oi-plus plus-icon"></span>
           </b-button>
         </b-card-body>
       </b-collapse>
     </b-card>
-    <b-button @click="goToAreaPage()" variant="success">
+    <b-button @click="goToAreaPage()" variant="success" size="sm">
       New Area
       <span class="oi oi-plus plus-icon"></span>
     </b-button>
@@ -97,7 +96,7 @@ export default {
     };
   },
   computed: {
-    areas(){
+    areas() {
       return this.$store.state.areas.areas;
     }
   },
@@ -129,8 +128,8 @@ export default {
       }
       return collapseState;
     },
-    getPing(){
-      this.$gate.public.ping().then(res =>{
+    getPing() {
+      this.$gate.public.ping().then(res => {
         console.log(res);
       });
     }
@@ -152,7 +151,7 @@ export default {
       .catch(error => {});
   },
   watch: {
-    areas(newValue, oldValue){
+    areas(newValue, oldValue) {
       this.$forceUpdate();
       this.nodesCollapseState = this.getNodesCollapseState();
       this.areasCollapseState = this.getAreasCollapseState();
@@ -174,6 +173,8 @@ h2 {
 #ping-now {
   margin: 0 auto;
   cursor: pointer;
+  justify-content: flex-end;
+  margin-right: 34px;
 }
 
 .plus-icon {
@@ -196,6 +197,7 @@ h2 {
 
 .node-custom-card {
   border-width: 0 0 0 5px;
+  margin-bottom: 20px !important;
 }
 
 .card-header {
@@ -205,6 +207,10 @@ h2 {
 
 .card-header:hover {
   background-color: #f6f6f6;
+}
+
+.text-bold {
+  font-weight: 600;
 }
 
 #generalInfo h5 {

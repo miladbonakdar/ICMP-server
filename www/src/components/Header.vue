@@ -4,7 +4,7 @@
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
       <img id="logo" v-b-tooltip.hover title="Edit Node" src="../assets/ping-pong.svg">
-      <b-navbar-brand href="#">ICMP SERVER</b-navbar-brand>
+      <b-navbar-brand href="#" class="text-bold">ICMP SERVER</b-navbar-brand>
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav style="margin-left: 30px">
           <b-nav-item>
@@ -70,6 +70,11 @@ a:hover {
   background-color: #01a3a4;
   /*background-color: #e66767;*/
 }
+
+.text-bold {
+  font-weight: 600;
+}
+
 #logo {
   height: 27px;
   margin-right: 12px;

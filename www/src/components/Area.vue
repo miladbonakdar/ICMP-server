@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>{{getTitle}}</h2>
+        <h2 class="text-bold">{{getTitle}}</h2>
         <hr>
         <b-form @submit="onSubmit" v-if="show">
             <b-form-group id="exampleInputGroup1"
@@ -95,5 +95,9 @@
 </script>
 
 <style scoped>
+
+.text-bold {
+  font-weight: 600;
+}
 
 </style>

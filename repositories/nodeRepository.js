@@ -63,7 +63,18 @@ module.exports = class NodeRepository extends Repository {
         });
         if (!nodeToDelete) throw new Error("404 ,the node is not valid to delete");
         this.db.delete(nodeToDelete.path);
+        this.updateAllNodesPath(nodeToDelete.parent);
         return;
+    }
+
+    updateAllNodesPath(parent) {
+        let area = this.get(parent);
+        if (!area.nodes) return;
+        for (let i = 0; i < area.nodes.length; i++) {
+            const newPath = `${parent}/nodes[${i}]`;
+            area.nodes[i].path = newPath;
+        }
+        this.db.push(parent, area);
     }
 
     /** TODO: add description
