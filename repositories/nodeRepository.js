@@ -15,7 +15,7 @@ module.exports = class NodeRepository extends Repository {
      */
     getNodes() {
         const areas = this.db.getData("/areas");
-        nodes = _.spread(_.union)(areas.map(item => item.nodes));
+        const nodes = _.spread(_.union)(areas.map(item => item.nodes));
         return nodes;
     }
 

@@ -68,10 +68,20 @@
         </b-card-body>
       </b-collapse>
     </b-card>
-    <b-button @click="goToAreaPage()" variant="success" size="sm">
-      New Area
-      <span class="oi oi-plus plus-icon"></span>
-    </b-button>
+    <div class="row">
+      <div class="col">
+        <b-button @click="goToAreaPage()" variant="success" size="sm">
+          New Area
+          <span class="oi oi-plus plus-icon"></span>
+        </b-button>
+      </div>
+      <div class="col">
+        <b-button @click="exportCsv()" style="color:white;" size="sm">
+          Export csv
+          <span class="oi oi-data-transfer-download"></span>
+        </b-button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -130,25 +140,44 @@ export default {
     },
     getPing() {
       this.$gate.public.ping().then(res => {
-        console.log(res);
         this.updateDashboard();
       });
     },
-    updateDashboard(){
+    updateDashboard() {
       this.$gate.area
-      .getAll()
-      .then(res => {
-        console.log(res);
-        this.setArea(res.data.data);
-        this.areasCollapseState = this.getAreasCollapseState();
-        this.nodesCollapseState = this.getNodesCollapseState();
-      })
-      .catch(error => {});
+        .getAll()
+        .then(res => {
+          console.log(res);
+          this.setArea(res.data.data);
+          this.areasCollapseState = this.getAreasCollapseState();
+          this.nodesCollapseState = this.getNodesCollapseState();
+        })
+        .catch(error => {});
       this.$gate.public.getTimes().then(res => {
         console.log(res);
         this.lastUpdate = new Date(res.data.data.lastExecute);
         this.nextUpdate = new Date(res.data.data.nextExecute);
       });
+    },
+    exportCsv() {
+      this.$gate.node.export("csv").then(res => {
+        console.log(res.data);
+
+        let csv = res.data;
+        if (csv == null) return;
+        let filename =  "export.csv";
+        if (!csv.match(/^data:text\/csv/i)) {
+        csv = 'data:text/csv;charset=utf-8,' + csv;
+        }
+        let data = encodeURI(csv);
+        
+        let link = document.createElement('a');
+        link.setAttribute('href', data);
+        link.setAttribute('download', filename);
+        link.click();
+      }).catch(error => {
+        console.log(error);
+      })
     }
   },
   components: {

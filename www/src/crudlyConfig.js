@@ -17,7 +17,7 @@ export default {
         {
             name: "node",
             loadDefaults: true,
-            actions: []
+            actions: [{ type: "get",name:"export", url: "/export/:type" }]
         },
         {
             name: "setting",
