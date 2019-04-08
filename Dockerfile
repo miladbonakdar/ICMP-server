@@ -12,4 +12,4 @@ VOLUME [ "/database", "/public" ]
 
 COPY . .
 
-CMD [ "pm2-runtime", "start", "pm2.json" ]
+CMD [ "pm2-runtime", "start", "pm2.json", "--env ", "production" ]

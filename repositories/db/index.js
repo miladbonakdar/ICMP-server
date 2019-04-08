@@ -1,6 +1,7 @@
 const mainDb = require("./mainDb");
 const logDb = require("./logDb");
 const settingDb = require("./settingDb");
+const processDb = require("./processDb");
 
 module.exports = {
     /**  FIXME: unitTest
@@ -35,5 +36,12 @@ module.exports = {
      */
     getLogDb(date = new Date()) {
         return logDb(date);
+    },
+
+    /** TODO: add description
+     *  
+     */
+    getProcessDb() {
+        return processDb();
     }
 };
