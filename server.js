@@ -1,4 +1,4 @@
-require("./utils/setGlobalVariables");
+require("./setGlobalVariables");
 require("./utils/foldersInitialiser");
 require("./utils/classExtentions")();
 const express = require("express");
