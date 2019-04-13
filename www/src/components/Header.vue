@@ -31,6 +31,11 @@
             </router-link>
           </b-nav-item>
           <b-nav-item>
+            <router-link :to="{name: routsName.LOG}" active-class="active" exact>
+              <a>Logs</a>
+            </router-link>
+          </b-nav-item>
+          <b-nav-item>
             <router-link :to="{name: routsName.SETTING}" active-class="active" exact>
               <a>Setting</a>
             </router-link>

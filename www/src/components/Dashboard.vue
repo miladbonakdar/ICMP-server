@@ -147,7 +147,6 @@ export default {
       this.$gate.area
         .getAll()
         .then(res => {
-          console.log(res);
           this.setArea(res.data.data);
           this.areasCollapseState = this.getAreasCollapseState();
           this.nodesCollapseState = this.getNodesCollapseState();

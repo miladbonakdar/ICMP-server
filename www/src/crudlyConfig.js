@@ -32,6 +32,14 @@ export default {
                 { type: "get", name: "info", url: "/getSiteInfo" },
                 { type: "post", name: "ping", url: "/pingNodes" }
             ]
+        },
+        {
+            name: "log",
+            loadDefaults: false,
+            actions: [
+                { type: "get", name: "getAll", url: "/now" },
+                { type: "get", name: "get", url: "/:date" }
+            ]
         }
     ]
 };
