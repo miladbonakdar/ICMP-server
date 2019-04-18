@@ -7,11 +7,11 @@
         <b-col>
           <h5>Last update: {{ lastUpdate | moment("from") }}</h5>
         </b-col>
-        <b-col>
+        <!-- <b-col>
           <h5 style="text-align: center;">Next update: {{ nextUpdate | moment("from") }}</h5>
-        </b-col>
-        <b-col>
-          <b-row id="ping-now">
+        </b-col>-->
+        <b-col style="padding-right:0px">
+          <b-row id="ping-now" >
             <b-button @click="getPing" size="sm" v-b-tooltip.hover title="Ping Now">
               Ping now
               <span class="oi oi-reload plus-icon"></span>
@@ -27,8 +27,8 @@
       :key="area.id"
     >
       <b-card-header header-tag="header" class="p-1 card-header" role="tab">
-        <div class="container-fluid">
-          <area-detail :area="area" v-b-toggle="'accordion' + area.id"></area-detail>
+        <div class="container-fluid" style="padding-right:0px;">
+          <area-detail style="padding-right:0px;" :area="area" v-b-toggle="'accordion' + area.id"></area-detail>
         </div>
       </b-card-header>
 
@@ -75,7 +75,8 @@
           <span class="oi oi-plus plus-icon"></span>
         </b-button>
       </div>
-      <div class="col">
+      <div class="col" style="    display: flex;
+    flex-direction: row-reverse;">
         <b-button @click="exportCsv()" style="color:white;" size="sm">
           Export csv
           <span class="oi oi-data-transfer-download"></span>
@@ -159,24 +160,27 @@ export default {
       });
     },
     exportCsv() {
-      this.$gate.node.export("csv").then(res => {
-        console.log(res.data);
+      this.$gate.node
+        .export("csv")
+        .then(res => {
+          console.log(res.data);
 
-        let csv = res.data;
-        if (csv == null) return;
-        let filename =  "export.csv";
-        if (!csv.match(/^data:text\/csv/i)) {
-        csv = 'data:text/csv;charset=utf-8,' + csv;
-        }
-        let data = encodeURI(csv);
-        
-        let link = document.createElement('a');
-        link.setAttribute('href', data);
-        link.setAttribute('download', filename);
-        link.click();
-      }).catch(error => {
-        console.log(error);
-      })
+          let csv = res.data;
+          if (csv == null) return;
+          let filename = "export.csv";
+          if (!csv.match(/^data:text\/csv/i)) {
+            csv = "data:text/csv;charset=utf-8," + csv;
+          }
+          let data = encodeURI(csv);
+
+          let link = document.createElement("a");
+          link.setAttribute("href", data);
+          link.setAttribute("download", filename);
+          link.click();
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   },
   components: {
@@ -211,7 +215,7 @@ h2 {
   margin: 0 auto;
   cursor: pointer;
   justify-content: flex-end;
-  margin-right: 34px;
+  margin-right: 0px;
 }
 
 .plus-icon {

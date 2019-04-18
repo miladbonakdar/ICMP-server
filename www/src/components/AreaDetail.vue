@@ -1,6 +1,6 @@
 <template>
   <div style="border-width: 0 ">
-    <div class="row" style="margin-right: 12px;">
+    <div class="row">
       <div class="col">
         <h4>{{area.name}}</h4>
       </div>
