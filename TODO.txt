@@ -17,8 +17,6 @@
     sortable table https://bootstrap-vue.js.org/docs/components/table/
     change table fields (i have images)
 
-
-
 4- fixes
     host name => ip address
     smaller font size in dashboard
@@ -28,3 +26,8 @@
     for realtime changes
     dashboard
     logs
+
+6 -removes
+    cuid
+    jsondb
+    
