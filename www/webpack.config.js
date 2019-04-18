@@ -2,6 +2,7 @@
 var path = require("path");
 var webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
     mode: "development",
@@ -55,7 +56,10 @@ module.exports = {
         hints: false
     },
     plugins: [new ExtractTextPlugin("main.css")],
-    devtool: "#eval-source-map"
+    devtool: "#eval-source-map",
+    optimization: {
+        minimizer: [new TerserPlugin()]
+    }
 };
 
 if (process.env.NODE_ENV === "production") {
@@ -65,12 +69,6 @@ if (process.env.NODE_ENV === "production") {
         new webpack.DefinePlugin({
             "process.env": {
                 NODE_ENV: "\"production\""
-            }
-        }),
-        new webpack.optimize.UglifyJsPlugin({
-            sourceMap: true,
-            compress: {
-                warnings: false
             }
         }),
         new webpack.LoaderOptionsPlugin({
