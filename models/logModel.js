@@ -1,4 +1,4 @@
-const validator = require("./dataValidator");
+const validator = require("../utils/dataValidator");
 const ItemBase = require("./itemBase");
 module.exports = class Node extends ItemBase {
     /** TODO: add description
@@ -20,8 +20,8 @@ module.exports = class Node extends ItemBase {
      *  FIXME: unitTest
      */
     getCsvString() {
-        return `${this.date},${this.date},${this.areaName},${this.nodeName},${
+        return `${this.date},${this.date},${this.areaName},${this.nodeName},${this.nodeName},${this.nodeName},${
             this.nodeName
-        },${this.nodeName},${this.nodeName}`;
+        }`;
     }
 };

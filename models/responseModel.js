@@ -1,4 +1,4 @@
-const validator = require("./dataValidator");
+const validator = require("../utils/dataValidator");
 module.exports = class Response {
     /** TODO: add description
      *  FIXME: unitTest

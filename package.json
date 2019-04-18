@@ -4,7 +4,7 @@
   "description": "simple node js web application that ping some devices and show the data of logs and details",
   "main": "server.js",
   "scripts": {
-    "dev": "NODE_ENV=development node server.js",
+    "dev": "node server.js",
     "prod": "NODE_ENV=production node server.js",
     "test": "jest"
   },
@@ -26,6 +26,7 @@
     "cuid": "^2.1.4",
     "express": "^4.16.4",
     "lodash": "^4.17.11",
+    "mongodb": "^3.2.3",
     "node-cron": "^2.0.3",
     "node-json-db": "^0.9.2",
     "ping": "^0.2.2"

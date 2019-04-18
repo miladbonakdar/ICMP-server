@@ -1,4 +1,4 @@
-const validator = require("./dataValidator");
+const validator = require("../utils/dataValidator");
 const ItemBase = require("./itemBase");
 class Node extends ItemBase {
     /** TODO: add description
