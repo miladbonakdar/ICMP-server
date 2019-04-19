@@ -11,7 +11,7 @@
           <h5 style="text-align: center;">Next update: {{ nextUpdate | moment("from") }}</h5>
         </b-col>-->
         <b-col style="padding-right:0px">
-          <b-row id="ping-now" >
+          <b-row id="ping-now">
             <b-button @click="getPing" size="sm" v-b-tooltip.hover title="Ping Now">
               Ping now
               <span class="oi oi-reload plus-icon"></span>
@@ -39,28 +39,20 @@
         role="tabpanel"
       >
         <b-card-body>
-          <b-card
-            no-body
-            class="mb-1 node-custom-card border-danger"
-            v-for="(node, nodeIndex) in area.nodes"
-            :key="node.id"
-          >
-            <b-card-header header-tag="header" class="p-1 card-header" role="tab">
-              <div class="container-fluid" v-b-toggle="'node-accordion' + node.id">
-                <node-header :area="area" :node="node" :index="nodeIndex"></node-header>
-              </div>
-            </b-card-header>
-            <b-collapse
-              v-model="areas[index].nodes[nodeIndex].isExpand"
-              :id="'node-accordion' + node.id"
-              accordion="my-node-accordion"
-              role="tabpanel"
-            >
-              <b-card-body>
-                <node-detail :node="node"></node-detail>
-              </b-card-body>
-            </b-collapse>
-          </b-card>
+          <b-table striped hover :items="area.nodes" :fields="fields">
+            <template slot="alive" slot-scope="row">
+              <p class="col node-status">
+                <b-badge
+                  pill
+                  class="node-status status-badge"
+                  :variant="nodeStatusVariant(row)"
+                >{{nodeStatus(row)}}</b-badge>
+              </p>
+            </template>
+            <template slot="actions" slot-scope="row">
+              <node-header :area="area" :node="row.item" :index="nodeIndex"></node-header>
+            </template>
+          </b-table>
           <b-button @click="goToNodePage()" style="color: white;" variant="warning" size="sm">
             New Node
             <span class="oi oi-plus plus-icon"></span>
@@ -103,7 +95,36 @@ export default {
       lastUpdate: null,
       nextUpdate: null,
       nodesCollapseState: [],
-      areasCollapseState: []
+      areasCollapseState: [],
+      fields: [
+        {
+          key: "name",
+          label: "Name",
+          sortable: true
+        },
+        {
+          key: "alive",
+          label: "Status",
+          sortable: true
+        },
+        { key: "hostName", label: "ip" },
+        {
+          key: "number",
+          label: "Number",
+          sortable: true
+        },
+        {
+          key: "deviceType",
+          label: "Device Type",
+          sortable: true
+        },
+        {
+          key: "deviceModel",
+          label: "Device Model",
+          sortable: true
+        },
+        { key: "actions", label: "Actions", class: "text-center" }
+      ]
     };
   },
   computed: {
@@ -181,6 +202,14 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    },
+    nodeStatus(node) {
+      if (node.value) return "Up";
+      else return "Down";
+    },
+    nodeStatusVariant(node) {
+      if (node.value) return "success";
+      else return "danger";
     }
   },
   components: {
@@ -252,6 +281,13 @@ h2 {
 
 .text-bold {
   font-weight: 600;
+}
+
+.node-status {
+  font-weight: bold;
+  margin-top: 7px;
+  margin-bottom: 0;
+  font-size: medium;
 }
 
 #generalInfo h5 {
