@@ -28,14 +28,15 @@ export const routes = [
         component: Log
     },
     {
-        path: "/area/:id",
+        path: "/areaaaa/:id",
         name: routsName.AREA,
         component: Area
     },
     {
         path: "/node/:id",
         name: routsName.NODE,
-        component: Node
+        component: Node,
+        props:true
     },
     {
         path: "*",

@@ -5,11 +5,11 @@
     <b-form @submit="onSubmit" v-if="show">
       <b-form-group id="areaSelectGroup" label="Select Area:" label-for="areaSelect">
         <b-form-select
+        :disabled="editMode"
           id="areaSelect"
           type="text"
           v-model="form.parent"
-          :disabled="editMode"
-          :options="areaOptions"
+          :options="areaOptions || []"
           required
           placeholder="Enter Username"
         >
@@ -61,6 +61,11 @@ export default {
       },
       show: true
     };
+  },
+  props: {
+    areaId: {
+      type: String
+    }
   },
   methods: {
     onSubmit(evt) {
@@ -126,7 +131,6 @@ export default {
     }
   },
   created() {
-    this.$gate.area.getAll().then(res => (this.area = res.data.data));
     let id = this.$route.params.id;
     if (id !== "new") {
       this.editMode = true;
@@ -138,6 +142,16 @@ export default {
         })
         .catch(err => {});
     }
+    this.$gate.area.getAll().then(res =>{
+      this.area = res.data.data;
+      if(this.areaId){
+      this.area.forEach(element => {
+            if(element.id === this.areaId){
+                this.form.parent = element.path;
+            }
+        });
+    }
+    });
   }
 };
 </script>

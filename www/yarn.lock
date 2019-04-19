@@ -2307,7 +2307,7 @@ cross-spawn@^6.0.0, cross-spawn@^6.0.5:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
-crudly@^1.0.4:
+crudly@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/crudly/-/crudly-1.1.2.tgz#f7cea60c8d8eeac2ed1a5ec84394ed386f7c0586"
   integrity sha512-Wq7ZU+V3LiEiXtl8IvVYDm7mkMR9A30PQqh4uWYnGXuuwKcgjkXC/lfCOoqy4d7lEnTneS3MKuGq/5Kx6gEqdg==

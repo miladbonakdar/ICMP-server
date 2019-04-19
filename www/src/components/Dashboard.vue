@@ -50,10 +50,12 @@
               </p>
             </template>
             <template slot="actions" slot-scope="row">
-              <node-header :area="area" :node="row.item" :index="nodeIndex"></node-header>
+              <node-header :area="area" :node="row.item"></node-header>
+            </template>
+            <template slot="createdOn" slot-scope="row">{{row.value | moment("DD MMMM YYYY")}}
             </template>
           </b-table>
-          <b-button @click="goToNodePage()" style="color: white;" variant="warning" size="sm">
+          <b-button @click="goToNodePage(area.id)" style="color: white;" variant="warning" size="sm">
             New Node
             <span class="oi oi-plus plus-icon"></span>
           </b-button>
@@ -107,7 +109,7 @@ export default {
           label: "Status",
           sortable: true
         },
-        { key: "hostName", label: "ip" },
+        { key: "hostName", label: "ip", sortable: true },
         {
           key: "number",
           label: "Number",
@@ -121,6 +123,11 @@ export default {
         {
           key: "deviceModel",
           label: "Device Model",
+          sortable: true
+        },
+        {
+          key: "createdOn",
+          label: "Created On",
           sortable: true
         },
         { key: "actions", label: "Actions", class: "text-center" }
@@ -140,8 +147,8 @@ export default {
     goToAreaPage() {
       this.$router.push({ name: routsName.AREA, params: { id: "new" } });
     },
-    goToNodePage() {
-      this.$router.push({ name: routsName.NODE, params: { id: "new" } });
+    goToNodePage(areaId) {
+      this.$router.push({ name: routsName.NODE, params: { id: "new", areaId: areaId } });
     },
     getNodesCollapseState() {
       let collapseState = [];
