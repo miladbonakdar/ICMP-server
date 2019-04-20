@@ -2,13 +2,6 @@
   <div>
     <div class="row" style="margin-right: 12px">
       <div class="col">
-        <h4>{{node.name}}</h4>
-      </div>
-      <p class="col node-status">
-        Status :
-        <b-badge pill class="node-status status-badge" :variant="nodeStatusVariant">{{nodeStatus}}</b-badge>
-      </p>
-      <div class="col">
         <div style="float: right;">
           <img
             @click.stop="editNode()"
@@ -24,13 +17,6 @@
             src="../assets/delete.svg"
             class="icon"
           >
-          <span
-            id="expand-icon"
-            style="font-size: small;"
-            v-b-tooltip.hover
-            :title="expandIconTooltipTitle"
-            :class="expandIconClass"
-          ></span>
         </div>
       </div>
     </div>

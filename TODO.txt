@@ -1,8 +1,7 @@
-1- change database to postgress
-    use sequelize
+1- change database to mongo
+    use mongoose -***
     change repositories
-    change models
-    define dto models
+    change models -***
 
 2- authontication
     use passwort jwt
@@ -14,8 +13,8 @@
     create monitor user
 
 3- change nodes to table
-    sortable table https://bootstrap-vue.js.org/docs/components/table/
-    change table fields (i have images)
+    sortable table https://bootstrap-vue.js.org/docs/components/table/ -***
+    change table fields (i have images) -***
 
 4- fixes
     host name => ip address

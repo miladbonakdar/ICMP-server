@@ -33,6 +33,22 @@
               <strong>Date:</strong>
               {{log.createdOn | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}
           </p>
+          <b-table striped hover :items="log.logs" :fields="fields">
+            <template slot="isAlive" slot-scope="row">
+              <p class="col node-status">
+                <b-badge
+                  pill
+                  class="node-status status-badge"
+                  :variant="nodeStatusVariant(row)"
+                >{{nodeStatus(row)}}</b-badge>
+              </p>
+            </template>
+            <template slot="actions" slot-scope="row">
+              <node-header :area="area" :node="row.item"></node-header>
+            </template>
+            <template slot="createdOn" slot-scope="row">{{row.value | moment("DD MMMM YYYY")}}
+            </template>
+          </b-table>
           <b-card
             no-body
             class="mb-1 node-custom-card border-danger"
@@ -82,7 +98,45 @@ export default {
   data() {
     return {
       nodesCollapseState: [],
-      areasCollapseState: []
+      areasCollapseState: [],
+      fields: [
+        {
+          key: "nodeName",
+          label: "Name",
+          sortable: true
+        },
+        {
+          key: "areaName",
+          label: "Area Name",
+          sortable: true
+        },
+        {
+          key: "isAlive",
+          label: "Status",
+          sortable: true
+        },
+        { key: "hostName", label: "ip", sortable: true },
+        {
+          key: "number",
+          label: "Number",
+          sortable: true
+        },
+        {
+          key: "deviceType",
+          label: "Device Type",
+          sortable: true
+        },
+        {
+          key: "deviceModel",
+          label: "Device Model",
+          sortable: true
+        },
+        {
+          key: "createdOn",
+          label: "Created On",
+          sortable: true
+        }
+      ]
     };
   },
   computed: {
@@ -126,6 +180,14 @@ export default {
           this.nodesCollapseState = this.getNodesCollapseState();
         })
         .catch(error => {});
+    },
+    nodeStatus(node) {
+      if (node.value) return "Up";
+      else return "Down";
+    },
+    nodeStatusVariant(node) {
+      if (node.value) return "success";
+      else return "danger";
     }
   },
   components: {

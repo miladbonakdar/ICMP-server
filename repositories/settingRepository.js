@@ -1,41 +1,21 @@
-const database = require("./db");
-const settingModel = require("../models/settingModel");
-
+const Setting = require("./mongoModels/setting.model");
 module.exports = class SettingRepository {
-    /** TODO: add description
-     *
-     */
-    constructor(db = database.getSettingDb()) {
-        this.db = db;
-    }
-
-    /** TODO: add description
-     *
-     */
-    getSetting() {
+    async getSetting() {
         try {
-            let setting = this.db.getData("/");
-            if (Object.keys(setting).length == 0) return this.setSetting();
-            return new settingModel(setting);
+            const setting = await Setting.findOne();
+            if (setting) return setting;
         } catch (error) {
             console.log(error);
-            return this.setSetting();
         }
+        return await this.setSetting();
     }
 
-    /** TODO: add description
-     *
-     */
-    setSetting(setting) {
-        let settingToSave = new settingModel(setting);
-        this.db.push("/", settingToSave);
-        return settingToSave;
+    async setSetting(setting = new Setting()) {
+        return await setting.save();
     }
 
-    /** TODO: add description
-     *
-     */
-    setDefault() {
-        return this.setSetting(new settingModel());
+    async setDefault() {
+        await Setting.remove({});
+        return await this.setSetting();
     }
 };

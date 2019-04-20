@@ -16,7 +16,6 @@
             <router-link
               :to="{name: routsName.AREA, params: {id: 'new'}}"
               active-class="active"
-              exact
             >
               <a>Area</a>
             </router-link>

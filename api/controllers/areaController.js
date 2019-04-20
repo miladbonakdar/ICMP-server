@@ -1,66 +1,39 @@
 const areaStatics = require("../statics/area_statics");
 const AreaRepository = require("../../repositories/areaRepository");
 const response = require("../utils/response");
-const check = require("../utils/checkApifunctions").check;
+const checkAsync = require("../utils/checkApifunctions").checkAsync;
 
 module.exports = {
     controllerName: "area",
+    inject: (req, res, next) => {
+        req.areaRepository = new AreaRepository();
+        next();
+    },
 
-    /** TODO: add description
-     *
-     */
-
-    [areaStatics.create.name]: check((req, res) => {
-        const areaRepo = new AreaRepository();
-        let area = areaRepo.addArea(req.body);
+    [areaStatics.create.name]: checkAsync(async (req, res) => {
+        let area = await req.areaRepository.addArea(req.body);
         response.success(res, area, "area created successfuly");
     }),
 
-    /** TODO: add description
-     *
-     */
-    [areaStatics.getAll.name]: check((req, res) => {
-        const areaRepo = new AreaRepository();
-        let areas = areaRepo.getAreas();
+    [areaStatics.getAll.name]: checkAsync(async (req, res) => {
+        let areas = await req.areaRepository.getAreas();
         response.success(res, areas);
     }),
 
-    /** TODO: add description
-     *
-     */
-    [areaStatics.update.name]: check((req, res) => {
-        const areaRepo = new AreaRepository();
-        let area = areaRepo.updateArea(req.body);
+    [areaStatics.update.name]: checkAsync(async (req, res) => {
+        let area = await req.areaRepository.updateArea(req.body);
         response.success(res, area, "area updated successfuly");
     }),
 
-    /** TODO: add description
-     *
-     */
-    [areaStatics.delete.name]: check((req, res) => {
+    [areaStatics.delete.name]: checkAsync(async (req, res) => {
         if (!req.params.id) response.badRequest(res, "id");
-        const areaRepo = new AreaRepository();
-        areaRepo.deleteArea(req.params.id);
+        await req.areaRepository.deleteArea(req.params.id);
         response.success(res, {}, "area deleted successfuly");
     }),
 
-    /** TODO: add description
-     *
-     */
-    [areaStatics.get.name]: check((req, res) => {
+    [areaStatics.get.name]: checkAsync(async (req, res) => {
         if (!req.params.id) response.badRequest(res, "id");
-        const areaRepo = new AreaRepository();
-        let area = areaRepo.getAreaById(req.params.id);
-        response.success(res, area);
-    }),
-
-    /** TODO: add description
-     *
-     */
-    [areaStatics.getByIndex.name]: check((req, res) => {
-        if (!req.params.index) response.badRequest(res, "index");
-        const areaRepo = new AreaRepository();
-        let area = areaRepo.getAreaByIndex(req.params.index);
+        let area = await req.areaRepository.getAreaById(req.params.id);
         response.success(res, area);
     })
 };

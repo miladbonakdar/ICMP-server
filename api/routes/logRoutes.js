@@ -11,14 +11,6 @@ module.exports = router => {
         [logStatics.get.method](logController[logStatics.get.name]);
 
     /** TODO: add description
-     * http://localhost:3000/api/v1/log/getLog/2019-03-22/cjtk1l8ww0002xsu4ftwv2p4q
-     * http://localhost:3000/api/v1/log/getLog/now/cjtk1l8ww0002xsu4ftwv2p4q
-     */
-    router
-        .route(baseUrl(logController.controllerName, logStatics.getLog.name, "date/:id"))
-        [logStatics.getLog.method](logController[logStatics.getLog.name]);
-
-    /** TODO: add description
      * http://localhost:3000/api/v1/log/getcsvlog/2019-03-22
      * http://localhost:3000/api/v1/log/getcsvlog/now
      */

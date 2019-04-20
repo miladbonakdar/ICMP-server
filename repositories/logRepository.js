@@ -1,56 +1,13 @@
-const database = require("./db");
-const Repository = require("./repository");
 const _ = require("lodash");
-const LogEvent = require("../models/logEventModel");
-const Log = require("../models/logModel");
-const ItemBase = require("../models/itemBase");
-module.exports = class LogRepository extends Repository {
-    /** TODO: add description
-     *
-     */
-    constructor(db = database.getLogDb()) {
-        super(db);
-    }
-
-    /** TODO: add description
-     *
-     */
-    getLogEvents(dateString) {
+const Log = require("./mongoModels/logEvent.model");
+module.exports = class LogRepository {
+    async getLogEvents(dateString) {
         let baseItem = this.getBaseItemFromDate(dateString);
         baseItem.logEvents = baseItem.logEvents || [];
         return baseItem.logEvents;
     }
 
-    /** TODO: add description
-     *
-     */
-    getLog(dateString, id) {
-        let baseItem = this.getBaseItemFromDate(dateString);
-        let logToturn = null;
-        for (const logEvent of baseItem.logEvents) {
-            logToturn = logEvent.logs.filter(log => log.id == id)[0];
-            if (logToturn) break;
-        }
-        if (!logToturn) throw new Error("404 ,the log was not found");
-        return logToturn;
-    }
-
-    getBaseItemFromDate(dateString) {
-        let date = null;
-        if (!dateString || dateString.toLowerCase() == "now") date = new Date();
-        if (!date) {
-            if (Number.isNaN(Date.parse(dateString)))
-                throw new Error("The date value is not valid please check the value first");
-            else date = new Date(Date.parse(dateString));
-        }
-        const dbFile = database.getLogDb(date);
-        return dbFile.getData("/");
-    }
-
-    /** TODO: add description
-     *
-     */
-    createLogModel(area, node, parentPath, index) {
+    createLogModel(area, node) {
         let newLog = {};
         newLog.path = `${parentPath}/logs[${index}]`;
         newLog.parent = parentPath;
@@ -65,37 +22,25 @@ module.exports = class LogRepository extends Repository {
         return newLog;
     }
 
-    /** TODO: add description
-     *
-     */
-    getLogsFromAreas(areas, parentPath) {
+    getLogsFromAreas(areas) {
         let logs = [];
-        let index = 0;
         areas.forEach(area => {
-            area.nodes.forEach(node => {
-                logs.push(this.createLogModel(area, node, parentPath, index));
-                index++;
+            (area.nodes || []).forEach(node => {
+                logs.push(this.createLogModel(area, node));
             });
         });
         return logs;
     }
 
-    /** TODO: add description
-     *
-     */
-    getLastLog() {
-        try {
-            return this.get("/logEvents[-1]");
-        } catch (error) {
-            if (error.message.startsWith("path")) return null;
-            throw error;
-        }
+    async getLastLog() {
+        const logs = await Log.find({})
+            .sort("-createdOn")
+            .limit(1)
+            .exec();
+        return logs[0] || null;
     }
 
-    /** TODO: add description
-     *
-     */
-    saveAreasLog(areas) {
+    async saveAreasLog(areas) {
         let baseItem = new ItemBase(this.get("/"));
         if (!baseItem.logEvents) {
             baseItem.logEvents = [];
@@ -113,10 +58,7 @@ module.exports = class LogRepository extends Repository {
         this.add(newLogEvent);
     }
 
-    /** TODO: add description
-     *
-     */
-    getLogsForCsvExport(dateString = null) {
+    async getLogsForCsvExport(dateString = null) {
         let logBase = dateString ? this.getBaseItemFromDate(dateString) : this.get("/");
         if (!logBase.logEvents) throw new Error("there is no log saved yet");
         return _.spread(_.union)(logBase.logEvents.map(item => item.logs));
