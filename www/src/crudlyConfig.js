@@ -1,5 +1,5 @@
 export default {
-    root: "http://localhost:4000/api/v1",
+    root: "http://localhost:3000/api/v1",
     defaultActions: [
         { type: "get", name: "get", url: "/:id" },
         { type: "get", name: "getAll" },

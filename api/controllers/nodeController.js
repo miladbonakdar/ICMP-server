@@ -23,25 +23,22 @@ module.exports = {
 
     [nodeStatics.update.name]: checkAsync(async (req, res) => {
         let node = req.nodeRepository.updateNode(req.body);
+        if (!node) response.notFound(res);
         response.success(res, node, "node updated successfuly");
     }),
 
     [nodeStatics.delete.name]: checkAsync(async (req, res) => {
-        if (!req.params.id) response.badRequest(res, "id");
-        if (!req.params.areaId) response.badRequest(res, "areaId");
         req.nodeRepository.deleteNode(req.params.areaId, req.params.id);
         response.success(res, {}, "node deleted successfuly");
     }),
 
     [nodeStatics.get.name]: checkAsync(async (req, res) => {
-        if (!req.params.id) response.badRequest(res, "id");
-        if (!req.params.areaId) response.badRequest(res, "areaId");
         let node = req.nodeRepository.getNodeById(req.params.areaId, req.params.id);
         response.success(res, node);
     }),
 
+    //http://localhost:3000/api/v1/node/export/csv
     [nodeStatics.exportCsv.name]: checkAsync(async (req, res) => {
-        //http://localhost:3000/api/v1/node/export/csv
         const nodes = req.nodeRepository.getNodes();
         if (nodes.length == 0) response.notFound(res);
         if (req.params.type.toLowerCase() == "csv") {

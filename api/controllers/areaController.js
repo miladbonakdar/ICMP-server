@@ -26,13 +26,11 @@ module.exports = {
     }),
 
     [areaStatics.delete.name]: checkAsync(async (req, res) => {
-        if (!req.params.id) response.badRequest(res, "id");
         await req.areaRepository.deleteArea(req.params.id);
         response.success(res, {}, "area deleted successfuly");
     }),
 
     [areaStatics.get.name]: checkAsync(async (req, res) => {
-        if (!req.params.id) response.badRequest(res, "id");
         let area = await req.areaRepository.getAreaById(req.params.id);
         response.success(res, area);
     })

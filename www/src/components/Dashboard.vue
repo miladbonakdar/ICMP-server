@@ -70,10 +70,10 @@
         </b-button>
       </div>
       <div class="col" style="    display: flex;
-    flex-direction: row-reverse;">
+    flex-direction: row-reverse;padding-right:10px">
         <b-button @click="exportCsv()" style="color:white;" size="sm">
           Export csv
-          <span class="oi oi-data-transfer-download"></span>
+          <span class="oi oi-data-transfer-download plus-icon"></span>
         </b-button>
       </div>
     </div>

@@ -24,6 +24,7 @@ module.exports = class NodeRepository {
         for (let n of area.nodes)
             if (n.id == node.id) {
                 n = node;
+                n.updatedOn = new Date();
                 break;
             }
         await area.save();

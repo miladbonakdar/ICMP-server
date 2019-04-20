@@ -1,8 +1,5 @@
 const validator = require("../utils/dataValidator");
 module.exports = class Response {
-    /** TODO: add description
-     *  FIXME: unitTest
-     */
     constructor(params = null) {
         this.data = validator(params, "data") || {};
         this.success = validator(params, "success") || false;

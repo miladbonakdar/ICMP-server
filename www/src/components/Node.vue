@@ -8,15 +8,10 @@
         :disabled="editMode"
           id="areaSelect"
           type="text"
-          v-model="form.parent"
+          v-model="form.areaId"
           :options="areaOptions || []"
           required
-          placeholder="Enter Username"
         >
-          <template slot="first">
-            <!-- this slot appears above the options from 'options' prop -->
-            <option :value="null" disabled>-- Please select an area --</option>
-          </template>
         </b-form-select>
       </b-form-group>
       <b-form-group id="nodeNameInputGroup" label="Node Name:" label-for="nodeNameInput">

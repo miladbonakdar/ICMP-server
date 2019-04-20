@@ -17,9 +17,9 @@ module.exports = class AreaRepository {
     }
 
     async updateArea(requestBody) {
-        let area = new Area(requestBody);
-        await newArea.save();
-        return newArea;
+        requestBody.updatedOn = new Date();
+        await Area.update({_id  : requestBody.id}, {$set: requestBody}).exec();
+        return requestBody;
     }
 
     async deleteArea(id) {
