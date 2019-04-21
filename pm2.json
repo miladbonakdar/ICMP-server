@@ -1,11 +1,27 @@
+
 {
-    "name": "ICMP-server",
-    "script": "server.js",
-    "instances": "3",
-    "env": {
-        "NODE_ENV": "development"
-    },
-    "env_production": {
-        "NODE_ENV": "production"
-    }
-}
+    "apps": [
+      {
+        "name": "icmp-server-api",
+        "script": "server.js",
+        "instances": "3",
+        "env": {
+            "NODE_ENV": "development"
+        },
+        "env_production": {
+            "NODE_ENV": "production"
+        }
+      },
+      {
+        "name": "icmp-server-cron",
+        "script": "./cron/index.js",
+        "instances": "1",
+        "env": {
+            "NODE_ENV": "development"
+        },
+        "env_production": {
+            "NODE_ENV": "production"
+        }
+      }
+    ]
+  }

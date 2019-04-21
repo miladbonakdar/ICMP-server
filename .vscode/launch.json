@@ -7,7 +7,17 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "remote debugProgram",
+            "program": "${workspaceFolder}\\server.js",
+            "port": 9229,
+            "address": "localhost",
+            "remoteRoot": "/",
+            "protocol": "inspector"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "local debug",
             "program": "${workspaceFolder}\\server.js"
         }
     ]

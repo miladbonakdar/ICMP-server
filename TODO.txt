@@ -1,0 +1,33 @@
+1- change database to mongo
+    use mongoose -***
+    change repositories -***
+    change models -***
+
+2- authontication
+    use passwort jwt
+    users table
+    users auth check in front
+    users auth fill in front (barere token)
+    login page
+    create admin user
+    create monitor user
+
+3- change nodes to table
+    sortable table https://bootstrap-vue.js.org/docs/components/table/ -***
+    change table fields (i have images) -***
+
+4- fixes
+    host name => ip address
+    smaller font size in dashboard
+    show user name in header
+    secret data from enviroment variables
+
+5- socket.io (unnececery)
+    for realtime changes
+    dashboard
+    logs
+
+6 -removes
+    cuid
+    jsondb
+    

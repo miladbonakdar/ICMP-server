@@ -1,22 +1,21 @@
 <template>
   <div role="tablist">
-    <h2>Dashboard</h2>
+    <h2 class="text-bold">Dashboard</h2>
     <hr>
     <b-container id="generalInfo">
       <b-row>
         <b-col>
-          <h5>Last update: {{ [2007, 0, 29] | moment("from") }}</h5>
+          <h5>Last update: {{ lastUpdate | moment("from") }}</h5>
         </b-col>
-        <b-col>
-          <h5>Next update: {{ [2027, 0, 29] | moment("from") }}</h5>
-        </b-col>
-        <b-col>
-          <b-row>
-            <b-row id="ping-now" @click="getPing"
-                            v-b-tooltip.hover title="Ping Now" >
-              <h5>Ping Now</h5>
-              <img class="icon" src="../assets/refresh.svg">
-            </b-row>
+        <!-- <b-col>
+          <h5 style="text-align: center;">Next update: {{ nextUpdate | moment("from") }}</h5>
+        </b-col>-->
+        <b-col style="padding-right:0px">
+          <b-row id="ping-now">
+            <b-button @click="getPing" size="sm" v-b-tooltip.hover title="Ping Now">
+              Ping now
+              <span class="oi oi-reload plus-icon"></span>
+            </b-button>
           </b-row>
         </b-col>
       </b-row>
@@ -28,8 +27,8 @@
       :key="area.id"
     >
       <b-card-header header-tag="header" class="p-1 card-header" role="tab">
-        <div class="container-fluid">
-          <area-detail :area="area" v-b-toggle="'accordion' + area.id"></area-detail>
+        <div class="container-fluid" style="padding-right:0px;">
+          <area-detail style="padding-right:0px;" :area="area" v-b-toggle="'accordion' + area.id"></area-detail>
         </div>
       </b-card-header>
 
@@ -40,39 +39,44 @@
         role="tabpanel"
       >
         <b-card-body>
-          <b-card
-            no-body
-            class="mb-1 node-custom-card border-danger"
-            v-for="(node, nodeIndex) in area.nodes"
-            :key="node.id"
-          >
-            <b-card-header header-tag="header" class="p-1 card-header" role="tab">
-              <div class="container-fluid" v-b-toggle="'node-accordion' + node.id">
-                <node-header :area="area" :node="node" :index="nodeIndex"></node-header>
-              </div>
-            </b-card-header>
-            <b-collapse
-              v-model="areas[index].nodes[nodeIndex].isExpand"
-              :id="'node-accordion' + node.id"
-              accordion="my-node-accordion"
-              role="tabpanel"
-            >
-              <b-card-body>
-                <node-detail :node="node"></node-detail>
-              </b-card-body>
-            </b-collapse>
-          </b-card>
-          <b-button @click="goToNodePage()" style="color: white;" variant="warning">
+          <b-table striped hover :items="area.nodes" :fields="fields">
+            <template slot="alive" slot-scope="row">
+              <p class="col node-status">
+                <b-badge
+                  pill
+                  class="node-status status-badge"
+                  :variant="nodeStatusVariant(row)"
+                >{{nodeStatus(row)}}</b-badge>
+              </p>
+            </template>
+            <template slot="actions" slot-scope="row">
+              <node-header :area="area" :node="row.item"></node-header>
+            </template>
+            <template slot="createdOn" slot-scope="row">{{row.value | moment("DD MMMM YYYY")}}
+            </template>
+          </b-table>
+          <b-button @click="goToNodePage(area.id)" style="color: white;" variant="warning" size="sm">
             New Node
             <span class="oi oi-plus plus-icon"></span>
           </b-button>
         </b-card-body>
       </b-collapse>
     </b-card>
-    <b-button @click="goToAreaPage()" variant="success">
-      New Area
-      <span class="oi oi-plus plus-icon"></span>
-    </b-button>
+    <div class="row">
+      <div class="col">
+        <b-button @click="goToAreaPage()" variant="success" size="sm">
+          New Area
+          <span class="oi oi-plus plus-icon"></span>
+        </b-button>
+      </div>
+      <div class="col" style="    display: flex;
+    flex-direction: row-reverse;padding-right:10px">
+        <b-button @click="exportCsv()" style="color:white;" size="sm">
+          Export csv
+          <span class="oi oi-data-transfer-download plus-icon"></span>
+        </b-button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -90,14 +94,48 @@ export default {
   },
   data() {
     return {
-      lastUpdate: "08:50",
-      nextUpdate: "15:55",
+      lastUpdate: null,
+      nextUpdate: null,
       nodesCollapseState: [],
-      areasCollapseState: []
+      areasCollapseState: [],
+      fields: [
+        {
+          key: "name",
+          label: "Name",
+          sortable: true
+        },
+        {
+          key: "alive",
+          label: "Status",
+          sortable: true
+        },
+        { key: "hostName", label: "ip", sortable: true },
+        {
+          key: "number",
+          label: "Number",
+          sortable: true
+        },
+        {
+          key: "deviceType",
+          label: "Device Type",
+          sortable: true
+        },
+        {
+          key: "deviceModel",
+          label: "Device Model",
+          sortable: true
+        },
+        {
+          key: "createdOn",
+          label: "Created On",
+          sortable: true
+        },
+        { key: "actions", label: "Actions", class: "text-center" }
+      ]
     };
   },
   computed: {
-    areas(){
+    areas() {
       return this.$store.state.areas.areas;
     }
   },
@@ -109,8 +147,8 @@ export default {
     goToAreaPage() {
       this.$router.push({ name: routsName.AREA, params: { id: "new" } });
     },
-    goToNodePage() {
-      this.$router.push({ name: routsName.NODE, params: { id: "new" } });
+    goToNodePage(areaId) {
+      this.$router.push({ name: routsName.NODE, params: { id: "new", areaId: areaId } });
     },
     getNodesCollapseState() {
       let collapseState = [];
@@ -129,10 +167,56 @@ export default {
       }
       return collapseState;
     },
-    getPing(){
-      this.$gate.public.ping().then(res =>{
-        console.log(res);
+    getPing() {
+      this.$gate.public.ping().then(res => {
+        this.updateDashboard();
       });
+    },
+    updateDashboard() {
+      this.$gate.area
+        .getAll()
+        .then(res => {
+          this.setArea(res.data.data);
+          this.areasCollapseState = this.getAreasCollapseState();
+          this.nodesCollapseState = this.getNodesCollapseState();
+        })
+        .catch(error => {});
+      this.$gate.public.getTimes().then(res => {
+        console.log(res);
+        this.lastUpdate = new Date(res.data.data.lastExecute);
+        this.nextUpdate = new Date(res.data.data.nextExecute);
+      });
+    },
+    exportCsv() {
+      this.$gate.node
+        .export("csv")
+        .then(res => {
+          console.log(res.data);
+
+          let csv = res.data;
+          if (csv == null) return;
+          let filename = "export.csv";
+          if (!csv.match(/^data:text\/csv/i)) {
+            csv = "data:text/csv;charset=utf-8," + csv;
+          }
+          let data = encodeURI(csv);
+
+          let link = document.createElement("a");
+          link.setAttribute("href", data);
+          link.setAttribute("download", filename);
+          link.click();
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    nodeStatus(node) {
+      if (node.value) return "Up";
+      else return "Down";
+    },
+    nodeStatusVariant(node) {
+      if (node.value) return "success";
+      else return "danger";
     }
   },
   components: {
@@ -141,18 +225,10 @@ export default {
     NodeDetail
   },
   created: function() {
-    this.$gate.area
-      .getAll()
-      .then(res => {
-        console.log(res);
-        this.setArea(res.data.data);
-        this.areasCollapseState = this.getAreasCollapseState();
-        this.nodesCollapseState = this.getNodesCollapseState();
-      })
-      .catch(error => {});
+    this.updateDashboard();
   },
   watch: {
-    areas(newValue, oldValue){
+    areas(newValue, oldValue) {
       this.$forceUpdate();
       this.nodesCollapseState = this.getNodesCollapseState();
       this.areasCollapseState = this.getAreasCollapseState();
@@ -174,6 +250,8 @@ h2 {
 #ping-now {
   margin: 0 auto;
   cursor: pointer;
+  justify-content: flex-end;
+  margin-right: 0px;
 }
 
 .plus-icon {
@@ -196,6 +274,7 @@ h2 {
 
 .node-custom-card {
   border-width: 0 0 0 5px;
+  margin-bottom: 20px !important;
 }
 
 .card-header {
@@ -205,6 +284,17 @@ h2 {
 
 .card-header:hover {
   background-color: #f6f6f6;
+}
+
+.text-bold {
+  font-weight: 600;
+}
+
+.node-status {
+  font-weight: bold;
+  margin-top: 7px;
+  margin-bottom: 0;
+  font-size: medium;
 }
 
 #generalInfo h5 {

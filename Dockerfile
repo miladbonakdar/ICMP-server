@@ -6,10 +6,10 @@ RUN npm install --production
 
 COPY pm2.json .
 
-EXPOSE 3000
+WORKDIR /
+
+EXPOSE 3000 8080 9229
 
 VOLUME [ "/database", "/public" ]
 
 COPY . .
-
-CMD [ "pm2-runtime", "start", "pm2.json" ]

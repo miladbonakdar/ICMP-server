@@ -3,6 +3,7 @@ import Dashboard from "./components/Dashboard.vue";
 import Setting from "./components/Setting.vue";
 import Area from "./components/Area.vue";
 import Node from "./components/Node.vue";
+import Log from "./components/Log.vue";
 import routsName from "./routsName";
 
 export const routes = [
@@ -22,17 +23,23 @@ export const routes = [
         component: Setting
     },
     {
-        path: "/area/:id",
+        path: "/logs",
+        name: routsName.LOG,
+        component: Log
+    },
+    {
+        path: "/areaaaa/:id",
         name: routsName.AREA,
         component: Area
     },
     {
         path: "/node/:id",
         name: routsName.NODE,
-        component: Node
+        component: Node,
+        props:true
     },
     {
         path: "*",
-        redirect: {name: routsName.DASHBOARD}
+        redirect: { name: routsName.DASHBOARD }
     }
 ];

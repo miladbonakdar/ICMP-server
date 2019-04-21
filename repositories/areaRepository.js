@@ -1,103 +1,34 @@
-const database = require("./db");
-const Repository = require("./repository");
-const ItemBase = require("../models/itemBase");
-const AreaModel = require("../models/areaModel");
-module.exports = class AreaRepository extends Repository {
-    /** TODO: add description
-     *
-     */
-    constructor(db = database.getMainDb()) {
-        super(db);
+const Area = require("./mongoModels/area.model");
+module.exports = class AreaRepository {
+    async getAll() {
+        return (await Area.find()) || [];
     }
 
-    /** TODO: add description
-     *
-     */
-    getAreas() {
-        let areas = this.redis.get(this.redis.statics.getAreasObjectKey);
-        if (areas) return areas;
-        let baseItem = this.get("/");
-        baseItem.areas = baseItem.areas || [];
-        this.updateRedis(baseItem.areas, this.redis.statics.getAreasObjectKey);
-        return baseItem.areas;
-    }
-
-    /** TODO: add description
-     *
-     */
-    getConvertedAreas() {
-        return this.get("/").areas || [];
-    }
-
-    /** TODO: add description
-     *
-     */
-    saveAreas(areas) {
-        let base = new ItemBase({ areas: areas });
-        this.add(base, areas => {
-            if (!areas.path) return false;
-            return true;
-        });
-        this.updateRedis(areas, this.redis.statics.getAreasObjectKey);
-    }
-
-    /** TODO: add description
-     *
-     */
-    addArea(requestBody) {
-        let baseItem = new ItemBase(this.get("/"));
-        if (!baseItem.areas) {
-            baseItem.areas = [];
-            this.add(baseItem);
+    async updateAreas(areas) {
+        for (const area of areas) {
+            await area.save();
         }
-        requestBody.path = `/areas[${baseItem.areas.length}]`;
-        let newArea = new AreaModel(requestBody);
-        newArea.parent = "/";
-        this.add(newArea);
+    }
+
+    async create(requestBody) {
+        let newArea = new Area(requestBody);
+        await newArea.save();
         return newArea;
     }
 
-    /** TODO: add description
-     *
-     */
-    updateArea(requestBody) {
-        try {
-            let newArea = new AreaModel(requestBody);
-            this.get(newArea.path); //just to check if it is valid
-            this.add(newArea);
-            return newArea;
-        } catch (error) {
-            throw error;
-        }
+    async update(requestBody) {
+        requestBody.updatedOn = new Date();
+        await Area.update({_id  : requestBody.id}, {$set: requestBody}).exec();
+        return requestBody;
     }
 
-    /** TODO: add description
-     *
-     */
-    deleteArea(id) {
-        let baseItem = this.get("/");
-        let areaToDelete = baseItem.areas.filter(area => area.id == id)[0];
-        if (!areaToDelete) throw new Error("404 ,the area is not valid to delete");
-        this.db.delete(areaToDelete.path);
-        return;
+    async delete(id) {
+        const area = await Area.findById(id);
+        return await area.remove();
     }
 
-    /** TODO: add description
-     *
-     */
-    getAreaById(id) {
-        let baseItem = this.get("/");
-        let area = baseItem.areas.filter(area => area.id == id)[0];
-        if (!area) throw new Error("404 ,the area was not found");
+    async getById(id) {
+        const area = await Area.findById(id);
         return area;
-    }
-
-    /** TODO: add description
-     *
-     */
-    getAreaByIndex(index) {
-        let baseItem = this.get("/");
-        if (!baseItem.areas[index]) throw new Error("404 ,the area was not found");
-        return baseItem.areas[index];
     }
 };

@@ -1,35 +1,27 @@
 const settingStatics = require("../statics/setting_statics");
 const SettingRepository = require("../../repositories/settingRepository");
 const response = require("../utils/response");
-const check = require("../utils/checkApifunctions").check;
+const checkAsync = require("../utils/checkApifunctions").checkAsync;
 
 module.exports = {
     controllerName: "setting",
+    inject: (req, res, next) => {
+        req.nodeRepository = new SettingRepository();
+        next();
+    },
 
-    /** TODO: add description
-     *
-     */
-    [settingStatics.update.name]: check((req, res) => {
-        const settingRepo = new SettingRepository();
-        let setting = settingRepo.setSetting(req.body);
+    [settingStatics.update.name]: checkAsync(async (req, res) => {
+        let setting = await req.settingRepository.setSetting(req.body);
         response.success(res, setting, "setting updated successfuly");
     }),
 
-    /** TODO: add description
-     *
-     */
-    [settingStatics.delete.name]: check((req, res) => {
-        const settingRepo = new SettingRepository();
-        let setting = settingRepo.setDefault();
+    [settingStatics.delete.name]: checkAsync(async (req, res) => {
+        let setting = await req.settingRepository.setDefault();
         response.success(res, setting);
     }),
 
-    /** TODO: add description
-     *
-     */
-    [settingStatics.get.name]: check((req, res) => {
-        const settingRepo = new SettingRepository();
-        let setting = settingRepo.getSetting();
+    [settingStatics.get.name]: checkAsync(async (req, res) => {
+        let setting = await req.settingRepository.getSetting();
         response.success(res, setting);
     })
 };

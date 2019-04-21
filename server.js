@@ -1,32 +1,28 @@
 require("./setGlobalVariables");
 require("./utils/foldersInitialiser");
-require("./utils/classExtentions")();
+require("./utils/classExtentions")(); //aply extentions
 const express = require("express");
+const passport = require("./passport");
 const api = require("./api");
-const cronJobTaskRunner = require("./cron");
-const settingRepository = new (require("./repositories/settingRepository"))();
-const redisServer = require("./repositories/redis");
-const path = require("path");
+const SettingRepository = require("./repositories/settingRepository");
 const cors = require("cors");
-const app = express();
+const loginEnabled = require("./app.config").get().loginEnabled;
+require("./repositories/db/index")(async () => {
+    const app = express();
 
-app.use(cors());
-// for socket
-const http = require("http").Server(app);
-const io = require("socket.io")(http);
-const socket = require("./socket");
+    app.use(cors());
+    // for socket
+    const http = require("http").Server(app);
+    // const io = require("socket.io")(http);
+    // const socket = require("./socket");
 
-// manage setting for the first time
-let setting = settingRepository.getSetting();
-if (!setting) setting = settingRepository.setSetting();
-
-// set express static files
-app.use(express.static(path.join(__dirname, "public")));
-// start api
-api(app);
-// start socket liseners
-socket(io);
-// start cron jobs
-cronJobTaskRunner.start();
-// start redis client if avalable and the setting is valid
-if (setting.isRedisEnabled) redisServer.startRedisClient();
+    // manage setting for the first time
+    const settingRepository = new SettingRepository();
+    await settingRepository.getSetting();
+    if (loginEnabled) passport();
+    // app.use(express.static(path.join(__dirname, "public")));
+    // start api
+    api(app);
+    // // start socket liseners
+    // socket(io);
+}); //configuration for mongoose
