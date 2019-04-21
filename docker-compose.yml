@@ -3,16 +3,13 @@ version: "2.1"
 services:
     icmp-server:
         image: icmp-server
-        build: .
+        build: ./server
         environment:
             NODE_ENV: production
         ports:
             - 3000:3000
             - 8080:8080
         command: pm2-runtime start pm2.json --env production
-        volumes:
-            - "./database:/database"
-            - "./public:/public"
         networks:
             - mongo_net
             - server_net

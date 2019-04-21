@@ -3,7 +3,7 @@ version: "2.1"
 services:
     icmp-server:
         image: icmp-server
-        build: .
+        build: ./server
         environment:
             NODE_ENV: development
         ports:
@@ -11,9 +11,6 @@ services:
             - 8080:8080
             - 9229:9229 # in dev
         command: node --inspect=0.0.0.0:9229 server.js # in dev
-        volumes:
-            - "./database:/database"
-            - "./public:/public"
         networks:
             - mongo_net
             - server_net
