@@ -2,8 +2,9 @@ const nodeController = require("../controllers/nodeController");
 const baseUrl = require("../utils/baseRoutController");
 const nodeStatics = require("../statics/node_statics");
 const middlewareValidator = require("../utils/middlewareValidator");
+const passportAuthonticator = require("../utils/passportAuthonticator");
 
-const defaultMiddlewares = [nodeController.inject];
+const defaultMiddlewares = middlewareValidator(passportAuthonticator, nodeController.inject);
 
 module.exports = router => {
     router

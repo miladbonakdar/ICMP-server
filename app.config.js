@@ -1,10 +1,12 @@
 const config = {
     apiPortNumber: 3000,
     databaseName: "icmpDb",
-    mongoUser: "root",
-    mongoPass: "root",
-    mongoServer: "localhost",
-    mongoPort: "27017"
+    loginEnabled: false,
+    mongoUser: "root", //to the env
+    mongoPass: "root", //to the env
+    mongoServer: "localhost", //to the env
+    mongoPort: "27017", //to the env
+    jwt_secret: "thisisasecrettextforicmpprojectauth" //to the env
 };
 
 module.exports = {

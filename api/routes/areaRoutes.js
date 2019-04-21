@@ -2,8 +2,9 @@ const areaController = require("../controllers/areaController");
 const baseUrl = require("../utils/baseRoutController");
 const areaStatics = require("../statics/area_statics");
 const middlewareValidator = require("../utils/middlewareValidator");
+const passportAuthonticator = require("../utils/passportAuthonticator");
 
-const defaultMiddlewares = [areaController.inject];
+const defaultMiddlewares = middlewareValidator(passportAuthonticator, areaController.inject);
 
 module.exports = router => {
     router

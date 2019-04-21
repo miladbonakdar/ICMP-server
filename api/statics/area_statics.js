@@ -10,7 +10,7 @@ module.exports = {
         method: "put",
         validate: (req, res, next) => {
             let valid = true;
-            if (!req.params.id) {
+            if (!req.body.id) {
                 response.badRequest(res, "id");
                 valid = false;
             }

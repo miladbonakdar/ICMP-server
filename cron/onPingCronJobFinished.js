@@ -21,9 +21,9 @@ const pingAreas = async areas => {
 };
 
 const pingHosts = async () => {
-    let areas = await areaRepository.getAreas();
+    let areas = await areaRepository.getAll();
     await pingAreas(areas);
-    areaRepository.saveAreas(areas);
+    areaRepository.updateAreas(areas);
     logRepository.saveAreasLog(areas);
     console.log("ping nodes finished");
 };

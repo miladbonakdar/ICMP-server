@@ -1,6 +1,6 @@
 1- change database to mongo
     use mongoose -***
-    change repositories
+    change repositories -***
     change models -***
 
 2- authontication
@@ -20,6 +20,7 @@
     host name => ip address
     smaller font size in dashboard
     show user name in header
+    secret data from enviroment variables
 
 5- socket.io (unnececery)
     for realtime changes

@@ -1,5 +1,10 @@
+const response = require("../utils/response");
+
 module.exports = {
-    create: { name: "create", method: "post" },
+    create: {
+        name: "create",
+        method: "post"
+    },
     update: {
         name: "update",
         method: "put",
@@ -7,10 +12,6 @@ module.exports = {
             let valid = true;
             if (!req.body.id) {
                 response.badRequest(res, "id");
-                valid = false;
-            }
-            if (!req.body.areaId) {
-                response.badRequest(res, "areaId");
                 valid = false;
             }
             if (valid) next();
@@ -25,10 +26,6 @@ module.exports = {
                 response.badRequest(res, "id");
                 valid = false;
             }
-            if (!req.params.areaId) {
-                response.badRequest(res, "areaId");
-                valid = false;
-            }
             if (valid) next();
         }
     },
@@ -41,13 +38,24 @@ module.exports = {
                 response.badRequest(res, "id");
                 valid = false;
             }
-            if (!req.params.areaId) {
-                response.badRequest(res, "areaId");
-                valid = false;
-            }
             if (valid) next();
         }
     },
     getAll: { name: "getAll", method: "get" },
-    exportCsv: { name: "export", method: "get" }
+    login: {
+        name: "login",
+        method: "post",
+        validate: (req, res, next) => {
+            let valid = true;
+            if (!req.body.username) {
+                response.badRequest(res, "username");
+                valid = false;
+            }
+            if (!req.body.password) {
+                response.badRequest(res, "password");
+                valid = false;
+            }
+            if (valid) next();
+        }
+    }
 };

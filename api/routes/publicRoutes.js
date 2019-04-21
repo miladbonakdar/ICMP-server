@@ -2,8 +2,9 @@ const publicController = require("../controllers/publicController");
 const baseUrl = require("../utils/baseRoutController");
 const publicStatics = require("../statics/public_statics");
 const middlewareValidator = require("../utils/middlewareValidator");
+const passportAuthonticator = require("../utils/passportAuthonticator");
 
-const defaultMiddlewares = [];
+const defaultMiddlewares = middlewareValidator(passportAuthonticator);
 
 module.exports = router => {
     router
