@@ -8,6 +8,9 @@ const settingRepo = require('../../repositories/settingRepository');
 
 module.exports = {
     controllerName: 'public',
+    inject: (req, res, next) => {
+        next();
+    },
 
     [publicStatics.getExecutationTimes.name]: checkAsync(async (req, res) => {
         const lastLog = await new logRepository().getLastLog();

@@ -8,11 +8,20 @@ services:
             NODE_ENV: development
         ports:
             - 3000:3000
-            - 8080:8080
             - 9229:9229 # in dev
         command: node --inspect=0.0.0.0:9229 server.js # in dev
         networks:
             - mongo_net
+            - server_net
+
+    icmp-ui:
+        image: icmp-ui
+        build: ./www
+        environment:
+            NODE_ENV: development
+        ports:
+            - 8080:8080
+        networks:
             - server_net
 
     mongo:

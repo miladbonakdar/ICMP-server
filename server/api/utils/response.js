@@ -29,6 +29,10 @@ response.notFound = function(res) {
     response.echo(res, 'not found', {}, false, 404);
 };
 
+response.accessDenied = function(res) {
+    response.echo(res, 'access denied', {}, false, 403);
+};
+
 response.badRequest = function(res, invalidParam = '') {
     response.echo(res, 'bad request \'' + invalidParam + '\'', {}, false, 400);
 };

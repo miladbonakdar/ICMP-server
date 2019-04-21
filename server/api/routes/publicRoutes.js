@@ -4,7 +4,7 @@ const publicStatics = require('../statics/public_statics');
 const middlewareValidator = require('../utils/middlewareValidator');
 const passportAuthonticator = require('../utils/passportAuthonticator');
 
-const defaultMiddlewares = middlewareValidator(passportAuthonticator);
+const defaultMiddlewares = middlewareValidator(passportAuthonticator, publicController.inject);
 
 module.exports = router => {
     router
