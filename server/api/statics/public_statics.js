@@ -1,24 +1,14 @@
 module.exports = {
     getSiteInfo: {
         name: 'getSiteInfo',
-        method: 'get',
-        validate: (req, res, next) => {
-            next();
-        }
+        method: 'get'
     },
     getExecutationTimes: {
         name: 'getExecutationTimes',
-        method: 'get',
-        validate: (req, res, next) => {
-            next();
-        }
+        method: 'get'
     },
     pingNodes: {
         name: 'pingNodes',
-        access: 'allAdmin',
-        method: 'post',
-        validate: (req, res, next) => {
-            next();
-        }
+        method: 'post'
     }
 };

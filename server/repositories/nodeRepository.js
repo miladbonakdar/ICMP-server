@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const Area = require('./mongoModels/area.model');
-const Node = require('./mongoModels/nestedModels/nodeSchema');
+const Node = require('./mongoModels/node.model');
 module.exports = class NodeRepository {
     async getNodes() {
         const areas = await Area.find();

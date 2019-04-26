@@ -55,7 +55,7 @@ export default {
     },
     handleOk(evt) {
       this.$gate.node
-        .delete(this.node.id)
+        .delete(this.area.id, this.node.id)
         .then(res => {
           console.log(res);
           let payload = { areaId: this.area.id, nodeId: this.node.id };

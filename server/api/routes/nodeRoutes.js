@@ -4,48 +4,66 @@ const nodeStatics = require('../statics/node_statics');
 const middlewareValidator = require('../utils/middlewareValidator');
 const passportAuthonticator = require('../utils/passportAuthonticator');
 
-const defaultMiddlewares = middlewareValidator(passportAuthonticator, nodeController.inject);
+const defaultMiddlewares = [passportAuthonticator, nodeController.inject];
 
 module.exports = router => {
     router
         .route(baseUrl(nodeController.controllerName))
         [nodeStatics.getAll.method](
-            ...defaultMiddlewares,
-            ...middlewareValidator(nodeStatics.getAll.validate, nodeController[nodeStatics.getAll.name])
+            ...middlewareValidator(
+                ...defaultMiddlewares,
+                nodeStatics.getAll.validate,
+                nodeController[nodeStatics.getAll.name]
+            )
         );
 
     router
         .route(baseUrl(nodeController.controllerName))
         [nodeStatics.create.method](
-            ...defaultMiddlewares,
-            ...middlewareValidator(nodeStatics.create.validate, nodeController[nodeStatics.create.name])
+            ...middlewareValidator(
+                ...defaultMiddlewares,
+                nodeStatics.create.validate,
+                nodeController[nodeStatics.create.name]
+            )
         );
 
     router
         .route(baseUrl(nodeController.controllerName))
         [nodeStatics.update.method](
-            ...defaultMiddlewares,
-            ...middlewareValidator(nodeStatics.update.validate, nodeController[nodeStatics.update.name])
+            ...middlewareValidator(
+                ...defaultMiddlewares,
+                nodeStatics.update.validate,
+                nodeController[nodeStatics.update.name]
+            )
         );
 
     router
-        .route(baseUrl(nodeController.controllerName, undefined, 'id'))
+        .route(baseUrl(nodeController.controllerName, undefined, 'areaId/:id'))
         [nodeStatics.delete.method](
-            ...defaultMiddlewares,
-            ...middlewareValidator(nodeStatics.delete.validate, nodeController[nodeStatics.delete.name])
+            ...middlewareValidator(
+                ...defaultMiddlewares,
+                nodeStatics.delete.validate,
+                nodeController[nodeStatics.delete.name]
+            )
         );
 
     router
-        .route(baseUrl(nodeController.controllerName, undefined, 'id'))
+        .route(baseUrl(nodeController.controllerName, undefined, 'areaId/:id'))
         [nodeStatics.get.method](
-            ...defaultMiddlewares,
-            ...middlewareValidator(nodeStatics.get.validate, nodeController[nodeStatics.get.name])
+            ...middlewareValidator(
+                ...defaultMiddlewares,
+                nodeStatics.get.validate,
+                nodeController[nodeStatics.get.name]
+            )
         );
 
     router
         .route(baseUrl(nodeController.controllerName, nodeStatics.exportCsv.name, 'type'))
         [nodeStatics.exportCsv.method](
-            ...defaultMiddlewares,
-            ...middlewareValidator(nodeStatics.exportCsv.validate, nodeController[nodeStatics.exportCsv.name])
+            ...middlewareValidator(
+                ...defaultMiddlewares,
+                nodeStatics.exportCsv.validate,
+                nodeController[nodeStatics.exportCsv.name]
+            )
         );
 };

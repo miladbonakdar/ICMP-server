@@ -1,23 +1,16 @@
 const response = require('../utils/response');
+const accessChecker = require('../../utils/userAcessChecker');
 
 module.exports = {
     create: {
         name: 'create',
-        method: 'post',
-        validate: (req, res, next) => {
-            if (!accessChecker(req.user, 'sysAdmin')) response.accessDenied(res);
-            else next();
-        }
+        method: 'post'
     },
     update: {
         name: 'update',
         method: 'put',
         validate: (req, res, next) => {
             let valid = true;
-            if (!accessChecker(req.user, 'sysAdmin')) {
-                response.accessDenied(res);
-                valid = false;
-            }
             if (!req.body.id) {
                 response.badRequest(res, 'id');
                 valid = false;
@@ -42,10 +35,6 @@ module.exports = {
         method: 'delete',
         validate: (req, res, next) => {
             let valid = true;
-            if (!accessChecker(req.user, 'sysAdmin')) {
-                response.accessDenied(res);
-                valid = false;
-            }
             if (!req.params.id) {
                 response.badRequest(res, 'id');
                 valid = false;
@@ -55,11 +44,7 @@ module.exports = {
     },
     getAll: {
         name: 'getAll',
-        method: 'get',
-        validate: (req, res, next) => {
-            if (!accessChecker(req.user, 'allAdmin')) response.accessDenied(res);
-            else next();
-        }
+        method: 'get'
     },
     login: {
         name: 'login',

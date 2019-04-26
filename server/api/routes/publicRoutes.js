@@ -4,14 +4,14 @@ const publicStatics = require('../statics/public_statics');
 const middlewareValidator = require('../utils/middlewareValidator');
 const passportAuthonticator = require('../utils/passportAuthonticator');
 
-const defaultMiddlewares = middlewareValidator(passportAuthonticator, publicController.inject);
+const defaultMiddlewares = [passportAuthonticator, publicController.inject];
 
 module.exports = router => {
     router
         .route(baseUrl(publicController.controllerName, publicStatics.getExecutationTimes.name))
         [publicStatics.getExecutationTimes.method](
-            ...defaultMiddlewares,
             ...middlewareValidator(
+                ...defaultMiddlewares,
                 publicStatics.getExecutationTimes.validate,
                 publicController[publicStatics.getExecutationTimes.name]
             )
@@ -20,14 +20,20 @@ module.exports = router => {
     router
         .route(baseUrl(publicController.controllerName, publicStatics.getSiteInfo.name))
         [publicStatics.getSiteInfo.method](
-            ...defaultMiddlewares,
-            ...middlewareValidator(publicStatics.getSiteInfo.validate, publicController[publicStatics.getSiteInfo.name])
+            ...middlewareValidator(
+                ...defaultMiddlewares,
+                publicStatics.getSiteInfo.validate,
+                publicController[publicStatics.getSiteInfo.name]
+            )
         );
 
     router
         .route(baseUrl(publicController.controllerName, publicStatics.pingNodes.name))
         [publicStatics.pingNodes.method](
-            ...defaultMiddlewares,
-            ...middlewareValidator(publicStatics.pingNodes.validate, publicController[publicStatics.pingNodes.name])
+            ...middlewareValidator(
+                ...defaultMiddlewares,
+                publicStatics.pingNodes.validate,
+                publicController[publicStatics.pingNodes.name]
+            )
         );
 };

@@ -19,7 +19,6 @@ require('./repositories/db/index')(async () => {
     const settingRepository = new SettingRepository();
     await settingRepository.getSetting();
     if (loginEnabled) passport();
-    // app.use(express.static(path.join(__dirname, "public")));
     // start api
     api(app);
     // // start socket liseners

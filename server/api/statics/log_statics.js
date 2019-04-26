@@ -1,16 +1,10 @@
 module.exports = {
     get: {
         name: 'get',
-        method: 'get',
-        validate: (req, res, next) => {
-            next();
-        }
+        method: 'get'
     }, //get the current log file
     getCsvLog: {
         name: 'getCsvLog',
-        method: 'get',
-        validate: (req, res, next) => {
-            next();
-        }
+        method: 'get'
     } //get csv file log
 };

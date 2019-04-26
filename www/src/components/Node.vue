@@ -5,14 +5,13 @@
     <b-form @submit="onSubmit" v-if="show">
       <b-form-group id="areaSelectGroup" label="Select Area:" label-for="areaSelect">
         <b-form-select
-        :disabled="editMode"
+          :disabled="editMode"
           id="areaSelect"
           type="text"
           v-model="form.areaId"
           :options="areaOptions || []"
           required
-        >
-        </b-form-select>
+        ></b-form-select>
       </b-form-group>
       <b-form-group id="nodeNameInputGroup" label="Node Name:" label-for="nodeNameInput">
         <b-form-input
@@ -50,7 +49,7 @@ export default {
       area: null,
       editMode: false,
       form: {
-        parent: null,
+        areaId: null,
         name: null,
         hostName: null
       },
@@ -112,7 +111,7 @@ export default {
       for (let i = 0; i < this.area.length; i++) {
         options.push({
           text: this.area[i].name,
-          value: this.area[i].path
+          value: this.area[i].id
         });
       }
       return options;
@@ -127,25 +126,26 @@ export default {
   },
   created() {
     let id = this.$route.params.id;
+    this.form.areaId = this.areaId;
     if (id !== "new") {
       this.editMode = true;
       this.$gate.node
-        .get(id)
+        .get(this.areaId, id)
         .then(res => {
           console.log(res);
           this.form = res.data.data;
         })
         .catch(err => {});
     }
-    this.$gate.area.getAll().then(res =>{
+    this.$gate.area.getAll().then(res => {
       this.area = res.data.data;
-      if(this.areaId){
-      this.area.forEach(element => {
-            if(element.id === this.areaId){
-                this.form.parent = element.path;
-            }
+      if (this.areaId) {
+        this.area.forEach(element => {
+          if (element.id === this.areaId) {
+            this.form.parent = element.path;
+          }
         });
-    }
+      }
     });
   }
 };

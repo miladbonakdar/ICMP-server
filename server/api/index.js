@@ -19,8 +19,8 @@ const setupMiddlewares = app => {
 
 module.exports = app => {
     setupMiddlewares(app);
-    app.listen(appConfig.apiPortNumber, onServerStartedSuccessfuly);
     routes(app);
     app.use(defaultRoute);
     app.use(errorHandler);
+    app.listen(appConfig.apiPortNumber, onServerStartedSuccessfuly);
 };

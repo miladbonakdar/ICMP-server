@@ -169,6 +169,7 @@ export default {
     },
     getPing() {
       this.$gate.public.ping().then(res => {
+        console.log(res);
         this.updateDashboard();
       });
     },
