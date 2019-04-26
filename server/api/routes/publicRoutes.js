@@ -12,6 +12,7 @@ module.exports = router => {
         [publicStatics.getExecutationTimes.method](
             ...middlewareValidator(
                 ...defaultMiddlewares,
+                publicStatics.getExecutationTimes.access,
                 publicStatics.getExecutationTimes.validate,
                 publicController[publicStatics.getExecutationTimes.name]
             )
@@ -22,6 +23,7 @@ module.exports = router => {
         [publicStatics.getSiteInfo.method](
             ...middlewareValidator(
                 ...defaultMiddlewares,
+                publicStatics.getSiteInfo.access,
                 publicStatics.getSiteInfo.validate,
                 publicController[publicStatics.getSiteInfo.name]
             )
@@ -32,6 +34,7 @@ module.exports = router => {
         [publicStatics.pingNodes.method](
             ...middlewareValidator(
                 ...defaultMiddlewares,
+                publicStatics.pingNodes.access,
                 publicStatics.pingNodes.validate,
                 publicController[publicStatics.pingNodes.name]
             )

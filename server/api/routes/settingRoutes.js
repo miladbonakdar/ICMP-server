@@ -12,6 +12,7 @@ module.exports = router => {
         [settingStatics.update.method](
             ...middlewareValidator(
                 ...defaultMiddlewares,
+                settingStatics.update.access,
                 settingStatics.update.validate,
                 settingController[settingStatics.update.name]
             )
@@ -22,6 +23,7 @@ module.exports = router => {
         [settingStatics.delete.method](
             ...middlewareValidator(
                 ...defaultMiddlewares,
+                settingStatics.delete.access,
                 settingStatics.delete.validate,
                 settingController[settingStatics.delete.name]
             )
@@ -32,6 +34,7 @@ module.exports = router => {
         [settingStatics.get.method](
             ...middlewareValidator(
                 ...defaultMiddlewares,
+                settingStatics.get.access,
                 settingStatics.get.validate,
                 settingController[settingStatics.get.name]
             )

@@ -12,6 +12,7 @@ module.exports = router => {
         [areaStatics.getAll.method](
             ...middlewareValidator(
                 ...defaultMiddlewares,
+                areaStatics.getAll.access,
                 areaStatics.getAll.validate,
                 areaController[areaStatics.getAll.name]
             )
@@ -22,6 +23,7 @@ module.exports = router => {
         [areaStatics.create.method](
             ...middlewareValidator(
                 ...defaultMiddlewares,
+                areaStatics.create.access,
                 areaStatics.create.validate,
                 areaController[areaStatics.create.name]
             )
@@ -32,6 +34,7 @@ module.exports = router => {
         [areaStatics.update.method](
             ...middlewareValidator(
                 ...defaultMiddlewares,
+                areaStatics.update.access,
                 areaStatics.update.validate,
                 areaController[areaStatics.update.name]
             )
@@ -42,6 +45,7 @@ module.exports = router => {
         [areaStatics.delete.method](
             ...middlewareValidator(
                 ...defaultMiddlewares,
+                areaStatics.delete.access,
                 areaStatics.delete.validate,
                 areaController[areaStatics.delete.name]
             )
@@ -52,6 +56,7 @@ module.exports = router => {
         [areaStatics.get.method](
             ...middlewareValidator(
                 ...defaultMiddlewares,
+                areaStatics.get.access,
                 areaStatics.get.validate,
                 areaController[areaStatics.get.name]
             )

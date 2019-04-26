@@ -1,3 +1,6 @@
+const response = require('../utils/response');
+const { checker, types } = require('../../utils/userAcessChecker');
+
 module.exports = {
     getSiteInfo: {
         name: 'getSiteInfo',
@@ -9,6 +12,10 @@ module.exports = {
     },
     pingNodes: {
         name: 'pingNodes',
-        method: 'post'
+        method: 'post',
+        access: (req, res, next) => {
+            if (checker(req.user, types.ping)) next();
+            else response.accessDenied(res);
+        }
     }
 };

@@ -1,5 +1,5 @@
 const response = require('../utils/response');
-const accessChecker = require('../../utils/userAcessChecker');
+const { checker, types } = require('../../utils/userAcessChecker');
 
 module.exports = {
     create: {
@@ -9,6 +9,10 @@ module.exports = {
     update: {
         name: 'update',
         method: 'put',
+        access: (req, res, next) => {
+            if (checker(req.user, types.userPage, types.modifyUser)) next();
+            else response.accessDenied(res);
+        },
         validate: (req, res, next) => {
             let valid = true;
             if (!req.body.id) {
@@ -21,6 +25,10 @@ module.exports = {
     get: {
         name: 'get',
         method: 'get',
+        access: (req, res, next) => {
+            if (checker(req.user, types.userPage)) next();
+            else response.accessDenied(res);
+        },
         validate: (req, res, next) => {
             let valid = true;
             if (!req.params.id) {
@@ -33,6 +41,10 @@ module.exports = {
     delete: {
         name: 'delete',
         method: 'delete',
+        access: (req, res, next) => {
+            if (checker(req.user, types.userPage, types.modifyUser)) next();
+            else response.accessDenied(res);
+        },
         validate: (req, res, next) => {
             let valid = true;
             if (!req.params.id) {
@@ -44,11 +56,19 @@ module.exports = {
     },
     getAll: {
         name: 'getAll',
-        method: 'get'
+        method: 'get',
+        access: (req, res, next) => {
+            if (checker(req.user, types.userPage)) next();
+            else response.accessDenied(res);
+        }
     },
     login: {
         name: 'login',
         method: 'post',
+        access: (req, res, next) => {
+            if (checker(req.user, types.userPage, types.modifyUser)) next();
+            else response.accessDenied(res);
+        },
         validate: (req, res, next) => {
             let valid = true;
             if (!req.body.username) {

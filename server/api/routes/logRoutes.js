@@ -10,7 +10,12 @@ module.exports = router => {
     router
         .route(baseUrl(logController.controllerName, null))
         [logStatics.get.method](
-            ...middlewareValidator(...defaultMiddlewares, logStatics.get.validate, logController[logStatics.get.name])
+            ...middlewareValidator(
+                ...defaultMiddlewares,
+                logStatics.get.access,
+                logStatics.get.validate,
+                logController[logStatics.get.name]
+            )
         );
 
     router
@@ -18,6 +23,7 @@ module.exports = router => {
         [logStatics.getCsvLog.method](
             ...middlewareValidator(
                 ...defaultMiddlewares,
+                logStatics.getCsvLog.access,
                 logStatics.getCsvLog.validate,
                 logController[logStatics.getCsvLog.name]
             )

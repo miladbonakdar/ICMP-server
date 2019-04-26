@@ -12,6 +12,7 @@ module.exports = router => {
         [nodeStatics.getAll.method](
             ...middlewareValidator(
                 ...defaultMiddlewares,
+                nodeStatics.getAll.access,
                 nodeStatics.getAll.validate,
                 nodeController[nodeStatics.getAll.name]
             )
@@ -22,6 +23,7 @@ module.exports = router => {
         [nodeStatics.create.method](
             ...middlewareValidator(
                 ...defaultMiddlewares,
+                nodeStatics.create.access,
                 nodeStatics.create.validate,
                 nodeController[nodeStatics.create.name]
             )
@@ -32,6 +34,7 @@ module.exports = router => {
         [nodeStatics.update.method](
             ...middlewareValidator(
                 ...defaultMiddlewares,
+                nodeStatics.update.access,
                 nodeStatics.update.validate,
                 nodeController[nodeStatics.update.name]
             )
@@ -42,6 +45,7 @@ module.exports = router => {
         [nodeStatics.delete.method](
             ...middlewareValidator(
                 ...defaultMiddlewares,
+                nodeStatics.delete.access,
                 nodeStatics.delete.validate,
                 nodeController[nodeStatics.delete.name]
             )
@@ -52,6 +56,7 @@ module.exports = router => {
         [nodeStatics.get.method](
             ...middlewareValidator(
                 ...defaultMiddlewares,
+                nodeStatics.get.access,
                 nodeStatics.get.validate,
                 nodeController[nodeStatics.get.name]
             )
@@ -62,6 +67,7 @@ module.exports = router => {
         [nodeStatics.exportCsv.method](
             ...middlewareValidator(
                 ...defaultMiddlewares,
+                nodeStatics.exportCsv.access,
                 nodeStatics.exportCsv.validate,
                 nodeController[nodeStatics.exportCsv.name]
             )
