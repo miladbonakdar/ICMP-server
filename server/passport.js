@@ -22,6 +22,7 @@ module.exports = () => {
         if (!match) {
             return done(null, false, { message: 'Not a matching password' });
         }
+        delete user.password;
         return done(null, user);
     };
 
@@ -29,16 +30,17 @@ module.exports = () => {
         new LocalStrategy({
             usernameField: 'username',
             passwordField: 'password'
-        }),
-        localStrategyMiddleware
+        },
+        localStrategyMiddleware)
     );
 
     const JWTStrategyMiddleware = async function(jwtPayload, done) {
         try {
-            const user = await User.findById(jwtPayload.id);
+            const user = await User.findById(jwtPayload.id).select('-password');
             if (!user) {
                 return done(null, false, { message: 'cannot fine the user' });
             }
+            delete user.password;
             return done(null, user);
         } catch (error) {
             return done(error);
@@ -49,7 +51,7 @@ module.exports = () => {
         new JWTStrategy({
             jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
             secretOrKey: jwt_secret
-        }),
-        JWTStrategyMiddleware
+        },
+        JWTStrategyMiddleware)
     );
 };

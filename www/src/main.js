@@ -69,6 +69,12 @@ const router = new VueRouter({
     routes
 });
 
+router.beforeEach((to, from, next) => {
+    window.currentRoute = to.name;
+    window.lastRoute = from.name;
+    next();
+});
+
 new Vue({
     el: "#app",
     store,

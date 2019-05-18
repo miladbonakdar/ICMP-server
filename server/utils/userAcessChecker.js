@@ -14,47 +14,56 @@ const types = {
 
 const sysAdminAccess = () => {
     return {
-        dashboardPage: true,
-        settingPage: true,
-        logPage: true,
-        userPage: true,
-        modifyArea: true,
-        modifyNode: true,
-        modifyUser: true,
-        ping: true,
-        export: true
+        rollName: 'sysAdmin',
+        access: {
+            dashboardPage: true,
+            settingPage: true,
+            logPage: true,
+            userPage: true,
+            modifyArea: true,
+            modifyNode: true,
+            modifyUser: true,
+            ping: true,
+            export: true
+        }
     };
 };
 
 const adminAccess = () => {
     return {
-        dashboardPage: true,
-        settingPage: false,
-        logPage: true,
-        userPage: false,
-        modifyArea: true,
-        modifyNode: true,
-        modifyUser: false,
-        ping: true,
-        export: true
+        rollName: 'admin',
+        access: {
+            dashboardPage: true,
+            settingPage: false,
+            logPage: true,
+            userPage: false,
+            modifyArea: true,
+            modifyNode: true,
+            modifyUser: false,
+            ping: true,
+            export: true
+        }
     };
 };
 
 const monitorAccess = () => {
     return {
-        dashboardPage: true,
-        settingPage: false,
-        logPage: true,
-        userPage: false,
-        modifyArea: false,
-        modifyNode: false,
-        modifyUser: false,
-        ping: false,
-        export: true
+        rollName: 'monitor',
+        access: {
+            dashboardPage: true,
+            settingPage: false,
+            logPage: true,
+            userPage: false,
+            modifyArea: false,
+            modifyNode: false,
+            modifyUser: false,
+            ping: false,
+            export: true
+        }
     };
 };
 
-const accessChecker = (user, ...acess) => {
+const accessChecker = (user, ...access) => {
     if (!loginEnabled) return true;
     if (!user) return false;
     if (!user.roll) return false;

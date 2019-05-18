@@ -23,12 +23,12 @@ export const routes = [
         component: Setting
     },
     {
-        path: "/logs",
+        path: "/log",
         name: routsName.LOG,
         component: Log
     },
     {
-        path: "/areaaaa/:id",
+        path: "/area/:id",
         name: routsName.AREA,
         component: Area
     },
@@ -36,10 +36,10 @@ export const routes = [
         path: "/node/:id",
         name: routsName.NODE,
         component: Node,
-        props:true
+        props: true
     },
     {
         path: "*",
-        redirect: { name: routsName.DASHBOARD }
+        redirect: { name: routsName.LOGIN }
     }
 ];

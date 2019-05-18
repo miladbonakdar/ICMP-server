@@ -44,9 +44,30 @@ export default {
   },
   methods: {
     onSubmit(evt) {
-      evt.preventDefault();
-      // alert(JSON.stringify(this.form));
+      this.$gate.user.login(this.form).then(res => {
+        if (res.status == 200 && res.data.success) {
+          // eslint-disable-next-line no-debugger
+          localStorage.setItem("token", res.data.data.token);
+          localStorage.setItem("user", JSON.stringify(res.data.data.user));
+          localStorage.setItem("logedOn", JSON.stringify(new Date()));
+          this.$router.push("dashboard");
+        }
+      });
     }
+  },
+  created: function() {
+    let token = localStorage.getItem("token");
+    if (token) this.$router.push("dashboard");
+
+    this.$gate.public.info().then(res => {
+      if (
+        res.status == 200 &&
+        res.data.success &&
+        !res.data.data.loginEnabled
+      ) {
+        this.$router.push("dashboard");
+      }
+    });
   }
 };
 </script>

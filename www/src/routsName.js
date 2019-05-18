@@ -1,9 +1,9 @@
-const LOGIN = "Login";
-const SETTING = "Setting";
-const DASHBOARD = "Dashboard";
-const AREA = "Area";
-const NODE = "Node";
-const LOG = "LOG";
+const LOGIN = "login";
+const SETTING = "setting";
+const DASHBOARD = "dashboard";
+const AREA = "area";
+const NODE = "node";
+const LOG = "log";
 
 export default {
     LOGIN,

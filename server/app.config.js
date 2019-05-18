@@ -1,7 +1,7 @@
 const config = {
     apiPortNumber: 3000,
     databaseName: 'icmpDb',
-    loginEnabled: false,
+    loginEnabled: true,
     mongoUser: 'root', //to the env
     mongoPass: 'root', //to the env
     mongoServer: 'localhost', //to the env

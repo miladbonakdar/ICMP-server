@@ -22,7 +22,7 @@ module.exports = router => {
         .route(baseUrl(publicController.controllerName, publicStatics.getSiteInfo.name))
         [publicStatics.getSiteInfo.method](
             ...middlewareValidator(
-                ...defaultMiddlewares,
+                publicController.inject,
                 publicStatics.getSiteInfo.access,
                 publicStatics.getSiteInfo.validate,
                 publicController[publicStatics.getSiteInfo.name]

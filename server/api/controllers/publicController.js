@@ -2,6 +2,7 @@ const publicStatics = require('../statics/public_statics');
 const response = require('../utils/response');
 const { checkAsync } = require('../utils/checkApifunctions');
 const version = require('../../package.json').version;
+const loginEnabled = require('../../app.config').get().loginEnabled;
 const pingHosts = require('../../cron/onPingCronJobFinished');
 const logRepository = require('../../repositories/logRepository');
 const settingRepo = require('../../repositories/settingRepository');
@@ -31,7 +32,8 @@ module.exports = {
         response.success(
             res,
             {
-                siteVersion: version
+                siteVersion: version,
+                loginEnabled: loginEnabled
             },
             'completed successfuly'
         );

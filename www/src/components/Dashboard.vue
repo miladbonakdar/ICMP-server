@@ -52,10 +52,14 @@
             <template slot="actions" slot-scope="row">
               <node-header :area="area" :node="row.item"></node-header>
             </template>
-            <template slot="createdOn" slot-scope="row">{{row.value | moment("DD MMMM YYYY")}}
-            </template>
+            <template slot="createdOn" slot-scope="row">{{row.value | moment("DD MMMM YYYY")}}</template>
           </b-table>
-          <b-button @click="goToNodePage(area.id)" style="color: white;" variant="warning" size="sm">
+          <b-button
+            @click="goToNodePage(area.id)"
+            style="color: white;"
+            variant="warning"
+            size="sm"
+          >
             New Node
             <span class="oi oi-plus plus-icon"></span>
           </b-button>
@@ -69,8 +73,11 @@
           <span class="oi oi-plus plus-icon"></span>
         </b-button>
       </div>
-      <div class="col" style="    display: flex;
-    flex-direction: row-reverse;padding-right:10px">
+      <div
+        class="col"
+        style="    display: flex;
+    flex-direction: row-reverse;padding-right:10px"
+      >
         <b-button @click="exportCsv()" style="color:white;" size="sm">
           Export csv
           <span class="oi oi-data-transfer-download plus-icon"></span>
@@ -148,7 +155,10 @@ export default {
       this.$router.push({ name: routsName.AREA, params: { id: "new" } });
     },
     goToNodePage(areaId) {
-      this.$router.push({ name: routsName.NODE, params: { id: "new", areaId: areaId } });
+      this.$router.push({
+        name: routsName.NODE,
+        params: { id: "new", areaId: areaId }
+      });
     },
     getNodesCollapseState() {
       let collapseState = [];
@@ -183,9 +193,10 @@ export default {
         })
         .catch(error => {});
       this.$gate.public.getTimes().then(res => {
-        console.log(res);
-        this.lastUpdate = new Date(res.data.data.lastExecute);
-        this.nextUpdate = new Date(res.data.data.nextExecute);
+        if (res.data && res.data.success) {
+          this.lastUpdate = new Date(res.data.data.lastExecute);
+          this.nextUpdate = new Date(res.data.data.nextExecute);
+        }
       });
     },
     exportCsv() {

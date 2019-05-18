@@ -36,6 +36,14 @@ export default {
             ]
         },
         {
+            name: "user",
+            actions: [
+                { type: "get", name: "get", url: "/:id" },
+                { type: "delete", url: "/:id" },
+                { type: "post", name: "login", url: "/login" }
+            ]
+        },
+        {
             name: "log",
             loadDefaults: false,
             actions: [{ type: "get", name: "getAll", url: "/now" }, { type: "get", name: "get", url: "/:date" }]
