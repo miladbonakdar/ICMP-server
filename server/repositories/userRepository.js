@@ -31,7 +31,6 @@ module.exports = class AreaRepository {
 
     async ensureAdminExist() {
         const sysAdmin = await User.findOne({ 'roll.rollName': 'sysAdmin' });
-        debugger;
         if (!sysAdmin)
             return await this.create({
                 name: 'milad',

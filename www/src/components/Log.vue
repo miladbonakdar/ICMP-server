@@ -149,10 +149,10 @@ export default {
       setLogs: types.SET_LOGS
     }),
     goToAreaPage() {
-      this.$router.push({ name: routsName.AREA, params: { id: "new" } });
+      this.$router.replace({ name: routsName.AREA, params: { id: "new" } });
     },
     goToNodePage() {
-      this.$router.push({ name: routsName.NODE, params: { id: "new" } });
+      this.$router.replace({ name: routsName.NODE, params: { id: "new" } });
     },
     getNodesCollapseState() {
       let collapseState = [];

@@ -12,7 +12,7 @@
         </b-col>-->
         <b-col style="padding-right:0px">
           <b-row id="ping-now">
-            <b-button @click="getPing" size="sm" v-b-tooltip.hover title="Ping Now">
+            <b-button @click="getPing" size="sm" v-b-tooltip.hover title="Ping Now" v-if="access.ping">
               Ping now
               <span class="oi oi-reload plus-icon"></span>
             </b-button>
@@ -78,7 +78,7 @@
         style="    display: flex;
     flex-direction: row-reverse;padding-right:10px"
       >
-        <b-button @click="exportCsv()" style="color:white;" size="sm">
+        <b-button v-if="access.export" @click="exportCsv()" style="color:white;" size="sm">
           Export csv
           <span class="oi oi-data-transfer-download plus-icon"></span>
         </b-button>
@@ -93,7 +93,7 @@ import NodeHeader from "./NodeHeader.vue";
 import NodeDetail from "./NodeDetail.vue";
 import routsName from "../routsName";
 import * as types from "../store/types";
-import { mapGetters, mapState, mapActions } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 
 export default {
   metaInfo: {
@@ -144,7 +144,10 @@ export default {
   computed: {
     areas() {
       return this.$store.state.areas.areas;
-    }
+    },
+    ...mapGetters({
+      access: types.ACCESS
+    })
   },
   methods: {
     ...mapActions({
@@ -152,10 +155,10 @@ export default {
       setArea: types.SET_AREAS
     }),
     goToAreaPage() {
-      this.$router.push({ name: routsName.AREA, params: { id: "new" } });
+      this.$router.replace({ name: routsName.AREA, params: { id: "new" } });
     },
     goToNodePage(areaId) {
-      this.$router.push({
+      this.$router.replace({
         name: routsName.NODE,
         params: { id: "new", areaId: areaId }
       });

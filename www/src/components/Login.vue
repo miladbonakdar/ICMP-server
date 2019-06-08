@@ -28,6 +28,8 @@
 
 <script>
 import routsName from "../routsName";
+import { mapActions } from "vuex";
+import * as types from "../store/types";
 
 export default {
   metaInfo: {
@@ -43,21 +45,24 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      setUser: types.SET_USER
+    }),
     onSubmit(evt) {
       this.$gate.user.login(this.form).then(res => {
         if (res.status == 200 && res.data.success) {
-          // eslint-disable-next-line no-debugger
           localStorage.setItem("token", res.data.data.token);
           localStorage.setItem("user", JSON.stringify(res.data.data.user));
           localStorage.setItem("logedOn", JSON.stringify(new Date()));
-          this.$router.push("dashboard");
+          this.setUser(res.data.data.user);
+          this.$router.replace({ name: 'dashboard' });
         }
       });
     }
   },
   created: function() {
     let token = localStorage.getItem("token");
-    if (token) this.$router.push("dashboard");
+    if (token) this.$router.replace({ name: 'dashboard' });
 
     this.$gate.public.info().then(res => {
       if (
@@ -65,7 +70,7 @@ export default {
         res.data.success &&
         !res.data.data.loginEnabled
       ) {
-        this.$router.push("dashboard");
+        this.$router.replace({ name: 'dashboard' });
       }
     });
   }

@@ -4,6 +4,7 @@
       <div class="col">
         <div style="float: right;">
           <img
+          v-if="access.modifyNode"
             @click.stop="editNode()"
             v-b-tooltip.hover
             title="Edit Node"
@@ -11,6 +12,7 @@
             class="icon"
           >
           <img
+          v-if="access.modifyNode"
             @click.stop="showModal()"
             v-b-tooltip.hover
             title="Delete Node"
@@ -32,7 +34,7 @@
 <script>
 import routsName from "../routsName";
 import * as types from "../store/types";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "AreaDetail",
@@ -51,7 +53,10 @@ export default {
       deleteNode: types.DELETE_NODE
     }),
     editNode() {
-      this.$router.push({ name: routsName.NODE, params: { id: this.node.id } });
+      this.$router.replace({
+        name: routsName.NODE,
+        params: { id: this.node.id }
+      });
     },
     handleOk(evt) {
       this.$gate.node
@@ -77,6 +82,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      access: types.ACCESS
+    }),
     expandIconClass() {
       if (this.node.isExpand) return "oi oi-chevron-top";
       else return "oi oi-chevron-bottom";

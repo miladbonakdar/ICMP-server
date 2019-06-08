@@ -13,7 +13,7 @@ module.exports = (req, res) => {
         req.login(user, { session: false }, err => {
             if (err) response.internalServerError(res, err);
 
-            const token = jwt.sign(user.toJSON(), jwt_token, { expiresIn: '1d' });
+            const token = jwt.sign(user.toJSON(), jwt_token, { expiresIn: '10d' });
             response.success(res, { user, token }, 'user loged in successfuly');
         });
     })(req, res);

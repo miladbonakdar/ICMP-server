@@ -101,7 +101,7 @@ export default {
       this.goToDashboard();
     },
     goToDashboard() {
-      this.$router.push({ name: routsName.DASHBOARD });
+      this.$router.replace({ name: routsName.DASHBOARD });
     }
   },
   computed: {

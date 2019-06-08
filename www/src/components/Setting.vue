@@ -98,7 +98,7 @@ export default {
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.$router.push({ name: routsName.DASHBOARD });
+      this.$router.replace({ name: routsName.DASHBOARD });
     },
     setCsvExpoetTime(setting) {
       this.csvExportTime =
@@ -111,7 +111,7 @@ export default {
           : setting.exportCsvFileAtMinute);
     },
     goToDashboard() {
-      this.$router.push({ name: routsName.DASHBOARD });
+      this.$router.replace({ name: routsName.DASHBOARD });
     }
   },
   watch: {

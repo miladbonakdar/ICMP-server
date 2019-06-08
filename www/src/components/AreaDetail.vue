@@ -13,6 +13,7 @@
       <div class="col">
         <div style="float: right">
           <img
+          v-if="access.modifyArea"
             @click.stop="editArea()"
             class="icon"
             v-b-tooltip.hover
@@ -20,6 +21,7 @@
             src="../assets/edit.svg"
           >
           <img
+          v-if="access.modifyArea"
             @click.stop="showModal()"
             class="icon"
             v-b-tooltip.hover
@@ -49,7 +51,7 @@
 <script>
 import routsName from "../routsName";
 import * as types from "../store/types";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "AreaDetail",
@@ -64,7 +66,10 @@ export default {
       deleteArea: types.DELETE_AREA
     }),
     editArea() {
-      this.$router.push({ name: routsName.AREA, params: { id: this.area.id } });
+      this.$router.replace({
+        name: routsName.AREA,
+        params: { id: this.area.id }
+      });
     },
     handleOk(evt) {
       this.$gate.area
@@ -87,6 +92,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      access: types.ACCESS
+    }),
     expandIconClass() {
       if (this.area.isExpand) return "oi oi-chevron-top";
       else return "oi oi-chevron-bottom";
