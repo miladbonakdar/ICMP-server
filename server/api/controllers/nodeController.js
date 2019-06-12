@@ -8,7 +8,7 @@ module.exports = {
     controllerName: 'node',
     inject: (req, res, next) => {
         req.nodeRepository = new NodeRepository();
-        req.csvConverter = new csvConverter();
+        req.csvConverter = csvConverter;
         next();
     },
 
@@ -40,14 +40,14 @@ module.exports = {
 
     //http://localhost:3000/api/v1/node/export/csv
     [nodeStatics.exportCsv.name]: checkAsync(async (req, res) => {
-        const nodes =  await req.nodeRepository.getNodes();
+        const nodes = await req.nodeRepository.getNodes();
         if (nodes.length == 0) response.notFound(res);
         if (req.params.type.toLowerCase() == 'csv') {
             const date = new Date();
             response.exportCsv(
                 res,
                 `nodes Export - ${date.getNowFileName()}`,
-                req.csvConverter(nodes, null /*NodeModel.prototype.csvExportHeader */).convert()
+                new req.csvConverter(nodes, req.nodeRepository.getNodeHeader()).convert()
             );
         } else response.badRequest(res, 'type');
     })

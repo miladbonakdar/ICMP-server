@@ -54,6 +54,7 @@ export default {
           localStorage.setItem("token", res.data.data.token);
           localStorage.setItem("user", JSON.stringify(res.data.data.user));
           localStorage.setItem("logedOn", JSON.stringify(new Date()));
+          localStorage.setItem("loginEnabled", true);
           this.setUser(res.data.data.user);
           this.$router.replace({ name: 'dashboard' });
         }
@@ -70,6 +71,7 @@ export default {
         res.data.success &&
         !res.data.data.loginEnabled
       ) {
+          localStorage.setItem("loginEnabled", false);
         this.$router.replace({ name: 'dashboard' });
       }
     });

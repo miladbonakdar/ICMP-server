@@ -1,4 +1,5 @@
 const { model } = require('mongoose');
 const nodeSchema = require('./nestedModels/nodeSchema');
-
-module.exports = model('node', nodeSchema);
+const nodeModel = model('node', nodeSchema);
+nodeModel.exportHeader = nodeSchema.exportHeader;
+module.exports = nodeModel;

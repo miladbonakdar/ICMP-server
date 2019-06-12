@@ -2,9 +2,9 @@ const fs = require('fs');
 const endOfLine = require('os').EOL;
 module.exports = class CsvConverter {
     constructor(arrayOfObjects, headerObject, pathToSave = __dirname) {
-        if (!arrayOfObjects || typeof arrayOfObjects != 'object')
-            throw new Error('invalid converter parameter');
+        if (!arrayOfObjects || typeof arrayOfObjects != 'object') throw new Error('invalid converter parameter');
         if (arrayOfObjects.length == 0) throw new Error('array is empty');
+        if (!headerObject) headerObject = this.getDefaultHeader(arrayOfObjects[0]);
         this.sortObjectKeys(headerObject);
         arrayOfObjects.forEach(element => {
             this.sortObjectKeys(element);
@@ -23,7 +23,7 @@ module.exports = class CsvConverter {
 
     createHeader() {
         this.dataString = '';
-        this.dataString += this.csvLineFromObject(this.header);
+        this.dataString += this.header + endOfLine;
     }
 
     createBody() {
@@ -32,21 +32,10 @@ module.exports = class CsvConverter {
         });
     }
 
-    csvLineFromObject(item) {
-        let line = '';
-        Object.keys(item).forEach(key => {
-            line += (item[key] ? item[key].toString() : '') + ',';
-        });
-        if (line.endsWith(',')) line = line.substring(0, line.length - 1);
-        line += endOfLine;
-        return line;
-    }
-
     csvLineFromObjectValidateByHeader(item) {
         let line = '';
-        Object.keys(item).forEach(key => {
-            if (this.header[key])
-                line += (item[key] ? item[key].toString() : '') + ',';
+        this.header.split(',').forEach(key => {
+            line += (item[key] !== undefined ? item[key].toString() : '') + ',';
         });
         if (line.endsWith(',')) line = line.substring(0, line.length - 1);
         line += endOfLine;
@@ -71,5 +60,12 @@ module.exports = class CsvConverter {
                 ordered[key] = variable[key];
             });
         variable = ordered;
+    }
+
+    getDefaultHeader(sample) {
+        if (!sample) return {};
+        const header = {};
+        Object.keys(sample).forEach(key => (header[key] = key));
+        return header;
     }
 };

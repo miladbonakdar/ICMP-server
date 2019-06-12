@@ -19,10 +19,6 @@ module.exports = {
         },
         validate: (req, res, next) => {
             let valid = true;
-            if (!accessChecker(req.user, 'allAdmin')) {
-                response.accessDenied(res);
-                valid = false;
-            }
             if (!req.body.id) {
                 response.badRequest(res, 'id');
                 valid = false;

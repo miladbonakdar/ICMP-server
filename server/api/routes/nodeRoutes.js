@@ -7,6 +7,18 @@ const passportAuthonticator = require('../utils/passportAuthonticator');
 const defaultMiddlewares = [passportAuthonticator, nodeController.inject];
 
 module.exports = router => {
+    
+    router
+        .route(baseUrl(nodeController.controllerName, nodeStatics.exportCsv.name, 'type'))
+        [nodeStatics.exportCsv.method](
+            ...middlewareValidator(
+                ...defaultMiddlewares,
+                nodeStatics.exportCsv.access,
+                nodeStatics.exportCsv.validate,
+                nodeController[nodeStatics.exportCsv.name]
+            )
+        );
+        
     router
         .route(baseUrl(nodeController.controllerName))
         [nodeStatics.getAll.method](
@@ -62,14 +74,4 @@ module.exports = router => {
             )
         );
 
-    router
-        .route(baseUrl(nodeController.controllerName, nodeStatics.exportCsv.name, 'type'))
-        [nodeStatics.exportCsv.method](
-            ...middlewareValidator(
-                ...defaultMiddlewares,
-                nodeStatics.exportCsv.access,
-                nodeStatics.exportCsv.validate,
-                nodeController[nodeStatics.exportCsv.name]
-            )
-        );
 };

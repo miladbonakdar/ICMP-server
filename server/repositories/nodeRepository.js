@@ -48,4 +48,8 @@ module.exports = class NodeRepository {
         if (index < 0) return null;
         return area.nodes[index];
     }
+
+    getNodeHeader() {
+        return Node.exportHeader;
+    }
 };
