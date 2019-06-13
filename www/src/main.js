@@ -20,48 +20,48 @@ Vue.use(VueMoment);
 Vue.use(VueCrud, CrudlyConfig);
 Vue.use(Toasted);
 
-Vue.toasted.register(
-    "error",
-    payload => {
-        // if there is no message passed show default message
-        if (!payload.message) {
-            return "Oops.. Something Went Wrong..";
-        }
+// Vue.toasted.register(
+//     "error",
+//     payload => {
+//         // if there is no message passed show default message
+//         if (!payload.message) {
+//             return "Oops.. Something Went Wrong..";
+//         }
 
-        // if there is a message show it with the message
-        return "Oops.. " + payload.message;
-    },
-    {
-        type: "error",
-        duration: 5000,
-        theme: "bubble",
-        position: "bottom-center"
-    }
-);
-Vue.toasted.register(
-    "success",
-    payload => {
-        // if there is no message passed show default message
-        if (!payload.message) {
-            return "Action done successfully";
-        }
+//         // if there is a message show it with the message
+//         return "Oops.. " + payload.message;
+//     },
+//     {
+//         type: "error",
+//         duration: 5000,
+//         theme: "bubble",
+//         position: "bottom-center"
+//     }
+// );
+// Vue.toasted.register(
+//     "success",
+//     payload => {
+//         // if there is no message passed show default message
+//         if (!payload.message) {
+//             return "Action done successfully";
+//         }
 
-        // if there is a message show it with the message
-        return payload.message;
-    },
-    {
-        type: "success",
-        duration: 5000,
-        theme: "bubble",
-        position: "bottom-center"
-    }
-);
-Vue.toasted.register("info", "Oops.. Something Went Wrong..", {
-    type: "info",
-    duration: 5000,
-    theme: "bubble",
-    position: "bottom-center"
-});
+//         // if there is a message show it with the message
+//         return payload.message;
+//     },
+//     {
+//         type: "success",
+//         duration: 5000,
+//         theme: "bubble",
+//         position: "bottom-center"
+//     }
+// );
+// Vue.toasted.register("info", "Oops.. Something Went Wrong..", {
+//     type: "info",
+//     duration: 5000,
+//     theme: "bubble",
+//     position: "bottom-center"
+// });
 
 Vue.component("app-loading", Loading);
 

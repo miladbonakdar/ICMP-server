@@ -29,12 +29,12 @@ module.exports = {
     }),
 
     [nodeStatics.delete.name]: checkAsync(async (req, res) => {
-        await req.nodeRepository.deleteNode(req.params.areaId, req.params.id);
+        await req.nodeRepository.deleteNode(req.params.id);
         response.success(res, {}, 'node deleted successfuly');
     }),
 
     [nodeStatics.get.name]: checkAsync(async (req, res) => {
-        let node = await req.nodeRepository.getNodeById(req.params.areaId, req.params.id);
+        let node = await req.nodeRepository.getNodeById(req.params.id);
         response.success(res, node);
     }),
 

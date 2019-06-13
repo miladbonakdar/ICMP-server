@@ -10,7 +10,7 @@ module.exports = class NodeRepository {
 
     async addNode(requestBody) {
         const area = await Area.findById(requestBody.areaId);
-        if (!area.nodes) area.nodes = [];
+        if (!area || !area.nodes) area.nodes = [];
         const node = new Node(requestBody);
         area.nodes.push(node);
         await area.save();
@@ -21,19 +21,20 @@ module.exports = class NodeRepository {
         const area = await Area.findById(requestBody.areaId);
         if (!area.nodes) return null;
         const node = new Node(requestBody);
-        for (let n of area.nodes)
-            if (n.id == node.id) {
-                n = node;
-                n.updatedOn = new Date();
+        for (let i = 0; i < area.nodes.length; i++) {
+            if (area.nodes[i].id.toString() === node.id.toString()) {
+                area.nodes[i] = node;
+                area.nodes[i].updatedOn = new Date();
                 break;
             }
+        }
         await area.save();
         return node;
     }
 
-    async deleteNode(areaId, nodeId) {
-        const area = await Area.findById(areaId);
-        if (!area.nodes) return null;
+    async deleteNode(nodeId) {
+        const area = await Area.findOne({ nodes: { $elemMatch: { id: nodeId } } });
+        if (!area || !area.nodes) return null;
         const index = area.nodes.findIndex(n => n.id == nodeId);
         if (index < 0) return null;
         const node = area.nodes.splice(index, 1);
@@ -41,12 +42,14 @@ module.exports = class NodeRepository {
         return node;
     }
 
-    async getNodeById(areaId, nodeId) {
-        const area = await Area.findById(areaId);
-        if (!area.nodes) return null;
+    async getNodeById(nodeId) {
+        const area = await Area.findOne({ nodes: { $elemMatch: { id: nodeId } } });
+        if (!area || !area.nodes) return null;
         const index = area.nodes.findIndex(n => n.id == nodeId);
         if (index < 0) return null;
-        return area.nodes[index];
+        const res = area.nodes[index];
+        res.areaId = area.id;
+        return res;
     }
 
     getNodeHeader() {

@@ -6,6 +6,7 @@ const schemaBase = {
     name: { type: String, required: true },
     hostName: { type: String, required: true },
     alive: { type: Boolean, default: false },
+    areaId:{ type: String},
     number: String,
     deviceType: String,
     deviceModel: String,

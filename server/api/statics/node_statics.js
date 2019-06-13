@@ -39,10 +39,6 @@ module.exports = {
                 response.badRequest(res, 'id');
                 valid = false;
             }
-            if (!req.params.areaId) {
-                response.badRequest(res, 'areaId');
-                valid = false;
-            }
             if (valid) next();
         }
     },
@@ -57,10 +53,6 @@ module.exports = {
             let valid = true;
             if (!req.params.id) {
                 response.badRequest(res, 'id');
-                valid = false;
-            }
-            if (!req.params.areaId) {
-                response.badRequest(res, 'areaId');
                 valid = false;
             }
             if (valid) next();

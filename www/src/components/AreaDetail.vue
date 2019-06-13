@@ -13,7 +13,7 @@
       <div class="col">
         <div style="float: right">
           <img
-          v-if="access.modifyArea"
+            v-if="access.modifyArea"
             @click.stop="editArea()"
             class="icon"
             v-b-tooltip.hover
@@ -21,7 +21,7 @@
             src="../assets/edit.svg"
           >
           <img
-          v-if="access.modifyArea"
+            v-if="access.modifyArea"
             @click.stop="showModal()"
             class="icon"
             v-b-tooltip.hover
@@ -77,13 +77,13 @@ export default {
         .then(res => {
           console.log(res);
           this.deleteArea(this.area.id);
-          this.$toasted.global.success({
-            message: "Area deleted successfully"
+          this.$toasted.success("Area deleted successfully", {
+            duration: 5000
           });
         })
         .catch(error => {
-          this.$toasted.global.error({
-            message: "Error in deleting area"
+          this.$toasted.error("Error in deleting area", {
+            duration: 5000
           });
         });
     },

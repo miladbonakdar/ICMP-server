@@ -85,14 +85,14 @@ export default {
       this.$gate.setting
         .update(this.form)
         .then(res => {
-          this.$toasted.global.success({
-            message: "Setting updated successfully"
+          this.$toasted.success("Setting updated successfully", {
+            duration: 5000
           });
           this.goToDashboard();
         })
         .catch(error => {
-          this.$toasted.global.error({
-            message: "Error in updating setting"
+          this.$toasted.error("Error in updating setting", {
+            duration: 5000
           });
         });
     },

@@ -42,13 +42,13 @@ export default {
           .update(this.form)
           .then(res => {
             this.goToDashboard();
-            this.$toasted.global.success({
-              message: "Area updated successfully"
+            this.$toasted.success("Area updated successfully", {
+              duration: 5000
             });
           })
           .catch(error => {
-            this.$toasted.global.error({
-              message: "Error in updating area"
+            this.$toasted.error("Error in updating area", {
+              duration: 5000
             });
           });
       } else {
@@ -56,14 +56,19 @@ export default {
           .create(this.form)
           .then(res => {
             this.goToDashboard();
-            this.$toasted.global.success({
-              message: "Area created successfully"
+            this.$toasted.success("Area created successfully", {
+              duration: 5000
             });
           })
           .catch(error => {
-            this.$toasted.global.error({
-              message: "Error in creating area"
-            });
+            this.$toasted.error(
+              {
+                message: "Error in creating area"
+              },
+              {
+                duration: 5000
+              }
+            );
           });
       }
     },

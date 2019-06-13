@@ -4,7 +4,7 @@
       <div class="col">
         <div style="float: right;">
           <img
-          v-if="access.modifyNode"
+            v-if="access.modifyNode"
             @click.stop="editNode()"
             v-b-tooltip.hover
             title="Edit Node"
@@ -12,7 +12,7 @@
             class="icon"
           >
           <img
-          v-if="access.modifyNode"
+            v-if="access.modifyNode"
             @click.stop="showModal()"
             v-b-tooltip.hover
             title="Delete Node"
@@ -60,19 +60,18 @@ export default {
     },
     handleOk(evt) {
       this.$gate.node
-        .delete(this.area.id, this.node.id)
+        .delete(this.node.id)
         .then(res => {
           console.log(res);
           let payload = { areaId: this.area.id, nodeId: this.node.id };
-          console.log(payload);
           this.deleteNode(payload);
-          this.$toasted.global.success({
-            message: "Node deleted successfully"
+          this.$toasted.success("Node deleted successfully", {
+            duration: 5000
           });
         })
         .catch(error => {
-          this.$toasted.global.error({
-            message: "Error in deleting node"
+          this.$toasted.error("Error in deleting node", {
+            duration: 5000
           });
         });
     },

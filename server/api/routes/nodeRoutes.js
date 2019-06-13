@@ -53,7 +53,7 @@ module.exports = router => {
         );
 
     router
-        .route(baseUrl(nodeController.controllerName, undefined, 'areaId/:id'))
+        .route(baseUrl(nodeController.controllerName, undefined, 'id'))
         [nodeStatics.delete.method](
             ...middlewareValidator(
                 ...defaultMiddlewares,
@@ -64,7 +64,7 @@ module.exports = router => {
         );
 
     router
-        .route(baseUrl(nodeController.controllerName, undefined, 'areaId/:id'))
+        .route(baseUrl(nodeController.controllerName, undefined, 'id'))
         [nodeStatics.get.method](
             ...middlewareValidator(
                 ...defaultMiddlewares,

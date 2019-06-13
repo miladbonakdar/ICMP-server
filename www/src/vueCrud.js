@@ -5,6 +5,7 @@ export default {
         let myGate = new crudly(config);
 
         myGate.afterEach(response => {
+            if(!response.ok) console.error(response);
             if (response.status == 401) {
                 localStorage.removeItem("token");
                 localStorage.removeItem("user");

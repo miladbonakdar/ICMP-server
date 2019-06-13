@@ -35,8 +35,7 @@ export const routes = [
     {
         path: "/node/:id",
         name: routsName.NODE,
-        component: Node,
-        props: true
+        component: Node
     },
     {
         path: "*",

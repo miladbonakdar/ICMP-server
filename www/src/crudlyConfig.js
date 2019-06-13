@@ -4,22 +4,20 @@ export default {
         { type: "get", name: "getAll" },
         { type: "put" },
         { type: "post" },
-        { type: "get", name: "getByIndex", url: "/getByIndex/:index" }
+        { type: "get", name: "getByIndex", url: "/getByIndex/:index" },
+        { type: "get", name: "get", url: "/:id" },
+        { type: "delete", url: "/:id" }
     ],
     controllers: [
         {
             name: "area",
             loadDefaults: true,
-            actions: [{ type: "get", name: "get", url: "/:id" }, { type: "delete", url: "/:id" }]
+            actions: []
         },
         {
             name: "node",
             loadDefaults: true,
-            actions: [
-                { type: "get", name: "export", url: "/export/:type" },
-                { type: "get", name: "get", url: "/:areaId/:id" },
-                { type: "delete", url: "/:areaId/:id" }
-            ]
+            actions: [{ type: "get", name: "export", url: "/export/:type" }]
         },
         {
             name: "setting",
@@ -38,8 +36,6 @@ export default {
         {
             name: "user",
             actions: [
-                { type: "get", name: "get", url: "/:id" },
-                { type: "delete", url: "/:id" },
                 { type: "post", name: "login", url: "/login" }
             ]
         },

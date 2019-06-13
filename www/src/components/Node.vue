@@ -39,6 +39,7 @@
 
 <script>
 import routsName from "../routsName";
+import { debug, debuglog } from "util";
 
 export default {
   metaInfo: {
@@ -46,7 +47,7 @@ export default {
   },
   data() {
     return {
-      area: null,
+      areas: null,
       editMode: false,
       form: {
         areaId: null,
@@ -55,11 +56,6 @@ export default {
       },
       show: true
     };
-  },
-  props: {
-    areaId: {
-      type: String
-    }
   },
   methods: {
     onSubmit(evt) {
@@ -70,14 +66,12 @@ export default {
           .then(res => {
             console.log(res);
             this.goToDashboard();
-            this.$toasted.global.success({
-              message: "Node updated successfully"
+            this.$toasted.success("Node updated successfully", {
+              duration: 5000
             });
           })
           .catch(error => {
-            this.$toasted.global.error({
-              message: "Error in updating node"
-            });
+            this.$toasted.error("Error in updating node");
           });
       } else {
         this.$gate.node
@@ -85,13 +79,13 @@ export default {
           .then(res => {
             console.log(res);
             this.goToDashboard();
-            this.$toasted.global.success({
-              message: "Node created successfully"
+            this.$toasted.success("Node created successfully", {
+              duration: 5000
             });
           })
           .catch(error => {
-            this.$toasted.global.error({
-              message: "Error in creating node"
+            this.$toasted.error("Error in creating node", {
+              duration: 5000
             });
           });
       }
@@ -102,16 +96,28 @@ export default {
     },
     goToDashboard() {
       this.$router.replace({ name: routsName.DASHBOARD });
+    },
+    setArea(areaId) {
+      this.$gate.area.getAll().then(res => {
+        this.areas = res.data.data;
+        if (areaId) {
+          this.areas.forEach(element => {
+            if (element.id === areaId) {
+              this.form.areaId = element.id;
+            }
+          });
+        } else this.form.areaId = this.areas[0] ? this.areas[0].id : null;
+      });
     }
   },
   computed: {
     areaOptions() {
       let options = [];
-      if (!this.area) return null;
-      for (let i = 0; i < this.area.length; i++) {
+      if (!this.areas) return null;
+      for (let i = 0; i < this.areas.length; i++) {
         options.push({
-          text: this.area[i].name,
-          value: this.area[i].id
+          text: this.areas[i].name,
+          value: this.areas[i].id
         });
       }
       return options;
@@ -126,27 +132,16 @@ export default {
   },
   created() {
     let id = this.$route.params.id;
-    this.form.areaId = this.areaId;
     if (id !== "new") {
       this.editMode = true;
       this.$gate.node
-        .get(this.areaId, id)
+        .get(id)
         .then(res => {
-          console.log(res);
           this.form = res.data.data;
+          this.setArea(this.form.areaId);
         })
         .catch(err => {});
-    }
-    this.$gate.area.getAll().then(res => {
-      this.area = res.data.data;
-      if (this.areaId) {
-        this.area.forEach(element => {
-          if (element.id === this.areaId) {
-            this.form.parent = element.path;
-          }
-        });
-      }
-    });
+    } else this.setArea();
   }
 };
 </script>
