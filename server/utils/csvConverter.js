@@ -63,9 +63,7 @@ module.exports = class CsvConverter {
     }
 
     getDefaultHeader(sample) {
-        if (!sample) return {};
-        const header = {};
-        Object.keys(sample).forEach(key => (header[key] = key));
-        return header;
+        if (!sample) return '';
+        return Object.keys(sample).join();
     }
 };

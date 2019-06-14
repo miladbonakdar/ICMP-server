@@ -13,6 +13,10 @@ module.exports = class LogRepository {
         return logEvents;
     }
 
+    async getLogsCount(){
+        return await LogEvent.count({});
+    }
+
     createLogModel(area, node) {
         let newLog = {};
         newLog.areaId = area.id;

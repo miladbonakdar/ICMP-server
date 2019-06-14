@@ -28,4 +28,15 @@ module.exports = router => {
                 logController[logStatics.getCsvLog.name]
             )
         );
+
+    router
+        .route(baseUrl(logController.controllerName, logStatics.count.name))
+        [logStatics.count.method](
+            ...middlewareValidator(
+                ...defaultMiddlewares,
+                logStatics.count.access,
+                logStatics.count.validate,
+                logController[logStatics.count.name]
+            )
+        );
 };

@@ -3,6 +3,7 @@
     <h2 class="text-bold">Logs</h2>
     <hr>
     <b-card
+      id="main-card"
       no-body
       class="mb-1 log-custom-card border-success"
       v-for="(log, index) in logs"
@@ -22,16 +23,16 @@
       >
         <b-card-body>
           <p>
-              <strong>Total Devices:</strong>
-              {{log.totalDevices}}
+            <strong>Total Devices:</strong>
+            {{log.totalDevices}}
           </p>
           <p>
-              <strong>Total Areas:</strong>
-              {{log.totalAreas}}
+            <strong>Total Areas:</strong>
+            {{log.totalAreas}}
           </p>
           <p>
-              <strong>Date:</strong>
-              {{log.createdOn | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}
+            <strong>Date:</strong>
+            {{log.createdOn | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}
           </p>
           <b-table striped hover :items="log.logs" :fields="fields">
             <template slot="isAlive" slot-scope="row">
@@ -46,23 +47,25 @@
             <template slot="actions" slot-scope="row">
               <node-header :area="area" :node="row.item"></node-header>
             </template>
-            <template slot="createdOn" slot-scope="row">{{row.value | moment("DD MMMM YYYY")}}
-            </template>
+            <template slot="createdOn" slot-scope="row">{{row.value | moment("DD MMMM YYYY")}}</template>
           </b-table>
           <b-card
             no-body
             class="mb-1 node-custom-card border-danger"
             v-for="(node, nodeIndex) in log.logs"
-            :key="node.id"
+            :key="node.id + log.id + index + nodeIndex"
           >
             <b-card-header header-tag="header" class="p-1 card-header" role="tab">
-              <div class="container-fluid" v-b-toggle="'node-accordion' + node.id">
+              <div
+                class="container-fluid"
+                v-b-toggle="'node-accordion' + node.id + log.id + index + nodeIndex"
+              >
                 <log-node-header :nodeLog="node" :index="nodeIndex"></log-node-header>
               </div>
             </b-card-header>
             <b-collapse
               v-model="logs[index].logs[nodeIndex].isExpand"
-              :id="'node-accordion' + node.id"
+              :id="'node-accordion' + node.id + log.id + index + nodeIndex"
               accordion="my-node-accordion"
               role="tabpanel"
             >
@@ -75,10 +78,19 @@
       </b-collapse>
     </b-card>
     <div class="row">
-      <div class="col">
-      </div>
-      <div class="col">
-      </div>
+      <div class="col"></div>
+      <div class="col"></div>
+    </div>
+
+    <div class="mt-3">
+      <b-pagination
+        v-model="pageNumber"
+        :total-rows="totalCount"
+        :per-page="pageSize"
+        aria-controls="main-card"
+        size="sm"
+        align="center"
+      ></b-pagination>
     </div>
   </div>
 </template>
@@ -90,6 +102,7 @@ import LogNodeDetail from "./LogNodeDetail.vue";
 import routsName from "../routsName";
 import * as types from "../store/types";
 import { mapGetters, mapState, mapActions } from "vuex";
+import { debug } from "util";
 
 export default {
   metaInfo: {
@@ -97,6 +110,9 @@ export default {
   },
   data() {
     return {
+      pageNumber: 1,
+      totalCount: 0,
+      pageSize: 20,
       nodesCollapseState: [],
       areasCollapseState: [],
       fields: [
@@ -171,13 +187,26 @@ export default {
       }
       return collapseState;
     },
-    updateDashboard() {
+    updateLogs() {
       this.$gate.log
-        .getAll()
+        .getPage({
+          pageNumber: this.pageNumber,
+          pageSize: this.pageSize,
+          query: {}
+        })
         .then(res => {
           this.setLogs(res.data.data);
           this.areasCollapseState = this.getAreasCollapseState();
           this.nodesCollapseState = this.getNodesCollapseState();
+        })
+        .catch(error => {});
+    },
+    getCount(callback) {
+      this.$gate.log
+        .count()
+        .then(res => {
+          this.totalCount = res.data.data;
+          callback();
         })
         .catch(error => {});
     },
@@ -196,9 +225,12 @@ export default {
     LogNodeDetail
   },
   created: function() {
-    this.updateDashboard();
+    this.getCount(() => this.updateLogs());
   },
   watch: {
+    pageNumber(val){
+      this.updateLogs();
+    },
     logs(newValue, oldValue) {
       this.$forceUpdate();
       this.nodesCollapseState = this.getNodesCollapseState();

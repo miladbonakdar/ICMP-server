@@ -35,14 +35,16 @@ export default {
         },
         {
             name: "user",
-            actions: [
-                { type: "post", name: "login", url: "/login" }
-            ]
+            actions: [{ type: "post", name: "login", url: "/login" }]
         },
         {
             name: "log",
             loadDefaults: false,
-            actions: [{ type: "get", name: "getAll", url: "/now" }, { type: "get", name: "get", url: "/:date" }]
+            actions: [
+                { type: "post", name: "getPage", url: "/" },
+                { type: "post", name: "getCsv", url: "/getCsvLog" },
+                { type: "get", name: "count", url: "/count" }
+            ]
         }
     ]
 };
