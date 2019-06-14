@@ -7,6 +7,7 @@ const SettingRepository = require('./repositories/settingRepository');
 const UserRepository = require('./repositories/userRepository');
 const cors = require('cors');
 const loginEnabled = require('./app.config').get().loginEnabled;
+
 require('./repositories/db/index')(async () => {
     const app = express();
 
@@ -17,8 +18,8 @@ require('./repositories/db/index')(async () => {
     // const socket = require("./socket");
 
     // manage setting for the first time
-    const settingRepository = new SettingRepository();
-    await settingRepository.getSetting();
+    await new SettingRepository().getSetting();
+
     if (loginEnabled) {
         passport();
         const userRepository = new UserRepository();
@@ -28,6 +29,6 @@ require('./repositories/db/index')(async () => {
 
     // start api
     api(app);
-    // // start socket liseners
+    // //start socket liseners
     // socket(io);
 }); //configuration for mongoose

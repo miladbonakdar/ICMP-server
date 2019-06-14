@@ -1,4 +1,3 @@
-const response = require('../utils/response');
 const { checker, types } = require('../../utils/userAcessChecker');
 
 module.exports = {
@@ -7,7 +6,7 @@ module.exports = {
         method: 'put',
         access: (req, res, next) => {
             if (checker(req.user, types.settingPage)) next();
-            else response.accessDenied(res);
+            else res.accessDenied();
         }
     },
     delete: {
@@ -15,7 +14,7 @@ module.exports = {
         method: 'delete',
         access: (req, res, next) => {
             if (checker(req.user, types.settingPage)) next();
-            else response.accessDenied(res);
+            else res.accessDenied();
         }
     },
     get: {

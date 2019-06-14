@@ -1,51 +1,61 @@
 const Response = require('../../models/responseModel');
-let response = {};
 
-response.echo = function(res, message, data, success, status) {
-    res.status(status);
-    res.json(
+function echo(message, data, success, status) {
+    this.status(status);
+    this.json(
         new Response({
             data: data,
             success: success,
             message: message,
-            auth: res.auth
+            auth: this.auth
         })
     );
-};
+}
 
-response.success = function(res, data = {}, message = 'action successfully finished') {
-    response.echo(res, message, data, true, 200);
-};
+function success(data = {}, message = 'action successfully finished') {
+    this.echo(message, data, true, 200);
+}
 
-response.error = function(res, message = 'somthing bad happend', status = 500) {
-    response.echo(res, message, {}, false, status);
-};
+function error(message = 'somthing bad happend', status = 500) {
+    this.echo(message, {}, false, status);
+}
 
-response.notFound = function(res) {
-    response.echo(res, 'not found', {}, false, 404);
-};
+function notFound() {
+    this.echo('not found', {}, false, 404);
+}
 
-response.accessDenied = function(res) {
-    response.echo(res, 'access denied', {}, false, 403);
-};
+function accessDenied() {
+    this.echo('access denied', {}, false, 403);
+}
 
-response.badRequest = function(res, invalidParam = '') {
-    response.echo(res, 'bad request \'' + invalidParam + '\'', {}, false, 400);
-};
+function badRequest(invalidParam = '') {
+    this.echo('bad request \'' + invalidParam + '\'', {}, false, 400);
+}
 
-response.unauthorized = function(res) {
-    response.echo(res, 'user is unauthorized', {}, false, 401);
-};
+function unauthorized() {
+    this.echo('user is unauthorized', {}, false, 401);
+}
 
-response.internalServerError = function(res, e) {
-    response.echo(res, e.message || 'somthing bad happend', {}, false, 500);
-};
+function internalServerError(e) {
+    this.ret.echo(e.message || 'somthing bad happend', {}, false, 500);
+}
 
-response.exportCsv = function(res, filename, content) {
+function exportCsv(filename, content) {
     if (typeof content != 'string' || typeof filename != 'string') throw new Error('Data to export is not valid');
-    res.setHeader('Content-Disposition', `attachment; filename=${filename}.csv`);
-    res.setHeader('Content-Type', 'text/csv');
-    res.send(content);
-};
+    this.setHeader('Content-Disposition', `attachment; filename=${filename}.csv`);
+    this.setHeader('Content-Type', 'text/csv');
+    this.send(content);
+}
 
-module.exports = response;
+module.exports = function(_, res, next) {
+    res.echo = echo;
+    res.success = success;
+    res.error = error;
+    res.notFound = notFound;
+    res.accessDenied = accessDenied;
+    res.badRequest = badRequest;
+    res.unauthorized = unauthorized;
+    res.internalServerError = internalServerError;
+    res.exportCsv = exportCsv;
+    next();
+};

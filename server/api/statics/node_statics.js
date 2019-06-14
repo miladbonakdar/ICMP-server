@@ -1,4 +1,3 @@
-const response = require('../utils/response');
 const { checker, types } = require('../../utils/userAcessChecker');
 
 module.exports = {
@@ -7,7 +6,7 @@ module.exports = {
         method: 'post',
         access: (req, res, next) => {
             if (checker(req.user, types.modifyNode)) next();
-            else response.accessDenied(res);
+            else res.accessDenied();
         }
     },
     update: {
@@ -15,16 +14,16 @@ module.exports = {
         method: 'put',
         access: (req, res, next) => {
             if (checker(req.user, types.modifyNode)) next();
-            else response.accessDenied(res);
+            else res.accessDenied();
         },
         validate: (req, res, next) => {
             let valid = true;
             if (!req.body.id) {
-                response.badRequest(res, 'id');
+                res.badRequest('id');
                 valid = false;
             }
             if (!req.body.areaId) {
-                response.badRequest(res, 'areaId');
+                res.badRequest('areaId');
                 valid = false;
             }
             if (valid) next();
@@ -36,7 +35,7 @@ module.exports = {
         validate: (req, res, next) => {
             let valid = true;
             if (!req.params.id) {
-                response.badRequest(res, 'id');
+                res.badRequest('id');
                 valid = false;
             }
             if (valid) next();
@@ -47,12 +46,12 @@ module.exports = {
         method: 'delete',
         access: (req, res, next) => {
             if (checker(req.user, types.modifyNode)) next();
-            else response.accessDenied(res);
+            else res.accessDenied();
         },
         validate: (req, res, next) => {
             let valid = true;
             if (!req.params.id) {
-                response.badRequest(res, 'id');
+                res.badRequest('id');
                 valid = false;
             }
             if (valid) next();
@@ -67,7 +66,7 @@ module.exports = {
         method: 'get',
         access: (req, res, next) => {
             if (checker(req.user, types.export)) next();
-            else response.accessDenied(res);
+            else res.accessDenied();
         }
     }
 };

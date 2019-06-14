@@ -1,4 +1,3 @@
-const response = require('../utils/response');
 const { checker, types } = require('../../utils/userAcessChecker');
 
 module.exports = {
@@ -15,7 +14,7 @@ module.exports = {
         method: 'post',
         access: (req, res, next) => {
             if (checker(req.user, types.ping)) next();
-            else response.accessDenied(res);
+            else res.accessDenied();
         }
     }
 };

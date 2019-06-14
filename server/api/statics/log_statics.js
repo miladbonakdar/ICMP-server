@@ -1,4 +1,3 @@
-const response = require('../utils/response');
 const { checker, types } = require('../../utils/userAcessChecker');
 
 module.exports = {
@@ -7,7 +6,7 @@ module.exports = {
         method: 'get',
         access: (req, res, next) => {
             if (checker(req.user, types.logPage)) next();
-            else response.accessDenied(res);
+            else res.accessDenied();
         }
     }, //get the current log file
     getCsvLog: {
@@ -15,7 +14,7 @@ module.exports = {
         method: 'get',
         access: (req, res, next) => {
             if (checker(req.user, types.logPage, types.export)) next();
-            else response.accessDenied(res);
+            else res.accessDenied();
         }
     } //get csv file log
 };

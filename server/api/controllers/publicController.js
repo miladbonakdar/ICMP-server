@@ -1,5 +1,4 @@
 const publicStatics = require('../statics/public_statics');
-const response = require('../utils/response');
 const { checkAsync } = require('../utils/checkApifunctions');
 const version = require('../../package.json').version;
 const loginEnabled = require('../../app.config').get().loginEnabled;
@@ -17,20 +16,18 @@ module.exports = {
         const lastLog = await new logRepository().getLastLog();
         const setting = await new settingRepo().getSetting();
         if (lastLog)
-            response.success(
-                res,
+            res.success(
                 {
                     lastExecute: lastLog.createdOn,
                     nextExecute: new Date(new Date(lastLog.createdOn).getTime() + setting.pingHostsEvery * 60000)
                 },
                 'completed successfuly'
             );
-        else response.notFound(res);
+        else res.notFound();
     }),
 
     [publicStatics.getSiteInfo.name]: checkAsync(async (req, res) => {
-        response.success(
-            res,
+        res.success(
             {
                 siteVersion: version,
                 loginEnabled: loginEnabled
@@ -41,6 +38,6 @@ module.exports = {
 
     [publicStatics.pingNodes.name]: checkAsync(async (req, res) => {
         await pingHosts();
-        response.success(res);
+        res.success();
     })
 };

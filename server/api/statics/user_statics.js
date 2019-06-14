@@ -1,4 +1,3 @@
-const response = require('../utils/response');
 const { checker, types } = require('../../utils/userAcessChecker');
 
 module.exports = {
@@ -11,12 +10,12 @@ module.exports = {
         method: 'put',
         access: (req, res, next) => {
             if (checker(req.user, types.userPage, types.modifyUser)) next();
-            else response.accessDenied(res);
+            else res.accessDenied();
         },
         validate: (req, res, next) => {
             let valid = true;
             if (!req.body.id) {
-                response.badRequest(res, 'id');
+                res.badRequest('id');
                 valid = false;
             }
             if (valid) next();
@@ -27,12 +26,12 @@ module.exports = {
         method: 'get',
         access: (req, res, next) => {
             if (checker(req.user, types.userPage)) next();
-            else response.accessDenied(res);
+            else res.accessDenied();
         },
         validate: (req, res, next) => {
             let valid = true;
             if (!req.params.id) {
-                response.badRequest(res, 'id');
+                res.badRequest('id');
                 valid = false;
             }
             if (valid) next();
@@ -43,12 +42,12 @@ module.exports = {
         method: 'delete',
         access: (req, res, next) => {
             if (checker(req.user, types.userPage, types.modifyUser)) next();
-            else response.accessDenied(res);
+            else res.accessDenied();
         },
         validate: (req, res, next) => {
             let valid = true;
             if (!req.params.id) {
-                response.badRequest(res, 'id');
+                res.badRequest('id');
                 valid = false;
             }
             if (valid) next();
@@ -59,7 +58,7 @@ module.exports = {
         method: 'get',
         access: (req, res, next) => {
             if (checker(req.user, types.userPage)) next();
-            else response.accessDenied(res);
+            else res.accessDenied();
         }
     },
     login: {
@@ -67,16 +66,16 @@ module.exports = {
         method: 'post',
         access: (req, res, next) => {
             if (checker(req.user, types.userPage, types.modifyUser)) next();
-            else response.accessDenied(res);
+            else res.accessDenied();
         },
         validate: (req, res, next) => {
             let valid = true;
             if (!req.body.username) {
-                response.badRequest(res, 'username');
+                res.badRequest('username');
                 valid = false;
             }
             if (!req.body.password) {
-                response.badRequest(res, 'password');
+                res.badRequest('password');
                 valid = false;
             }
             if (valid) next();

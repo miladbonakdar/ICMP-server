@@ -198,7 +198,6 @@ export default {
         .catch(error => {});
       this.$gate.public.getTimes().then(res => {
         if (res.data && res.data.success) {
-          debugger;
           this.lastUpdate = new Date(res.data.data.lastExecute);
           this.nextUpdate = new Date(res.data.data.nextExecute);
         }
