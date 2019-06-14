@@ -6,7 +6,7 @@ const checkAsync = require('../utils/checkApifunctions').checkAsync;
 module.exports = {
     controllerName: 'setting',
     inject: (req, res, next) => {
-        req.nodeRepository = new SettingRepository();
+        req.settingRepository = new SettingRepository();
         next();
     },
 

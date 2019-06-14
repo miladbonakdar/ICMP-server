@@ -61,14 +61,9 @@ export default {
             });
           })
           .catch(error => {
-            this.$toasted.error(
-              {
-                message: "Error in creating area"
-              },
-              {
-                duration: 5000
-              }
-            );
+            this.$toasted.error("Error in creating area", {
+              duration: 5000
+            });
           });
       }
     },

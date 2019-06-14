@@ -7,9 +7,9 @@
         <b-col>
           <h5>Last update: {{ lastUpdate | moment("from") }}</h5>
         </b-col>
-        <!-- <b-col>
-          <h5 style="text-align: center;">Next update: {{ nextUpdate | moment("from") }}</h5>
-        </b-col>-->
+        <b-col>
+          <h5>Next update: {{ nextUpdate | moment("from") }}</h5>
+        </b-col>
         <b-col style="padding-right:0px">
           <b-row id="ping-now">
             <b-button @click="getPing" size="sm" v-b-tooltip.hover title="Ping Now" v-if="access.ping">
@@ -94,6 +94,7 @@ import NodeDetail from "./NodeDetail.vue";
 import routsName from "../routsName";
 import * as types from "../store/types";
 import { mapActions, mapGetters, mapMutations } from "vuex";
+import { debug } from 'util';
 
 export default {
   metaInfo: {
@@ -197,6 +198,7 @@ export default {
         .catch(error => {});
       this.$gate.public.getTimes().then(res => {
         if (res.data && res.data.success) {
+          debugger;
           this.lastUpdate = new Date(res.data.data.lastExecute);
           this.nextUpdate = new Date(res.data.data.nextExecute);
         }

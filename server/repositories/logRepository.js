@@ -38,7 +38,7 @@ module.exports = class LogRepository {
     }
 
     async getLastLog() {
-        const logs = await Log.find({})
+        const logs = await LogEvent.find({})
             .sort('-createdOn')
             .limit(1)
             .exec();

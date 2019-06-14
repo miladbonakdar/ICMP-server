@@ -15,7 +15,7 @@ module.exports = {
 
     [publicStatics.getExecutationTimes.name]: checkAsync(async (req, res) => {
         const lastLog = await new logRepository().getLastLog();
-        const setting = new settingRepo().getSetting();
+        const setting = await new settingRepo().getSetting();
         if (lastLog)
             response.success(
                 res,
