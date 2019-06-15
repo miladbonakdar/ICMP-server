@@ -6,9 +6,9 @@
 2- authontication
     use passwort jwt -***
     users table -***
-    users auth check in front
-    users auth fill in front (barere token)
-    login page
+    users auth check in front -***
+    users auth fill in front (barere token) -***
+    login page -***
     create admin user -***
     create monitor user -***
 
@@ -18,9 +18,7 @@
 
 4- fixes
     host name => ip address -***
-    smaller font size in dashboard
-    show user name in header
-    secret data from enviroment variables
+    smaller font size in dashboard -***
 
 5- socket.io (unnececery)
     for realtime changes
@@ -28,6 +26,16 @@
     logs
 
 6 -removes
-    cuid
-    jsondb
+    cuid -***
+    node-json-db -***
+
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+    
+7 -new changes
+    add user page
+    check access to the log and user page
+    show user name in header
+    secret data from enviroment variables
+    
     
