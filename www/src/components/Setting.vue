@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="text-bold">Setting</h2>
+    <h3 class="text-bold">Setting</h3>
     <hr>
     <b-form @submit="onSubmit" v-if="show">
       <b-form-group
@@ -53,8 +53,14 @@
           <label class="custom-control-label" for="csvExportCheckbox">isCsvExportEnabled</label>
         </div>
       </b-form-group>
-      <b-button type="submit" variant="primary">Submit</b-button>
-      <b-button @click="onCancel" variant="outline-secondary">Cancel</b-button>
+      <b-row>
+        <b-col cols="2">
+          <b-button type="submit" block variant="primary">Submit</b-button>
+        </b-col>
+        <b-col cols="2" offset="8">
+          <b-button @click="onCancel" block variant="outline-secondary">Cancel</b-button>
+        </b-col>
+      </b-row>
     </b-form>
   </div>
 </template>

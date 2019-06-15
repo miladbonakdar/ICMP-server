@@ -1,6 +1,6 @@
 <template>
   <div role="tablist">
-    <h2 class="text-bold">Dashboard</h2>
+    <h3 class="text-bold">Dashboard</h3>
     <hr>
     <b-container id="generalInfo">
       <b-row>
@@ -39,11 +39,12 @@
         role="tabpanel"
       >
         <b-card-body>
-          <b-table striped hover :items="area.nodes" :fields="fields">
+          <b-table striped hover :items="area.nodes" :fields="fields" small>
             <template slot="alive" slot-scope="row">
               <p class="col node-status">
                 <b-badge
                   pill
+                  style="font-size:10px;"
                   class="node-status status-badge"
                   :variant="nodeStatusVariant(row)"
                 >{{nodeStatus(row)}}</b-badge>
@@ -117,7 +118,7 @@ export default {
           label: "Status",
           sortable: true
         },
-        { key: "hostName", label: "ip", sortable: true },
+        { key: "hostName", label: "Ip", sortable: true },
         {
           key: "number",
           label: "Number",
@@ -308,7 +309,6 @@ h2 {
 
 .node-status {
   font-weight: bold;
-  margin-top: 7px;
   margin-bottom: 0;
   font-size: medium;
 }

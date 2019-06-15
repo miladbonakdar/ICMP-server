@@ -125,9 +125,9 @@ export default {
 }
 
 .icon {
-  width: 20px;
-  height: 20px;
-  margin: 7px 10px 0;
+  width: 15px;
+  height: 15px;
+  margin: 3px 5px 0;
   cursor: pointer;
 }
 #expand-icon {

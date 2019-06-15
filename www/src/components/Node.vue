@@ -1,19 +1,46 @@
 <template>
   <div>
-    <h2 class="text-bold">{{getTitle}}</h2>
+    <h3 class="text-bold">{{getTitle}}</h3>
     <hr>
     <b-form @submit="onSubmit" v-if="show">
-      <b-form-group id="areaSelectGroup" label="Select Area:" label-for="areaSelect">
-        <b-form-select
-          :disabled="editMode"
-          id="areaSelect"
-          type="text"
-          v-model="form.areaId"
-          :options="areaOptions || []"
-          required
-        ></b-form-select>
-      </b-form-group>
-      <b-form-group id="nodeNameInputGroup" label="Node Name:" label-for="nodeNameInput">
+      <b-row>
+        <b-col>
+          <b-form-group id="areaSelectGroup" label="Area:" label-for="areaSelect">
+            <b-form-select
+              :disabled="editMode"
+              id="areaSelect"
+              type="text"
+              v-model="form.areaId"
+              :options="areaOptions || []"
+              required
+            ></b-form-select>
+          </b-form-group>
+        </b-col>
+        <b-col>
+          <b-form-group id="deviceTypeSelectGroup" label="Device Type:" label-for="deviceType">
+            <b-form-select
+              id="deviceType"
+              type="text"
+              v-model="form.deviceType"
+              :options="deviceTypes || []"
+              required
+            ></b-form-select>
+          </b-form-group>
+        </b-col>
+        <b-col>
+          <b-form-group id="deviceModelGroup" label="Device Model:" label-for="deviceModel">
+            <b-form-select
+              id="deviceModel"
+              type="text"
+              v-model="form.deviceModel"
+              :options="deviceModels || []"
+              required
+            ></b-form-select>
+          </b-form-group>
+        </b-col>
+      </b-row>
+
+      <b-form-group id="nodeNameInputGroup" label="Name:" label-for="nodeNameInput">
         <b-form-input
           id="nodeNameInput"
           type="text"
@@ -22,7 +49,18 @@
           placeholder="Enter Node Name"
         ></b-form-input>
       </b-form-group>
-      <b-form-group id="nodeNameInputGroup" label="Host Name:" label-for="hostNameInput">
+
+      <b-form-group id="nodeNumber" label="number:" label-for="number">
+        <b-form-input
+          id="number"
+          type="number"
+          v-model="form.number"
+          required
+          placeholder="Enter Node number"
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="nodeNameInputGroup" label="Ip address:" label-for="hostNameInput">
         <b-form-input
           id="hostNameInput"
           type="text"
@@ -31,8 +69,14 @@
           placeholder="Enter Host Name"
         ></b-form-input>
       </b-form-group>
-      <b-button type="submit" variant="primary">Submit</b-button>
-      <b-button @click="onCancel" variant="outline-secondary">Cancel</b-button>
+      <b-row>
+        <b-col cols="2">
+          <b-button type="submit" block variant="primary">Submit</b-button>
+        </b-col>
+        <b-col cols="2" offset="8">
+          <b-button @click="onCancel" block variant="outline-secondary">Cancel</b-button>
+        </b-col>
+      </b-row>
     </b-form>
   </div>
 </template>
@@ -40,6 +84,7 @@
 <script>
 import routsName from "../routsName";
 import { debug, debuglog } from "util";
+import { mapGetters } from "vuex";
 
 export default {
   metaInfo: {
@@ -128,7 +173,11 @@ export default {
       } else {
         return "Add Node";
       }
-    }
+    },
+    ...mapGetters({
+      deviceTypes: "deviceTypes",
+      deviceModels: "deviceModels"
+    })
   },
   created() {
     let id = this.$route.params.id;
@@ -141,7 +190,11 @@ export default {
           this.setArea(this.form.areaId);
         })
         .catch(err => {});
-    } else this.setArea();
+    } else {
+      this.setArea();
+      this.form.deviceModel = this.deviceModels[0];
+      this.form.deviceType = this.deviceTypes[0];
+    }
   }
 };
 </script>

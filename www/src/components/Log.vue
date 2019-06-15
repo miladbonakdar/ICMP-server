@@ -1,6 +1,6 @@
 <template>
   <div role="tablist">
-    <h2 class="text-bold">Logs</h2>
+    <h3 class="text-bold">Logs</h3>
     <hr>
     <b-container id="generalInfo">
       <b-row>
@@ -119,6 +119,10 @@
         aria-controls="main-card"
         size="sm"
         align="center"
+        first-text="First"
+        prev-text="Prev"
+        next-text="Next"
+        last-text="Last"
       ></b-pagination>
     </div>
   </div>
@@ -356,5 +360,4 @@ h2 {
 #generalInfo h5 {
   font-weight: 400;
 }
-
 </style>
