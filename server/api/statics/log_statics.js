@@ -44,7 +44,7 @@ module.exports = {
     }, //get csv file log
     count: {
         name: 'count',
-        method: 'get',
+        method: 'post',
         access: (req, res, next) => {
             if (checker(req.user, types.logPage)) next();
             else res.accessDenied();

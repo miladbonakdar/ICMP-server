@@ -43,7 +43,7 @@ export default {
             actions: [
                 { type: "post", name: "getPage", url: "/" },
                 { type: "post", name: "getCsv", url: "/getCsvLog" },
-                { type: "get", name: "count", url: "/count" }
+                { type: "post", name: "count", url: "/count" }
             ]
         }
     ]

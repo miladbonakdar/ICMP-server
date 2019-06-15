@@ -41,7 +41,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 #app {
   float: none;
   margin: 10px auto;
@@ -49,5 +49,12 @@ export default {
 #container {
   margin-bottom: 40px;
   margin-top: 25px;
+}
+
+input.form-control + span {
+  position: absolute;
+  top: 0px;
+  right: 15px;
+  font-size: x-large;
 }
 </style>

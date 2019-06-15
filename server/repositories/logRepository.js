@@ -3,7 +3,18 @@ const Log = require('./mongoModels/log.model');
 const LogEvent = require('./mongoModels/logEvent.model');
 const Page = require('../models/pageModel');
 module.exports = class LogRepository {
+    getDateFilterFromBody(query) {
+        if (!query) return null;
+        const mongoQuery = {};
+        if (!query.from && !query.from) return null;
+        mongoQuery.createdOn = {};
+        if (query.from) mongoQuery.createdOn.$gte = query.from;
+        if (query.to) mongoQuery.createdOn.$lt = query.to;
+        return mongoQuery;
+    }
+
     async getLogEvents(requestBody) {
+        requestBody.query = this.getDateFilterFromBody(requestBody.query);
         const page = new Page(requestBody);
         const logEvents = await LogEvent.find(page.query)
             .sort('-createdOn')
@@ -13,8 +24,9 @@ module.exports = class LogRepository {
         return logEvents;
     }
 
-    async getLogsCount(){
-        return await LogEvent.count({});
+    async getLogsCount(requestBody) {
+        const page = new Page(requestBody);
+        return await LogEvent.count(page.query);
     }
 
     createLogModel(area, node) {

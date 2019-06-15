@@ -17,7 +17,7 @@ module.exports = {
     }),
 
     [logStatics.count.name]: checkAsync(async (req, res) => {
-        const count = await req.logRepository.getLogsCount();
+        const count = await req.logRepository.getLogsCount(req.body);
         res.success(count);
     }),
 

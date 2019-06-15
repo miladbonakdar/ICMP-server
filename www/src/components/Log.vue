@@ -2,6 +2,35 @@
   <div role="tablist">
     <h2 class="text-bold">Logs</h2>
     <hr>
+    <b-container id="generalInfo">
+      <b-row>
+        <!-- https://www.npmjs.com/package/vuejs-datepicker -->
+        <b-col cols="4">
+          <datepicker
+            v-model="from"
+            input-class="form-control"
+            placeholder="From date?"
+            v-bind:clear-button="true"
+            @selected="fromDateChanged"
+          ></datepicker>
+        </b-col>
+        <b-col cols="4">
+          <datepicker
+            v-model="to"
+            input-class="form-control"
+            placeholder="To date?"
+            v-bind:clear-button="true"
+            @selected="toDateChanged"
+          ></datepicker>
+        </b-col>
+        <b-col cols="2">
+          <b-button @click="getToday" block variant="success">Today</b-button>
+        </b-col>
+        <b-col cols="2">
+          <b-button @click="getYesterday" block variant="info">Yesterday</b-button>
+        </b-col>
+      </b-row>
+    </b-container>
     <b-card
       id="main-card"
       no-body
@@ -102,7 +131,8 @@ import LogNodeDetail from "./LogNodeDetail.vue";
 import routsName from "../routsName";
 import * as types from "../store/types";
 import { mapGetters, mapState, mapActions } from "vuex";
-import { debug } from "util";
+import { debug, debuglog } from "util";
+import Datepicker from "vuejs-datepicker";
 
 export default {
   metaInfo: {
@@ -110,9 +140,11 @@ export default {
   },
   data() {
     return {
+      to: null,
+      from: null,
       pageNumber: 1,
       totalCount: 0,
-      pageSize: 20,
+      pageSize: 48,
       nodesCollapseState: [],
       areasCollapseState: [],
       fields: [
@@ -187,12 +219,12 @@ export default {
       }
       return collapseState;
     },
-    updateLogs() {
+    updateLogs(query = {}) {
       this.$gate.log
         .getPage({
           pageNumber: this.pageNumber,
           pageSize: this.pageSize,
-          query: {}
+          query: query
         })
         .then(res => {
           this.setLogs(res.data.data);
@@ -217,18 +249,46 @@ export default {
     nodeStatusVariant(node) {
       if (node.value) return "success";
       else return "danger";
+    },
+    toDateChanged(date) {
+      this.getLogsByDate(this.from, date);
+    },
+    fromDateChanged(date) {
+      this.getLogsByDate(date, this.to);
+    },
+    getYesterday() {
+      let today = new Date();
+      this.from = new Date(today.setDate(today.getDate() - 1));
+      this.to = new Date();
+      this.getLogsByDate(this.from, this.to);
+    },
+    getToday() {
+      let today = new Date();
+      this.from = new Date();
+      this.to = new Date(today.setDate(today.getDate() + 1));
+      this.getLogsByDate(this.from, this.to);
+    },
+    getLogsByDate(from, to) {
+      let _from = from
+        ? new Date(from.getFullYear(), from.getMonth(), from.getDate())
+        : null;
+      let _to = to
+        ? new Date(to.getFullYear(), to.getMonth(), to.getDate())
+        : null;
+      this.updateLogs({ from: _from, to: _to });
     }
   },
   components: {
     LogHeader,
     LogNodeHeader,
-    LogNodeDetail
+    LogNodeDetail,
+    Datepicker
   },
   created: function() {
     this.getCount(() => this.updateLogs());
   },
   watch: {
-    pageNumber(val){
+    pageNumber(val) {
       this.updateLogs();
     },
     logs(newValue, oldValue) {
@@ -296,4 +356,5 @@ h2 {
 #generalInfo h5 {
   font-weight: 400;
 }
+
 </style>
