@@ -3,7 +3,7 @@ const document = require('../contracts/document.contract');
 const { Schema } = require('mongoose');
 const ObjectId = require('mongoose').Schema.Types.ObjectId;
 
-const logEchema = new Schema({
+const schemaBase = {
     areaId: ObjectId,
     nodeId: ObjectId,
     isAlive: { type: Boolean, default: false },
@@ -15,6 +15,8 @@ const logEchema = new Schema({
     deviceModel: String,
     ...creationContract,
     ...document
-});
+};
 
+const logEchema = new Schema(schemaBase);
+logEchema.exportHeader = Object.keys(schemaBase).join();
 module.exports = logEchema;

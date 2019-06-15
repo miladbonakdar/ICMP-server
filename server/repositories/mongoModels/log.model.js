@@ -1,4 +1,5 @@
 const { model } = require('mongoose');
 const logSchema = require('./nestedModels/logSchema');
-
-module.exports = model('log', logSchema);
+const logModel = model('log', logSchema);
+logModel.exportHeader = logSchema.exportHeader;
+module.exports = logModel;

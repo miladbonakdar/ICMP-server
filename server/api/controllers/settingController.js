@@ -10,7 +10,7 @@ module.exports = {
     },
 
     [settingStatics.update.name]: checkAsync(async (req, res) => {
-        let setting = await req.settingRepository.setSetting(req.body);
+        let setting = await req.settingRepository.updateSetting(req.body);
         res.success(setting, 'setting updated successfuly');
     }),
 

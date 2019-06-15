@@ -7,7 +7,7 @@ module.exports = async () => {
     const logs = logRepository.getLogsForCsvExport();
     const csv = new csvConverter(
         logs,
-        dailyReportCsvStatics.getHeader(),
+        logRepository.getLogHeader(),
         dailyReportCsvStatics.getFilePath()
     );
     csv.convert();

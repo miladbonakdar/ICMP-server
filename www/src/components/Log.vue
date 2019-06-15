@@ -106,25 +106,30 @@
         </b-card-body>
       </b-collapse>
     </b-card>
-    <div class="row">
-      <div class="col"></div>
-      <div class="col"></div>
-    </div>
-
-    <div class="mt-3">
-      <b-pagination
-        v-model="pageNumber"
-        :total-rows="totalCount"
-        :per-page="pageSize"
-        aria-controls="main-card"
-        size="sm"
-        align="center"
-        first-text="First"
-        prev-text="Prev"
-        next-text="Next"
-        last-text="Last"
-      ></b-pagination>
-    </div>
+    <b-row style="margin-top:25px;">
+      <b-col cols="8">
+        <b-pagination
+          v-model="pageNumber"
+          :total-rows="totalCount"
+          :per-page="pageSize"
+          aria-controls="main-card"
+          size="sm"
+          align="left"
+          first-text="First"
+          prev-text="Prev"
+          next-text="Next"
+          last-text="Last"
+        ></b-pagination>
+      </b-col>
+      <b-col offset="2">
+        <b-col>
+          <b-button block @click="exportCsv()" style="color:white;" size="sm">
+            Export csv
+            <span class="oi oi-data-transfer-download plus-icon"></span>
+          </b-button>
+        </b-col>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
@@ -146,6 +151,7 @@ export default {
     return {
       to: null,
       from: null,
+      query: {},
       pageNumber: 1,
       totalCount: 0,
       pageSize: 48,
@@ -223,12 +229,12 @@ export default {
       }
       return collapseState;
     },
-    updateLogs(query = {}) {
+    updateLogs() {
       this.$gate.log
         .getPage({
           pageNumber: this.pageNumber,
           pageSize: this.pageSize,
-          query: query
+          query: this.query
         })
         .then(res => {
           this.setLogs(res.data.data);
@@ -264,13 +270,13 @@ export default {
       let today = new Date();
       this.from = new Date(today.setDate(today.getDate() - 1));
       this.to = new Date();
-      this.getLogsByDate(this.from, this.to);
+      this.getAndUpdateDateQuery(this.from, this.to);
     },
     getToday() {
       let today = new Date();
       this.from = new Date();
       this.to = new Date(today.setDate(today.getDate() + 1));
-      this.getLogsByDate(this.from, this.to);
+      this.getAndUpdateDateQuery(this.from, this.to);
     },
     getLogsByDate(from, to) {
       let _from = from
@@ -279,7 +285,35 @@ export default {
       let _to = to
         ? new Date(to.getFullYear(), to.getMonth(), to.getDate())
         : null;
-      this.updateLogs({ from: _from, to: _to });
+      this.query = { from: _from, to: _to };
+      this.updateLogs();
+    },
+    exportCsv() {
+      this.$gate.log
+        .getCsv({
+          pageNumber: this.pageNumber,
+          pageSize: this.pageSize,
+          query: this.query
+        })
+        .then(res => {
+          console.log(res.data);
+
+          let csv = res.data;
+          if (csv == null) return;
+          let filename = "logsExport.csv";
+          if (!csv.match(/^data:text\/csv/i)) {
+            csv = "data:text/csv;charset=utf-8," + csv;
+          }
+          let data = encodeURI(csv);
+
+          let link = document.createElement("a");
+          link.setAttribute("href", data);
+          link.setAttribute("download", filename);
+          link.click();
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   },
   components: {

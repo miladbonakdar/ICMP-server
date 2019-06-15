@@ -77,4 +77,8 @@ module.exports = class LogRepository {
         const logs = await this.getLogEvents(requestBody);
         return _.spread(_.union)(logs.map(item => item.logs));
     }
+    
+    getLogHeader() {
+        return Log.exportHeader;
+    }
 };

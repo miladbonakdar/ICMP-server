@@ -30,7 +30,7 @@
         ></b-form-input>
       </b-form-group>
       <b-form-group>
-        <div class="custom-control custom-checkbox">
+        <!-- <div class="custom-control custom-checkbox">
           <input
             type="checkbox"
             class="custom-control-input"
@@ -39,7 +39,7 @@
             checked
           >
           <label class="custom-control-label" for="enableLoginCheckbox">isLoginEnabled</label>
-        </div>
+        </div> -->
       </b-form-group>
       <b-form-group>
         <div class="custom-control custom-checkbox">
@@ -77,7 +77,7 @@ export default {
       form: {
         exportCsvFileAtHour: null,
         exportCsvFileAtMinute: null,
-        isLoginEnabled: null,
+        // isLoginEnabled: null,
         isCsvExportEnabled: null,
         pingHostsEvery: null
       },

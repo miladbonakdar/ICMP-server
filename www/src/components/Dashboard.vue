@@ -12,7 +12,13 @@
         </b-col>
         <b-col style="padding-right:0px">
           <b-row id="ping-now">
-            <b-button @click="getPing" size="sm" v-b-tooltip.hover title="Ping Now" v-if="access.ping">
+            <b-button
+              @click="getPing"
+              size="sm"
+              v-b-tooltip.hover
+              title="Ping Now"
+              v-if="access.ping"
+            >
               Ping now
               <span class="oi oi-reload plus-icon"></span>
             </b-button>
@@ -95,7 +101,7 @@ import NodeDetail from "./NodeDetail.vue";
 import routsName from "../routsName";
 import * as types from "../store/types";
 import { mapActions, mapGetters, mapMutations } from "vuex";
-import { debug } from 'util';
+import { debug } from "util";
 
 export default {
   metaInfo: {

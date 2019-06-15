@@ -1,5 +1,19 @@
 const { checker, types } = require('../../utils/userAcessChecker');
 
+let logDefaultValidate = (req, res, next) => {
+    let valid = true;
+    if (!req.body.pageNumber == null || req.body.pageNumber == undefined) {
+        res.badRequest('pageNumber');
+        valid = false;
+    }
+    if (!req.body.pageSize) {
+        res.badRequest('pageSize');
+        valid = false;
+    }
+    req.body.pageNumber--;
+    if (valid) next();
+};
+
 module.exports = {
     get: {
         name: 'get',
@@ -8,19 +22,7 @@ module.exports = {
             if (checker(req.user, types.logPage)) next();
             else res.accessDenied();
         },
-        validate: (req, res, next) => {
-            let valid = true;
-            if (!req.body.pageNumber == null || req.body.pageNumber == undefined) {
-                res.badRequest('pageNumber');
-                valid = false;
-            }
-            if (!req.body.pageSize) {
-                res.badRequest('pageSize');
-                valid = false;
-            }
-            req.body.pageNumber--;
-            if (valid) next();
-        }
+        validate: logDefaultValidate
     }, //get the current log file
     getCsvLog: {
         name: 'getCsvLog',
@@ -29,18 +31,7 @@ module.exports = {
             if (checker(req.user, types.logPage, types.export)) next();
             else res.accessDenied();
         },
-        validate: (req, res, next) => {
-            let valid = true;
-            if (!req.body.pageNumber == null || req.body.pageNumber == undefined) {
-                res.badRequest('pageNumber');
-                valid = false;
-            }
-            if (!req.body.pageSize) {
-                res.badRequest('pageSize');
-                valid = false;
-            }
-            if (valid) next();
-        }
+        validate: logDefaultValidate
     }, //get csv file log
     count: {
         name: 'count',

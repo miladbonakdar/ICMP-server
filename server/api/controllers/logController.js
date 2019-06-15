@@ -1,7 +1,6 @@
 const logStatics = require('../statics/log_statics');
 const LogRepository = require('../../repositories/logRepository');
 const checkAsync = require('../utils/checkApifunctions').checkAsync;
-const dailyReportCsvStatics = require('../../cron/dailyReportCsvStatics');
 const csvConverter = require('../../utils/csvConverter');
 
 module.exports = {
@@ -26,7 +25,7 @@ module.exports = {
         const date = new Date();
         res.exportCsv(
             `logs Export - ${date.getNowFileName()}`,
-            new csvConverter(logs, dailyReportCsvStatics.getHeader()).convert()
+            new csvConverter(logs, req.logRepository.getLogHeader()).convert()
         );
     })
 };
