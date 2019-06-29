@@ -134,10 +134,10 @@
 </template>
 
 <script>
-import LogHeader from "./LogHeader.vue";
-import LogNodeHeader from "./LogNodeHeader.vue";
-import LogNodeDetail from "./LogNodeDetail.vue";
-import routsName from "../routsName";
+import LogHeader from "../components/LogHeader.vue";
+import LogNodeHeader from "../components/LogNodeHeader.vue";
+import LogNodeDetail from "../components/LogNodeDetail.vue";
+import routesName from "../routesName";
 import * as types from "../store/types";
 import { mapGetters, mapState, mapActions } from "vuex";
 import { debug, debuglog } from "util";
@@ -207,10 +207,10 @@ export default {
       setLogs: types.SET_LOGS
     }),
     goToAreaPage() {
-      this.$router.replace({ name: routsName.AREA, params: { id: "new" } });
+      this.$router.replace({ name: routesName.AREA, params: { id: "new" } });
     },
     goToNodePage() {
-      this.$router.replace({ name: routsName.NODE, params: { id: "new" } });
+      this.$router.replace({ name: routesName.NODE, params: { id: "new" } });
     },
     getNodesCollapseState() {
       let collapseState = [];
@@ -270,13 +270,13 @@ export default {
       let today = new Date();
       this.from = new Date(today.setDate(today.getDate() - 1));
       this.to = new Date();
-      this.getAndUpdateDateQuery(this.from, this.to);
+      this.getLogsByDate(this.from, this.to);
     },
     getToday() {
       let today = new Date();
       this.from = new Date();
       this.to = new Date(today.setDate(today.getDate() + 1));
-      this.getAndUpdateDateQuery(this.from, this.to);
+      this.getLogsByDate(this.from, this.to);
     },
     getLogsByDate(from, to) {
       let _from = from

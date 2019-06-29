@@ -82,13 +82,12 @@
 </template>
 
 <script>
-import routsName from "../routsName";
-import { debug, debuglog } from "util";
+import routesName from "../routesName";
 import { mapGetters } from "vuex";
 
 export default {
   metaInfo: {
-    title: "Edit Node - ICMP Server"
+    title: "User - ICMP Server"
   },
   data() {
     return {
@@ -140,7 +139,7 @@ export default {
       this.goToDashboard();
     },
     goToDashboard() {
-      this.$router.replace({ name: routsName.DASHBOARD });
+      this.$router.replace({ name: routesName.DASHBOARD });
     },
     setArea(areaId) {
       this.$gate.area.getAll().then(res => {
@@ -183,11 +182,14 @@ export default {
     let id = this.$route.params.id;
     if (id !== "new") {
       this.editMode = true;
-      this.$gate.node
+      this.$gate.user
         .get(id)
         .then(res => {
-          this.form = res.data.data;
-          this.setArea(this.form.areaId);
+          if (res.ok) {
+            this.form = res.body.data;
+            this.setArea(this.form.areaId);
+            console.log(res);
+          } else console.err(res);
         })
         .catch(err => {});
     } else {

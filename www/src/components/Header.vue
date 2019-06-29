@@ -8,14 +8,14 @@
       <b-collapse is-nav id="nav_collapse" v-if="$route.name != 'login'">
         <b-navbar-nav style="margin-left: 30px">
           <b-nav-item>
-            <router-link :to="{name: routsName.DASHBOARD}" active-class="active" exact>
+            <router-link :to="{name: routesName.DASHBOARD}" active-class="active" exact>
               <a>Dashboard</a>
             </router-link>
           </b-nav-item>
           <b-nav-item>
             <router-link
               v-if="access.modifyArea"
-              :to="{name: routsName.AREA, params: {id: 'new'}}"
+              :to="{name: routesName.AREA, params: {id: 'new'}}"
               active-class="active"
             >
               <a>Area</a>
@@ -24,7 +24,7 @@
           <b-nav-item>
             <router-link
               v-if="access.modifyNode"
-              :to="{name: routsName.NODE, params: {id: 'new'}}"
+              :to="{name: routesName.NODE, params: {id: 'new'}}"
               active-class="active"
               exact
             >
@@ -33,8 +33,18 @@
           </b-nav-item>
           <b-nav-item>
             <router-link
+              v-if="access.modifyNode"
+              :to="{name: routesName.USER_LIST}"
+              active-class="active"
+              exact
+            >
+              <a>Users</a>
+            </router-link>
+          </b-nav-item>
+          <b-nav-item>
+            <router-link
               v-if="access.logPage"
-              :to="{name: routsName.LOG}"
+              :to="{name: routesName.LOG}"
               active-class="active"
               exact
             >
@@ -44,7 +54,7 @@
           <b-nav-item>
             <router-link
               v-if="access.settingPage"
-              :to="{name: routsName.SETTING}"
+              :to="{name: routesName.SETTING}"
               active-class="active"
               exact
             >
@@ -61,7 +71,7 @@
 </template>
 
 <script>
-import routsName from "../routsName";
+import routesName from "../routesName";
 import { mapActions, mapGetters } from "vuex";
 import * as types from "../store/types";
 import { debug } from "util";
@@ -73,7 +83,7 @@ export default {
   },
   data() {
     return {
-      routsName
+      routesName
     };
   },
   computed: {

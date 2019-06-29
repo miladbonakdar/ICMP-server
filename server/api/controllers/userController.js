@@ -2,6 +2,7 @@ const userStatics = require('../statics/user_statics');
 const UserRepository = require('../../repositories/userRepository');
 const checkAsync = require('../utils/checkApifunctions').checkAsync;
 const userAuth = require('../utils/userAuth');
+const { userTypes } = require('../../utils/userAcessChecker');
 
 module.exports = {
     controllerName: 'user',
@@ -37,5 +38,9 @@ module.exports = {
 
     [userStatics.login.name]: checkAsync(async (req, res) => {
         userAuth(req, res);
+    }),
+
+    [userStatics.getUserTypes.name]: checkAsync(async (req, res) => {
+        res.success(userTypes(req.user));
     })
 };

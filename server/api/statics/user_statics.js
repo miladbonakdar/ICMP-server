@@ -37,6 +37,10 @@ module.exports = {
             if (valid) next();
         }
     },
+    getUserTypes: {
+        name: 'getUserTypes',
+        method: 'get'
+    },
     delete: {
         name: 'delete',
         method: 'delete',
@@ -64,10 +68,6 @@ module.exports = {
     login: {
         name: 'login',
         method: 'post',
-        access: (req, res, next) => {
-            if (checker(req.user, types.userPage, types.modifyUser)) next();
-            else res.accessDenied();
-        },
         validate: (req, res, next) => {
             let valid = true;
             if (!req.body.username) {

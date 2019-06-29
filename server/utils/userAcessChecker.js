@@ -78,10 +78,25 @@ const accessChecker = (user, ...access) => {
     return hasAccess;
 };
 
+const userTypes = user => {
+    //TODO: old version is for managing accessable sections 
+    // let types = [];
+    // if (user.roll.rollName == 'sysAdmin') types.push(sysAdminAccess());
+    // if (user.roll.rollName == 'admin' || user.roll.rollName == 'sysAdmin') types.push(adminAccess());
+    // types.push(monitorAccess());
+    // return types;
+    return [
+        sysAdminAccess(),
+        adminAccess(),
+        monitorAccess()
+    ];
+};
+
 module.exports = {
     checker: accessChecker,
     types,
     sysAdminAccess,
     adminAccess,
-    monitorAccess
+    monitorAccess,
+    userTypes
 };

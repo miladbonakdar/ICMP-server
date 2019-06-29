@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import routsName from "../routsName";
+import routesName from "../routesName";
 
 export default {
   metaInfo: {
@@ -78,7 +78,7 @@ export default {
       this.goToDashboard();
     },
     goToDashboard() {
-      this.$router.replace({ name: routsName.DASHBOARD });
+      this.$router.replace({ name: routesName.DASHBOARD });
     }
   },
   computed: {

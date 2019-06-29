@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import routsName from "../routsName";
+import routesName from "../routesName";
 
 export default {
   metaInfo: {
@@ -104,7 +104,7 @@ export default {
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.$router.replace({ name: routsName.DASHBOARD });
+      this.$router.replace({ name: routesName.DASHBOARD });
     },
     setCsvExpoetTime(setting) {
       this.csvExportTime =
@@ -117,7 +117,7 @@ export default {
           : setting.exportCsvFileAtMinute);
     },
     goToDashboard() {
-      this.$router.replace({ name: routsName.DASHBOARD });
+      this.$router.replace({ name: routesName.DASHBOARD });
     }
   },
   watch: {

@@ -95,10 +95,10 @@
 </template>
 
 <script>
-import AreaDetail from "./AreaDetail.vue";
-import NodeHeader from "./NodeHeader.vue";
-import NodeDetail from "./NodeDetail.vue";
-import routsName from "../routsName";
+import AreaDetail from "../components/AreaDetail.vue";
+import NodeHeader from "../components/NodeHeader.vue";
+// import NodeDetail from "../components/NodeDetail.vue";
+import routesName from "../routesName";
 import * as types from "../store/types";
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import { debug } from "util";
@@ -163,11 +163,11 @@ export default {
       setArea: types.SET_AREAS
     }),
     goToAreaPage() {
-      this.$router.replace({ name: routsName.AREA, params: { id: "new" } });
+      this.$router.replace({ name: routesName.AREA, params: { id: "new" } });
     },
     goToNodePage(areaId) {
       this.$router.replace({
-        name: routsName.NODE,
+        name: routesName.NODE,
         params: { id: "new", areaId: areaId }
       });
     },
@@ -190,7 +190,6 @@ export default {
     },
     getPing() {
       this.$gate.public.ping().then(res => {
-        console.log(res);
         this.updateDashboard();
       });
     },
@@ -214,8 +213,6 @@ export default {
       this.$gate.node
         .export("csv")
         .then(res => {
-          console.log(res.data);
-
           let csv = res.data;
           if (csv == null) return;
           let filename = "export.csv";
@@ -229,9 +226,7 @@ export default {
           link.setAttribute("download", filename);
           link.click();
         })
-        .catch(error => {
-          console.log(error);
-        });
+        .catch(error => {});
     },
     nodeStatus(node) {
       if (node.value) return "Up";
@@ -244,14 +239,14 @@ export default {
   },
   components: {
     AreaDetail,
-    NodeHeader,
-    NodeDetail
+    NodeHeader
+    // NodeDetail
   },
   created: function() {
     this.updateDashboard();
   },
   watch: {
-    areas(newValue, oldValue) {
+    areas() {
       this.$forceUpdate();
       this.nodesCollapseState = this.getNodesCollapseState();
       this.areasCollapseState = this.getAreasCollapseState();
@@ -282,8 +277,8 @@ h2 {
 }
 
 .icon {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   margin-top: 3px;
   margin-left: 5px;
   margin-bottom: 0;

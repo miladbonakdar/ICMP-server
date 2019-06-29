@@ -35,7 +35,8 @@ export default {
         },
         {
             name: "user",
-            actions: [{ type: "post", name: "login", url: "/login" }]
+            actions: [{ type: "post", name: "login", url: "/login" },
+            { type: "get", name: "getUserTypes", url: "/getUserTypes" }]
         },
         {
             name: "log",

@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import routsName from "../routsName";
+import routesName from "../routesName";
 import { mapActions } from "vuex";
 import * as types from "../store/types";
 

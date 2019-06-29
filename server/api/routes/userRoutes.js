@@ -8,6 +8,17 @@ const defaultMiddlewares = [passportAuthonticator, userController.inject];
 
 module.exports = router => {
     router
+        .route(baseUrl(userController.controllerName, userStatics.getUserTypes.name))
+        [userStatics.getUserTypes.method](
+            ...middlewareValidator(
+                ...defaultMiddlewares,
+                userStatics.getUserTypes.access,
+                userStatics.getUserTypes.validate,
+                userController[userStatics.getUserTypes.name]
+            )
+        );
+
+    router
         .route(baseUrl(userController.controllerName))
         [userStatics.getAll.method](
             ...middlewareValidator(

@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import routsName from "../routsName";
+import routesName from "../routesName";
 import * as types from "../store/types";
 import { mapActions, mapGetters } from "vuex";
 
@@ -54,7 +54,7 @@ export default {
     }),
     editNode() {
       this.$router.replace({
-        name: routsName.NODE,
+        name: routesName.NODE,
         params: { id: this.node.id }
       });
     },
