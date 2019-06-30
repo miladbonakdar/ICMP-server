@@ -5,7 +5,7 @@ const jwt_token = require('../../app.config').get().jwt_secret;
 module.exports = (req, res) => {
     passport.authenticate('local', { session: false }, (err, user, info) => {
         if (err || !user) {
-            res.echo('Login failed', null, false, 401);
+            res.echo(info.message, null, false, 401);
             return;
         }
 

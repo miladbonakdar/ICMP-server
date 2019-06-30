@@ -12,18 +12,13 @@
               <a>Dashboard</a>
             </router-link>
           </b-nav-item>
-          <b-nav-item>
-            <router-link
-              v-if="access.modifyArea"
-              :to="{name: routesName.AREA, params: {id: 'new'}}"
-              active-class="active"
-            >
+          <b-nav-item v-if="access.modifyArea">
+            <router-link :to="{name: routesName.AREA, params: {id: 'new'}}" active-class="active">
               <a>Area</a>
             </router-link>
           </b-nav-item>
-          <b-nav-item>
+          <b-nav-item v-if="access.modifyNode">
             <router-link
-              v-if="access.modifyNode"
               :to="{name: routesName.NODE, params: {id: 'new'}}"
               active-class="active"
               exact
@@ -31,33 +26,18 @@
               <a>Node</a>
             </router-link>
           </b-nav-item>
-          <b-nav-item>
-            <router-link
-              v-if="access.modifyNode"
-              :to="{name: routesName.USER_LIST}"
-              active-class="active"
-              exact
-            >
+          <b-nav-item v-if="access.userPage">
+            <router-link :to="{name: routesName.USER_LIST}" active-class="active" exact>
               <a>Users</a>
             </router-link>
           </b-nav-item>
-          <b-nav-item>
-            <router-link
-              v-if="access.logPage"
-              :to="{name: routesName.LOG}"
-              active-class="active"
-              exact
-            >
+          <b-nav-item v-if="access.logPage">
+            <router-link :to="{name: routesName.LOG}" active-class="active" exact>
               <a>Log</a>
             </router-link>
           </b-nav-item>
-          <b-nav-item>
-            <router-link
-              v-if="access.settingPage"
-              :to="{name: routesName.SETTING}"
-              active-class="active"
-              exact
-            >
+          <b-nav-item v-if="access.settingPage">
+            <router-link :to="{name: routesName.SETTING}" active-class="active" exact>
               <a>Setting</a>
             </router-link>
           </b-nav-item>

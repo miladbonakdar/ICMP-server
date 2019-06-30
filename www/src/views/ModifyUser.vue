@@ -2,74 +2,154 @@
   <div>
     <h3 class="text-bold">{{getTitle}}</h3>
     <hr>
-    <b-form @submit="onSubmit" v-if="show">
-      <b-row>
-        <b-col>
-          <b-form-group id="areaSelectGroup" label="Area:" label-for="areaSelect">
+    <b-form @submit="onSubmit">
+      <div class="row">
+        <div class="col col-6">
+          <b-form-group id="areaSelectGroup" label="User Type:" label-for="userTypeSelected">
             <b-form-select
               :disabled="editMode"
-              id="areaSelect"
+              id="userTypeSelected"
               type="text"
-              v-model="form.areaId"
-              :options="areaOptions || []"
+              v-model="form.roll"
+              :options="userTypeOptions || []"
               required
             ></b-form-select>
           </b-form-group>
-        </b-col>
-        <b-col>
-          <b-form-group id="deviceTypeSelectGroup" label="Device Type:" label-for="deviceType">
-            <b-form-select
-              id="deviceType"
+        </div>
+        <div class="col col-6">
+          <b-form-group id="usernameGroup" label="Username :" label-for="usernameInput">
+            <b-form-input
+              id="usernameInput"
               type="text"
-              v-model="form.deviceType"
-              :options="deviceTypes || []"
+              v-model="form.username"
               required
-            ></b-form-select>
+              placeholder="Enter Username"
+            ></b-form-input>
           </b-form-group>
-        </b-col>
-        <b-col>
-          <b-form-group id="deviceModelGroup" label="Device Model:" label-for="deviceModel">
-            <b-form-select
-              id="deviceModel"
+        </div>
+
+        <div class="col col-6">
+          <b-form-group id="userEmail" label="Email :" label-for="userEmailInput">
+            <b-form-input
+              id="userEmailInput"
+              type="email"
+              v-model="form.email"
+              required
+              placeholder="Enter Email"
+            ></b-form-input>
+          </b-form-group>
+        </div>
+
+        <div class="col col-6">
+          <b-form-group id="nodeNameInputGroup" label="Name :" label-for="nodeNameInput">
+            <b-form-input
+              id="nodeNameInput"
               type="text"
-              v-model="form.deviceModel"
-              :options="deviceModels || []"
+              v-model="form.name"
               required
-            ></b-form-select>
+              placeholder="Enter First Name"
+            ></b-form-input>
           </b-form-group>
-        </b-col>
-      </b-row>
+        </div>
 
-      <b-form-group id="nodeNameInputGroup" label="Name:" label-for="nodeNameInput">
-        <b-form-input
-          id="nodeNameInput"
-          type="text"
-          v-model="form.name"
-          required
-          placeholder="Enter Node Name"
-        ></b-form-input>
-      </b-form-group>
+        <div class="col col-6">
+          <b-form-group id="lastnameInputGroup" label="Lastname :" label-for="lastnameInput">
+            <b-form-input
+              id="lastnameInput"
+              type="text"
+              v-model="form.lastname"
+              required
+              placeholder="Enter Lastname"
+            ></b-form-input>
+          </b-form-group>
+        </div>
 
-      <b-form-group id="nodeNumber" label="number:" label-for="number">
-        <b-form-input
-          id="number"
-          type="number"
-          v-model="form.number"
-          required
-          placeholder="Enter Node number"
-        ></b-form-input>
-      </b-form-group>
+        <div class="col col-6">
+          <b-form-group id="passwordInputGroup" label="Passw0rd :" label-for="passwordInput">
+            <b-form-input
+              id="passwordInput"
+              type="password"
+              v-model="form.password"
+              required
+              placeholder="Enter password"
+            ></b-form-input>
+          </b-form-group>
+        </div>
 
-      <b-form-group id="nodeNameInputGroup" label="Ip address:" label-for="hostNameInput">
-        <b-form-input
-          id="hostNameInput"
-          type="text"
-          v-model="form.hostName"
-          required
-          placeholder="Enter Host Name"
-        ></b-form-input>
-      </b-form-group>
-      <b-row>
+        <div class="col col-4">
+          <b-form-checkbox
+            v-model="form.roll.access.dashboardPage"
+            :disabled="ifAccessListDisabled"
+            name="check-button"
+            switch
+          >Access Dashboard Page</b-form-checkbox>
+        </div>
+        <div class="col col-4">
+          <b-form-checkbox
+            :disabled="ifAccessListDisabled"
+            v-model="form.roll.access.settingPage"
+            name="check-button"
+            switch
+          >Access Setting Page</b-form-checkbox>
+        </div>
+        <div class="col col-4">
+          <b-form-checkbox
+            :disabled="ifAccessListDisabled"
+            v-model="form.roll.access.logPage"
+            name="check-button"
+            switch
+          >Access Log Page</b-form-checkbox>
+        </div>
+        <div class="col col-4">
+          <b-form-checkbox
+            :disabled="ifAccessListDisabled"
+            v-model="form.roll.access.userPage"
+            name="check-button"
+            switch
+          >Access User Pages</b-form-checkbox>
+        </div>
+        <div class="col col-4">
+          <b-form-checkbox
+            :disabled="ifAccessListDisabled"
+            v-model="form.roll.access.modifyArea"
+            name="check-button"
+            switch
+          >Access Area Management</b-form-checkbox>
+        </div>
+        <div class="col col-4">
+          <b-form-checkbox
+            :disabled="ifAccessListDisabled"
+            v-model="form.roll.access.modifyNode"
+            name="check-button"
+            switch
+          >Access Node Management</b-form-checkbox>
+        </div>
+        <div class="col col-4">
+          <b-form-checkbox
+            :disabled="ifAccessListDisabled"
+            v-model="form.roll.access.modifyUser"
+            name="check-button"
+            switch
+          >Access User Management</b-form-checkbox>
+        </div>
+        <div class="col col-4">
+          <b-form-checkbox
+            :disabled="ifAccessListDisabled"
+            v-model="form.roll.access.ping"
+            name="check-button"
+            switch
+          >Access Ping Devices (command)</b-form-checkbox>
+        </div>
+        <div class="col col-4">
+          <b-form-checkbox
+            :disabled="ifAccessListDisabled"
+            v-model="form.roll.access.export"
+            name="check-button"
+            switch
+          >Access Export Data</b-form-checkbox>
+        </div>
+      </div>
+      <b-row style="margin-top:20px;">
         <b-col cols="2">
           <b-button type="submit" block variant="primary">Submit</b-button>
         </b-col>
@@ -91,44 +171,82 @@ export default {
   },
   data() {
     return {
-      areas: null,
+      userTypes: null,
       editMode: false,
-      form: {
-        areaId: null,
-        name: null,
-        hostName: null
+      defaultCustom: {
+        rollName: "custom",
+        access: {
+          dashboardPage: true,
+          settingPage: false,
+          logPage: false,
+          userPage: false,
+          modifyArea: false,
+          modifyNode: false,
+          modifyUser: false,
+          ping: false,
+          export: false
+        }
       },
-      show: true
+      form: {
+        roll: {
+          rollName: null,
+          access: {
+            dashboardPage: true,
+            settingPage: true,
+            logPage: true,
+            userPage: true,
+            modifyArea: true,
+            modifyNode: true,
+            modifyUser: true,
+            ping: true,
+            export: true
+          }
+        },
+        name: null,
+        lastname: null,
+        email: null,
+        username: null
+      }
     };
   },
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
       if (this.editMode) {
-        this.$gate.node
+        this.$gate.user
           .update(this.form)
           .then(res => {
             console.log(res);
-            this.goToDashboard();
-            this.$toasted.success("Node updated successfully", {
-              duration: 5000
-            });
+            if (res.ok) {
+              this.goToUser();
+              this.$toasted.success("user updated successfully", {
+                duration: 5000
+              });
+            } else
+              this.$toasted.error("user updated successfully", {
+                duration: 5000
+              });
           })
           .catch(error => {
-            this.$toasted.error("Error in updating node");
+            this.$toasted.error("Error in updating user");
           });
       } else {
-        this.$gate.node
+        this.$gate.user
           .create(this.form)
           .then(res => {
             console.log(res);
-            this.goToDashboard();
-            this.$toasted.success("Node created successfully", {
-              duration: 5000
-            });
+            if (res.ok) {
+              this.goToUser();
+              this.$toasted.success("User created successfully", {
+                duration: 5000
+              });
+            } else
+              this.$toasted.error("error in creating new user", {
+                duration: 5000
+              });
           })
           .catch(error => {
-            this.$toasted.error("Error in creating node", {
+            this.$toasted.error("Error in creating user", {
               duration: 5000
             });
           });
@@ -136,47 +254,47 @@ export default {
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.goToDashboard();
+      this.goToUser();
     },
-    goToDashboard() {
-      this.$router.replace({ name: routesName.DASHBOARD });
+    goToUser() {
+      this.$router.replace({ name: routesName.USER_LIST });
     },
-    setArea(areaId) {
-      this.$gate.area.getAll().then(res => {
-        this.areas = res.data.data;
-        if (areaId) {
-          this.areas.forEach(element => {
-            if (element.id === areaId) {
-              this.form.areaId = element.id;
-            }
-          });
-        } else this.form.areaId = this.areas[0] ? this.areas[0].id : null;
+    setUserType(roll) {
+      this.$gate.user.getUserTypes().then(res => {
+        if (res.ok) {
+          this.userTypes = res.data.data;
+          if (!roll || (roll && roll.rollName !== "custom"))
+            this.userTypes.push(this.defaultCustom);
+          else if (roll) this.userTypes.push(roll);
+          if (roll && roll.rollName) {
+            this.userTypes.forEach(element => {
+              if (element.rollName === roll.rollName) {
+                this.form.roll = element;
+              }
+            });
+          } else this.form.roll = this.userTypes[0];
+        }
       });
     }
   },
   computed: {
-    areaOptions() {
+    userTypeOptions() {
       let options = [];
-      if (!this.areas) return null;
-      for (let i = 0; i < this.areas.length; i++) {
+      if (!this.userTypes) return null;
+      for (let i = 0; i < this.userTypes.length; i++) {
         options.push({
-          text: this.areas[i].name,
-          value: this.areas[i].id
+          text: this.userTypes[i].rollName,
+          value: this.userTypes[i]
         });
       }
       return options;
     },
     getTitle() {
-      if (this.editMode) {
-        return "Edit Node";
-      } else {
-        return "Add Node";
-      }
+      return this.editMode ? "Edit User" : "Add User";
     },
-    ...mapGetters({
-      deviceTypes: "deviceTypes",
-      deviceModels: "deviceModels"
-    })
+    ifAccessListDisabled() {
+      return this.form.roll.rollName !== "custom";
+    }
   },
   created() {
     let id = this.$route.params.id;
@@ -187,16 +305,13 @@ export default {
         .then(res => {
           if (res.ok) {
             this.form = res.body.data;
-            this.setArea(this.form.areaId);
-            console.log(res);
-          } else console.err(res);
+            this.setUserType(this.form.roll);
+            this.form.password =
+              "fakepassfakepassfakefuckingpassfakepassfuckoff";
+          } else console.error(res);
         })
         .catch(err => {});
-    } else {
-      this.setArea();
-      this.form.deviceModel = this.deviceModels[0];
-      this.form.deviceType = this.deviceTypes[0];
-    }
+    } else this.setUserType();
   }
 };
 </script>

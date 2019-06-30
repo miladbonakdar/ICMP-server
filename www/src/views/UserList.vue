@@ -18,6 +18,7 @@
             <div class="col">
               <div>
                 <router-link
+                  v-if="access.modifyUser"
                   :to="{name: routesName.MODIFY_USER, params: {id: row.item.id}}"
                   active-class="active"
                   exact
@@ -28,7 +29,8 @@
                 </router-link>
 
                 <img
-                  @click.stop="deleteUser(row.item.id)"
+                  v-if="access.modifyUser"
+                  @click.stop="selectedUserId =row.item.id;showModal();"
                   v-b-tooltip.hover
                   title="Delete User"
                   src="../assets/delete.svg"
@@ -40,20 +42,31 @@
         </div>
       </template>
     </b-table>
+
+    <router-link
+      :to="{name: routesName.MODIFY_USER, params: {id: 'new'}}"
+      active-class="active"
+      exact
+    >
+      <b-button variant="success" size="sm" v-if="access.modifyUser">
+        New User
+        <span class="oi oi-plus plus-icon"></span>
+      </b-button>
+    </router-link>
     <hr>
     <div class="row">
       <div class="col">
-        <b-card header="Sys admin" title="Access">
+        <b-card header="Sys Admin Access">
           <pre>{{userTypes[0] || {} }}</pre>
         </b-card>
       </div>
       <div class="col">
-        <b-card header="admin" title="Access">
+        <b-card header="Admin Access">
           <pre>{{userTypes[1] || {} }}</pre>
         </b-card>
       </div>
       <div class="col">
-        <b-card header="monitor" title="Access">
+        <b-card header="Monitor Access">
           <pre>{{userTypes[2] || {} }}</pre>
         </b-card>
       </div>
@@ -61,13 +74,19 @@
     <b-modal v-model="modalShow" title="user access">
       <pre class="m-0">{{ selectedAccess }}</pre>
     </b-modal>
+    <b-modal
+      id="deleteUserModal"
+      ref="modal"
+      title="Delete User"
+      @ok="deleteUser"
+    >Are you sure you want to delete this user?</b-modal>
   </div>
 </template>
 
 <script>
 import routesName from "../routesName";
+import * as types from "../store/types";
 import { mapGetters } from "vuex";
-
 export default {
   metaInfo: {
     title: "Users List - ICMP Server"
@@ -77,6 +96,7 @@ export default {
       routesName,
       selectedAccess: {},
       modalShow: false,
+      selectedUserId: null,
       users: [],
       userTypes: [],
       fields: [
@@ -105,28 +125,48 @@ export default {
     };
   },
   methods: {
-    newUser() {},
-    editUser(userId) {
-      this.$router.replace({ path: `/user/modify/${userId}` });
+    getUserList() {
+      this.$gate.user.getAll().then(res => {
+        if (res.ok) {
+          this.users = res.body.data;
+        } else console.error(res);
+      });
     },
-    deleteUser(userId) {
-      console.log(userId);
+    goToUserPage() {
+      this.$router.replace({ path: `/user/modify/new` });
+    },
+    showModal() {
+      this.$refs.modal.show();
+    },
+    deleteUser() {
+      this.$gate.user.delete(this.selectedUserId).then(res => {
+        if (res.ok) {
+          this.$toasted.success("User deleted successfully", {
+            duration: 5000
+          });
+          this.getUserList();
+        } else
+          this.$toasted.error(res.data.message, {
+            duration: 5000
+          });
+      });
     },
     goToDashboard() {
       this.$router.replace({ name: routesName.DASHBOARD });
     }
   },
   created() {
-    this.$gate.user.getAll().then(res => {
-      if (res.ok) {
-        this.users = res.body.data;
-      } else console.error(res);
-    });
+    this.getUserList();
     this.$gate.user.getUserTypes().then(res => {
       if (res.ok) {
         this.userTypes = res.body.data;
       } else console.error(res);
     });
+  },
+  computed: {
+    ...mapGetters({
+      access: types.ACCESS
+    })
   }
 };
 </script>

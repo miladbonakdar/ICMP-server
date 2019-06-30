@@ -3,7 +3,11 @@ const { checker, types } = require('../../utils/userAcessChecker');
 module.exports = {
     create: {
         name: 'create',
-        method: 'post'
+        method: 'post',
+        access: (req, res, next) => {
+            if (checker(req.user, types.userPage, types.modifyUser)) next();
+            else res.accessDenied();
+        }
     },
     update: {
         name: 'update',
@@ -16,6 +20,10 @@ module.exports = {
             let valid = true;
             if (!req.body.id) {
                 res.badRequest('id');
+                valid = false;
+            }
+            if (req.params.id === req.user.id) {
+                res.error('you cannot modify yourself', 403);
                 valid = false;
             }
             if (valid) next();
@@ -39,7 +47,11 @@ module.exports = {
     },
     getUserTypes: {
         name: 'getUserTypes',
-        method: 'get'
+        method: 'get',
+        access: (req, res, next) => {
+            if (checker(req.user, types.userPage)) next();
+            else res.accessDenied();
+        }
     },
     delete: {
         name: 'delete',
@@ -52,6 +64,10 @@ module.exports = {
             let valid = true;
             if (!req.params.id) {
                 res.badRequest('id');
+                valid = false;
+            }
+            if (req.params.id === req.user.id) {
+                res.error('you cannot remove yourself', 403);
                 valid = false;
             }
             if (valid) next();

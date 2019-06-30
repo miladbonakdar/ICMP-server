@@ -123,7 +123,7 @@
       </b-col>
       <b-col offset="2">
         <b-col>
-          <b-button block @click="exportCsv()" style="color:white;" size="sm">
+          <b-button v-if="access.export" block @click="exportCsv()" style="color:white;" size="sm">
             Export csv
             <span class="oi oi-data-transfer-download plus-icon"></span>
           </b-button>
@@ -139,7 +139,7 @@ import LogNodeHeader from "../components/LogNodeHeader.vue";
 import LogNodeDetail from "../components/LogNodeDetail.vue";
 import routesName from "../routesName";
 import * as types from "../store/types";
-import { mapGetters, mapState, mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { debug, debuglog } from "util";
 import Datepicker from "vuejs-datepicker";
 
@@ -200,7 +200,10 @@ export default {
   computed: {
     logs() {
       return this.$store.state.logs.logs;
-    }
+    },
+    ...mapGetters({
+      access: types.ACCESS
+    })
   },
   methods: {
     ...mapActions({

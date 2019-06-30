@@ -61,7 +61,7 @@
             </template>
             <template slot="createdOn" slot-scope="row">{{row.value | moment("DD MMMM YYYY")}}</template>
           </b-table>
-          <b-button
+          <b-button v-if="access.modifyNode"
             @click="goToNodePage(area.id)"
             style="color: white;"
             variant="warning"
@@ -75,7 +75,7 @@
     </b-card>
     <div class="row">
       <div class="col">
-        <b-button @click="goToAreaPage()" variant="success" size="sm">
+        <b-button  v-if="access.modifyArea" @click="goToAreaPage()" variant="success" size="sm">
           New Area
           <span class="oi oi-plus plus-icon"></span>
         </b-button>

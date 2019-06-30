@@ -32,17 +32,6 @@ router.beforeEach((to, from, next) => {
     next();
 });
 
-Vue.filter("highlight", function(words, query, color) {
-    if(typeof words == "object")
-        words = JSON.stringify(words);
-    return words.replace(query, '<span class="highlighted" style="color:' + color + '">' + query + "</span>");
-});
-
-Vue.filter("test", function(words) {
-    return words + "test";
-});
-
-
 new Vue({
     el: "#app",
     store,

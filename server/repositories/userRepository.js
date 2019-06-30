@@ -14,6 +14,9 @@ module.exports = class AreaRepository {
     }
 
     async update(userObj) {
+        if (userObj.password && userObj.password.length <= 20)
+            userObj.password = await bcrypt.hash(userObj.password, await bcrypt.genSalt(4));
+        else delete userObj.password;
         userObj.updatedOn = new Date();
         await User.update({ _id: userObj.id }, { $set: userObj }).exec();
         return userObj;
