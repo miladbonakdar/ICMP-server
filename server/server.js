@@ -1,3 +1,4 @@
+require('dotenv').config();
 require('./setGlobalVariables');
 require('./utils/classExtentions')(); //aply extentions
 const express = require('express');
@@ -12,10 +13,6 @@ require('./repositories/db/index')(async () => {
     const app = express();
 
     app.use(cors());
-    // for socket
-    const http = require('http').Server(app);
-    // const io = require("socket.io")(http);
-    // const socket = require("./socket");
 
     // manage setting for the first time
     await new SettingRepository().getSetting();
@@ -27,8 +24,5 @@ require('./repositories/db/index')(async () => {
         if (user) console.log('sys admin created');
     }
 
-    // start api
     api(app);
-    // //start socket liseners
-    // socket(io);
-}); //configuration for mongoose
+});

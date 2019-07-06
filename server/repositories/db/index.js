@@ -15,20 +15,18 @@ const termination = chalk.bold.magenta;
 //export this function and imported by server.js
 module.exports = function(mongoStarted) {
     mongoose.connect(dbURL, options);
-    if (process.env.NODE_ENV != 'production') {
-        mongoose.connection.on('connected', function() {
-            console.log(connected('Mongoose default connection is open to ', dbURL));
-            mongoStarted();
-        });
+    mongoose.connection.on('connected', function() {
+        console.log(connected('Mongoose default connection is open to ', dbURL));
+        mongoStarted();
+    });
 
-        mongoose.connection.on('error', function(err) {
-            console.log(error('Mongoose default connection has occured ' + err + ' error'));
-        });
+    mongoose.connection.on('error', function(err) {
+        console.log(error('Mongoose default connection has occured ' + err + ' error'));
+    });
 
-        mongoose.connection.on('disconnected', function() {
-            console.log(disconnected('Mongoose default connection is disconnected'));
-        });
-    }
+    mongoose.connection.on('disconnected', function() {
+        console.log(disconnected('Mongoose default connection is disconnected'));
+    });
 
     process.on('SIGINT', function() {
         mongoose.connection.close(function() {

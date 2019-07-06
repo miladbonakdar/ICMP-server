@@ -1,5 +1,4 @@
 require('../setGlobalVariables');
-require('../utils/foldersInitialiser');
 require('../utils/classExtentions')();
 
 const cronJobTaskRunner = require('./cron');

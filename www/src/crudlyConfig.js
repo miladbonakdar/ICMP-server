@@ -1,5 +1,5 @@
 export default {
-    root: "http://localhost:3000/api/v1",
+    root: "/api/v1",
     defaultActions: [
         { type: "get", name: "getAll" },
         { type: "put" },
@@ -35,8 +35,10 @@ export default {
         },
         {
             name: "user",
-            actions: [{ type: "post", name: "login", url: "/login" },
-            { type: "get", name: "getUserTypes", url: "/getUserTypes" }]
+            actions: [
+                { type: "post", name: "login", url: "/login" },
+                { type: "get", name: "getUserTypes", url: "/getUserTypes" }
+            ]
         },
         {
             name: "log",

@@ -1,29 +1,6 @@
 version: "2.1"
 
 services:
-    icmp-server:
-        image: icmp-server
-        build: ./server
-        environment:
-            NODE_ENV: development
-        ports:
-            - 3000:3000
-            - 9229:9229 # in dev
-        command: node --inspect=0.0.0.0:9229 server.js # in dev
-        networks:
-            - mongo_net
-            - server_net
-
-    icmp-ui:
-        image: icmp-ui
-        build: ./www
-        environment:
-            NODE_ENV: development
-        ports:
-            - 8080:8080
-        networks:
-            - server_net
-
     mongo:
         image: mongo
         restart: always
@@ -46,6 +23,37 @@ services:
             ME_CONFIG_MONGODB_ADMINPASSWORD: root
         networks:
             - mongo_express_net
+
+    icmp-server:
+        image: icmp-server
+        build: ./server
+        environment:
+            NODE_ENV: development
+            API_PORT_NUMBER: 3000
+            DATABASE_NAME: icmpDb
+            LOGIN_ENABLED: 'true'
+            MONGO_USER: root
+            MONGO_PASS: root
+            MONGO_SERVER: mongo
+            MONGO_PORT: 27017
+            JWT_SECRET: thisisasecrettextforicmpprojectauth
+        ports:
+            - 3000:3000
+            - 9229:9229 # in dev
+        command: node --inspect=0.0.0.0:9229 server.js # in dev
+        networks:
+            - mongo_net
+            - server_net
+
+    icmp-ui:
+        image: icmp-ui
+        build: ./www
+        environment:
+            NODE_ENV: development
+        ports:
+            - 8080:8080
+        networks:
+            - server_net
 
 volumes:
     mongodbdata:
