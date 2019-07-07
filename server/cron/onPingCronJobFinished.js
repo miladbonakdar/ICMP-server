@@ -1,6 +1,6 @@
 const pingHost = require('./pingHost');
-const areaRepository = new (require('../repositories/areaRepository'))();
-const logRepository = new (require('../repositories/logRepository'))();
+const AreaRepository = require('../repositories/areaRepository');
+const LogRepository = require('../repositories/logRepository');
 
 const pingNode = async node => {
     node.alive = await pingHost(node.hostName);
@@ -21,6 +21,9 @@ const pingAreas = async areas => {
 };
 
 const pingHosts = async () => {
+    logRepository = new LogRepository();
+    areaRepository = new AreaRepository();
+    console.log('ping nodes started');
     let areas = await areaRepository.getAll();
     await pingAreas(areas);
     areaRepository.updateAreas(areas);

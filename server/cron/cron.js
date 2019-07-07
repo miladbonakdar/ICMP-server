@@ -7,39 +7,61 @@ let pingCronJob = undefined;
 let setting = undefined;
 let csvExportCronJob = undefined;
 
-const stopCronJob = cronName => {
-    if (cronName.indexOf('csv') >= 0 && csvExportCronJob) {
+const stopPingCronJob = () => {
+    if (pingCronJob) {
         csvExportCronJob.stop();
         csvExportCronJob = undefined;
     }
 };
 
-const startSchadule = () => {
-    setting = settingRepo.getSetting();
-    startPingCronJob(); //every 30 minutes
-    startCsvCronJob(); //every day at 12:00
+const stopCsvExportCronJob = () => {
+    if (csvExportCronJob) {
+        csvExportCronJob.stop();
+        csvExportCronJob = undefined;
+    }
+};
+
+const stopCronJobs = () => {
+    stopPingCronJob();
+    stopCsvExportCronJob();
+};
+
+const startSchadule = async () => {
+    try {
+        setting = await settingRepo.getSetting();
+        startPingCronJob(); //every 30 minutes
+        startCsvCronJob(); //every day at 12:00
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
 };
 
 const startCsvCronJob = () => {
-    if (setting.isCsvExportEnabled && !csvExportCronJob)
+    if (setting.isCsvExportEnabled && !csvExportCronJob) {
+        console.warn('cron job for csv export started');
         csvExportCronJob = cron.schedule(
-            `${setting.exportCsvFileAtMinute} ${
-                setting.exportCsvFileAtHour
-            } * * *`,
+            `${setting.exportCsvFileAtMinute} ${setting.exportCsvFileAtHour} * * *`,
             onDailyExportCronJobFinished
         );
+    }
 };
 
 const startPingCronJob = () => {
-    if (!pingCronJob)
-        pingCronJob = cron.schedule(
-            `*/${setting.pingHostsEvery} * * * *`,
-            onPingCronJobFinished
-        );
+    if (!pingCronJob) {
+        console.warn('cron job for ping started ', setting.pingHostsEvery);
+        pingCronJob = cron.schedule(`*/${setting.pingHostsEvery} * * * *`, onPingCronJobFinished);
+    }
+};
+
+const restart = async () => {
+    stopCronJobs();
+    await startSchadule();
 };
 
 //https://crontab.guru/#15_14_1_*_*
 module.exports = {
     start: startSchadule,
-    stop: stopCronJob
+    stop: stopCronJobs,
+    restart
 };

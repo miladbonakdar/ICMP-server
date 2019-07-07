@@ -19,6 +19,12 @@
             "request": "launch",
             "name": "local debug",
             "program": "${workspaceFolder}\\server\\server.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "local debug cron",
+            "program": "${workspaceFolder}\\server\\cron\\index.js"
         }
     ]
 }

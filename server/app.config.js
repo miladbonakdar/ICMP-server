@@ -9,6 +9,8 @@ const config = {
     jwt_secret: process.env.JWT_SECRET
 };
 
+console.log(config);
+
 module.exports = {
     get: () => config,
     getMongoConnectionUrl: () =>
