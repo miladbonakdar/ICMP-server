@@ -66,7 +66,7 @@ export default {
       deleteArea: types.DELETE_AREA
     }),
     editArea() {
-      this.$router.replace({
+      this.$router.push({
         name: routesName.AREA,
         params: { id: this.area.id }
       });

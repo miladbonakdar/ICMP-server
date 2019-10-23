@@ -140,7 +140,7 @@ export default {
       this.goToDashboard();
     },
     goToDashboard() {
-      this.$router.replace({ name: routesName.DASHBOARD });
+      this.$router.push({ name: routesName.DASHBOARD });
     },
     setArea(areaId) {
       this.$gate.area.getAll().then(res => {

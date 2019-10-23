@@ -1,8 +1,8 @@
 <template>
   <div>
     <h3>Login</h3>
-    <hr>
-    <b-form @submit="onSubmit" v-if="show">
+    <hr />
+    <b-form>
       <b-form-group id="usernameInputGroup" label="Your Username:" label-for="Username">
         <b-form-input
           id="usernameInput"
@@ -21,7 +21,7 @@
           placeholder="Enter Password"
         ></b-form-input>
       </b-form-group>
-      <b-button type="submit" variant="primary">Submit</b-button>
+      <b-button @click="onSubmit" variant="primary">Login</b-button>
     </b-form>
   </div>
 </template>
@@ -40,8 +40,7 @@ export default {
       form: {
         username: "",
         password: ""
-      },
-      show: true
+      }
     };
   },
   methods: {
@@ -56,14 +55,14 @@ export default {
           localStorage.setItem("logedOn", JSON.stringify(new Date()));
           localStorage.setItem("loginEnabled", true);
           this.setUser(res.data.data.user);
-          this.$router.replace({ name: 'dashboard' });
+          this.$router.replace({ name: "dashboard" });
         }
       });
     }
   },
   created: function() {
     let token = localStorage.getItem("token");
-    if (token) this.$router.replace({ name: 'dashboard' });
+    if (token) this.$router.replace({ name: "dashboard" });
 
     this.$gate.public.info().then(res => {
       if (
@@ -71,8 +70,8 @@ export default {
         res.data.success &&
         !res.data.data.loginEnabled
       ) {
-          localStorage.setItem("loginEnabled", false);
-        this.$router.replace({ name: 'dashboard' });
+        localStorage.setItem("loginEnabled", false);
+        this.$router.replace({ name: "dashboard" });
       }
     });
   }

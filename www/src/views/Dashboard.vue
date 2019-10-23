@@ -1,7 +1,7 @@
 <template>
   <div role="tablist">
     <h3 class="text-bold">Dashboard</h3>
-    <hr>
+    <hr />
     <b-container id="generalInfo">
       <b-row>
         <b-col>
@@ -46,22 +46,25 @@
       >
         <b-card-body>
           <b-table striped hover :items="area.nodes" :fields="fields" small>
-            <template slot="alive" slot-scope="row">
-              <p class="col node-status">
-                <b-badge
-                  pill
-                  style="font-size:10px;"
-                  class="node-status status-badge"
-                  :variant="nodeStatusVariant(row)"
-                >{{nodeStatus(row)}}</b-badge>
-              </p>
+            <template v-slot:cell(alive)="row">
+              <b-badge :variant="row.value ? 'success' : 'danger'">{{row.value ? 'Up' : 'Down'}}</b-badge>
             </template>
-            <template slot="actions" slot-scope="row">
+            <template v-slot:cell(deviceType)="row">
+              <b-badge variant="info">{{row.value}}</b-badge>
+            </template>
+            <template v-slot:cell(deviceModel)="row">
+              <b-badge variant="primary">{{row.value}}</b-badge>
+            </template>
+            <template v-slot:cell(createdOn)="row">
+              <b-badge>{{row.value | moment("from")}}</b-badge>
+              {{row.value | moment("DD MMMM YYYY")}}
+            </template>
+            <template v-slot:cell(actions)="row">
               <node-header :area="area" :node="row.item"></node-header>
             </template>
-            <template slot="createdOn" slot-scope="row">{{row.value | moment("DD MMMM YYYY")}}</template>
           </b-table>
-          <b-button v-if="access.modifyNode"
+          <b-button
+            v-if="access.modifyNode"
             @click="goToNodePage(area.id)"
             style="color: white;"
             variant="warning"
@@ -75,7 +78,7 @@
     </b-card>
     <div class="row">
       <div class="col">
-        <b-button  v-if="access.modifyArea" @click="goToAreaPage()" variant="success" size="sm">
+        <b-button v-if="access.modifyArea" @click="goToAreaPage()" variant="success" size="sm">
           New Area
           <span class="oi oi-plus plus-icon"></span>
         </b-button>
@@ -150,11 +153,9 @@ export default {
     };
   },
   computed: {
-    areas() {
-      return this.$store.state.areas.areas;
-    },
     ...mapGetters({
-      access: types.ACCESS
+      access: types.ACCESS,
+      areas: types.AREAS
     })
   },
   methods: {
@@ -163,10 +164,10 @@ export default {
       setArea: types.SET_AREAS
     }),
     goToAreaPage() {
-      this.$router.replace({ name: routesName.AREA, params: { id: "new" } });
+      this.$router.push({ name: routesName.AREA, params: { id: "new" } });
     },
     goToNodePage(areaId) {
-      this.$router.replace({
+      this.$router.push({
         name: routesName.NODE,
         params: { id: "new", areaId: areaId }
       });
@@ -197,6 +198,7 @@ export default {
       this.$gate.area
         .getAll()
         .then(res => {
+          console.log(res.data.data);
           this.setArea(res.data.data);
           this.areasCollapseState = this.getAreasCollapseState();
           this.nodesCollapseState = this.getNodesCollapseState();
@@ -227,14 +229,6 @@ export default {
           link.click();
         })
         .catch(error => {});
-    },
-    nodeStatus(node) {
-      if (node.value) return "Up";
-      else return "Down";
-    },
-    nodeStatusVariant(node) {
-      if (node.value) return "success";
-      else return "danger";
     }
   },
   components: {

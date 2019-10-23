@@ -14,7 +14,7 @@ console.log(config);
 module.exports = {
     get: () => config,
     getMongoConnectionUrl: () =>
-        `mongodb://${config.mongoUser}:${config.mongoUser}@${config.mongoServer}:${config.mongoPort}/${
+        `mongodb://${config.mongoUser}:${config.mongoPass}@${config.mongoServer}:${config.mongoPort}/${
             config.databaseName
         }?authSource=admin`
 };

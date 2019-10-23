@@ -10,7 +10,7 @@
             title="Edit Node"
             src="../assets/edit.svg"
             class="icon"
-          >
+          />
           <img
             v-if="access.modifyNode"
             @click.stop="showModal()"
@@ -18,7 +18,7 @@
             title="Delete Node"
             src="../assets/delete.svg"
             class="icon"
-          >
+          />
         </div>
       </div>
     </div>
@@ -53,7 +53,7 @@ export default {
       deleteNode: types.DELETE_NODE
     }),
     editNode() {
-      this.$router.replace({
+      this.$router.push({
         name: routesName.NODE,
         params: { id: this.node.id }
       });

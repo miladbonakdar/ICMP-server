@@ -1,18 +1,18 @@
 <template>
   <div>
     <h3 class="text-bold">Users List</h3>
-    <hr>
+    <hr />
     <b-table striped hover :items="users" :fields="fields">
-      <template slot="fullName" slot-scope="row">{{row.item.name + " " + row.item.lastname}}</template>
-      <template slot="rollName" slot-scope="row">{{row.item.roll.rollName}}</template>
-      <template slot="access" slot-scope="row">
+      <template v-slot:cell(fullName)="row">{{row.item.name + " " + row.item.lastname}}</template>
+      <template v-slot:cell(rollName)="row">{{row.item.roll.rollName}}</template>
+      <template v-slot:cell(access)="row">
         <b-button
           size="sm"
           variant="info"
           @click="modalShow = !modalShow; selectedAccess = row.item.roll.access"
         >Show</b-button>
       </template>
-      <template slot="actions" slot-scope="row">
+      <template  v-slot:cell(actions)="row">
         <div>
           <div class="row" style="max-heigth:30px">
             <div class="col">
@@ -24,7 +24,7 @@
                   exact
                 >
                   <a v-b-tooltip.hover title="Edit User">
-                    <img src="../assets/edit.svg" class="icon">
+                    <img src="../assets/edit.svg" class="icon" />
                   </a>
                 </router-link>
 
@@ -35,7 +35,7 @@
                   title="Delete User"
                   src="../assets/delete.svg"
                   class="icon"
-                >
+                />
               </div>
             </div>
           </div>
@@ -53,7 +53,7 @@
         <span class="oi oi-plus plus-icon"></span>
       </b-button>
     </router-link>
-    <hr>
+    <hr />
     <div class="row">
       <div class="col">
         <b-card header="Sys Admin Access">
@@ -133,7 +133,7 @@ export default {
       });
     },
     goToUserPage() {
-      this.$router.replace({ path: `/user/modify/new` });
+      this.$router.push({ path: `/user/modify/new` });
     },
     showModal() {
       this.$refs.modal.show();
@@ -152,7 +152,7 @@ export default {
       });
     },
     goToDashboard() {
-      this.$router.replace({ name: routesName.DASHBOARD });
+      this.$router.push({ name: routesName.DASHBOARD });
     }
   },
   created() {

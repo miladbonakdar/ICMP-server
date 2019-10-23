@@ -27,6 +27,7 @@ services:
     icmp-server:
         image: icmp-server
         build: ./server
+        restart: always
         environment:
             NODE_ENV: production
             API_PORT_NUMBER: 3000
@@ -46,6 +47,7 @@ services:
             
     icmp-ui:
         image: icmp-ui
+        restart: always
         build: ./www
         environment:
             NODE_ENV: production

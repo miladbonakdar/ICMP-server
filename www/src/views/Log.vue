@@ -1,7 +1,7 @@
 <template>
   <div role="tablist">
     <h3 class="text-bold">Logs</h3>
-    <hr>
+    <hr />
     <b-container id="generalInfo">
       <b-row>
         <!-- https://www.npmjs.com/package/vuejs-datepicker -->
@@ -60,23 +60,24 @@
             {{log.totalAreas}}
           </p>
           <p>
-            <strong>Date:</strong>
+            <strong>Date:</strong>&nbsp;&nbsp;
+            <b-badge>{{log.createdOn | moment("from")}}</b-badge>
             {{log.createdOn | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}
           </p>
           <b-table striped hover :items="log.logs" :fields="fields">
-            <template slot="isAlive" slot-scope="row">
-              <p class="col node-status">
-                <b-badge
-                  pill
-                  class="node-status status-badge"
-                  :variant="nodeStatusVariant(row)"
-                >{{nodeStatus(row)}}</b-badge>
-              </p>
+            <template v-slot:cell(isAlive)="row">
+              <b-badge :variant="row.value ? 'success' : 'danger'">{{row.value ? 'Up' : 'Down'}}</b-badge>
             </template>
-            <template slot="actions" slot-scope="row">
-              <node-header :area="area" :node="row.item"></node-header>
+            <template v-slot:cell(deviceType)="row">
+              <b-badge variant="info">{{row.value}}</b-badge>
             </template>
-            <template slot="createdOn" slot-scope="row">{{row.value | moment("DD MMMM YYYY")}}</template>
+            <template v-slot:cell(deviceModel)="row">
+              <b-badge variant="primary">{{row.value}}</b-badge>
+            </template>
+            <template v-slot:cell(createdOn)="row">
+              <b-badge>{{row.value | moment("from")}}</b-badge>
+              {{row.value | moment("DD MMMM YYYY")}}
+            </template>
           </b-table>
           <b-card
             no-body
@@ -210,10 +211,10 @@ export default {
       setLogs: types.SET_LOGS
     }),
     goToAreaPage() {
-      this.$router.replace({ name: routesName.AREA, params: { id: "new" } });
+      this.$router.push({ name: routesName.AREA, params: { id: "new" } });
     },
     goToNodePage() {
-      this.$router.replace({ name: routesName.NODE, params: { id: "new" } });
+      this.$router.push({ name: routesName.NODE, params: { id: "new" } });
     },
     getNodesCollapseState() {
       let collapseState = [];
@@ -254,14 +255,6 @@ export default {
           callback();
         })
         .catch(error => {});
-    },
-    nodeStatus(node) {
-      if (node.value) return "Up";
-      else return "Down";
-    },
-    nodeStatusVariant(node) {
-      if (node.value) return "success";
-      else return "danger";
     },
     toDateChanged(date) {
       this.getLogsByDate(this.from, date);

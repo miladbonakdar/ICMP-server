@@ -1,45 +1,9 @@
 <template>
   <div>
     <h3 class="text-bold">{{getTitle}}</h3>
-    <hr>
+    <hr />
     <b-form @submit="onSubmit">
       <div class="row">
-        <div class="col col-6">
-          <b-form-group id="areaSelectGroup" label="User Type:" label-for="userTypeSelected">
-            <b-form-select
-              :disabled="editMode"
-              id="userTypeSelected"
-              type="text"
-              v-model="form.roll"
-              :options="userTypeOptions || []"
-              required
-            ></b-form-select>
-          </b-form-group>
-        </div>
-        <div class="col col-6">
-          <b-form-group id="usernameGroup" label="Username :" label-for="usernameInput">
-            <b-form-input
-              id="usernameInput"
-              type="text"
-              v-model="form.username"
-              required
-              placeholder="Enter Username"
-            ></b-form-input>
-          </b-form-group>
-        </div>
-
-        <div class="col col-6">
-          <b-form-group id="userEmail" label="Email :" label-for="userEmailInput">
-            <b-form-input
-              id="userEmailInput"
-              type="email"
-              v-model="form.email"
-              required
-              placeholder="Enter Email"
-            ></b-form-input>
-          </b-form-group>
-        </div>
-
         <div class="col col-6">
           <b-form-group id="nodeNameInputGroup" label="Name :" label-for="nodeNameInput">
             <b-form-input
@@ -65,6 +29,18 @@
         </div>
 
         <div class="col col-6">
+          <b-form-group id="usernameGroup" label="Username :" label-for="usernameInput">
+            <b-form-input
+              id="usernameInput"
+              type="text"
+              v-model="form.username"
+              required
+              placeholder="Enter Username"
+            ></b-form-input>
+          </b-form-group>
+        </div>
+
+        <div class="col col-6">
           <b-form-group id="passwordInputGroup" label="Passw0rd :" label-for="passwordInput">
             <b-form-input
               id="passwordInput"
@@ -72,6 +48,31 @@
               v-model="form.password"
               required
               placeholder="Enter password"
+            ></b-form-input>
+          </b-form-group>
+        </div>
+
+        <div class="col col-6">
+          <b-form-group id="areaSelectGroup" label="User Type:" label-for="userTypeSelected">
+            <b-form-select
+              :disabled="editMode"
+              id="userTypeSelected"
+              type="text"
+              v-model="form.roll"
+              :options="userTypeOptions || []"
+              required
+            ></b-form-select>
+          </b-form-group>
+        </div>
+
+        <div class="col col-6">
+          <b-form-group id="userEmail" label="Email :" label-for="userEmailInput">
+            <b-form-input
+              id="userEmailInput"
+              type="email"
+              v-model="form.email"
+              required
+              placeholder="Enter Email"
             ></b-form-input>
           </b-form-group>
         </div>
@@ -257,7 +258,7 @@ export default {
       this.goToUser();
     },
     goToUser() {
-      this.$router.replace({ name: routesName.USER_LIST });
+      this.$router.push({ name: routesName.USER_LIST });
     },
     setUserType(roll) {
       this.$gate.user.getUserTypes().then(res => {
