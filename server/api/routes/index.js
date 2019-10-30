@@ -11,4 +11,5 @@ module.exports = app => {
     publicRoute(app);
     logRoute(app);
     userRoute(app);
+    app.get('/', (_req, res) => res.end('your answer is 42 ;)'));
 };

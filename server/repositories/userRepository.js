@@ -1,6 +1,8 @@
 const User = require('./mongoModels/user.model');
 const bcrypt = require('bcryptjs');
 const sysAdminAccess = require('../utils/userAcessChecker').sysAdminAccess();
+const { sysAdminEmail, sysAdminPassword, sysAdminUsername } = require('../app.config').get();
+
 module.exports = class AreaRepository {
     async getAll() {
         return (await User.find().select('-password')) || [];
@@ -38,9 +40,9 @@ module.exports = class AreaRepository {
             return await this.create({
                 name: 'milad',
                 lastname: 'bonakdar',
-                username: 'miladbonak',
-                password: 'Xx 123456',
-                email: 'miladbonak@gmail.com',
+                username: sysAdminUsername,
+                password: sysAdminPassword,
+                email: sysAdminEmail,
                 roll: sysAdminAccess,
                 createdOn: new Date(),
                 updatedOn: new Date()

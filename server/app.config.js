@@ -6,7 +6,10 @@ const config = {
     mongoPass: process.env.MONGO_PASS,
     mongoServer: process.env.MONGO_SERVER,
     mongoPort: Number(process.env.MONGO_PORT),
-    jwt_secret: process.env.JWT_SECRET
+    jwt_secret: process.env.JWT_SECRET,
+    sysAdminUsername: process.env.JWT_SECRET,
+    sysAdminPassword: process.env.SYSADMIN_PASSWORD,
+    sysAdminEmail: process.env.SYSADMIN_EMAIL
 };
 
 console.log(config);
@@ -14,7 +17,5 @@ console.log(config);
 module.exports = {
     get: () => config,
     getMongoConnectionUrl: () =>
-        `mongodb://${config.mongoUser}:${config.mongoPass}@${config.mongoServer}:${config.mongoPort}/${
-            config.databaseName
-        }?authSource=admin`
+        `mongodb://${config.mongoUser}:${config.mongoPass}@${config.mongoServer}:${config.mongoPort}/${config.databaseName}?authSource=admin`
 };

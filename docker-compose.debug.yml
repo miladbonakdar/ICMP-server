@@ -31,12 +31,15 @@ services:
             NODE_ENV: development
             API_PORT_NUMBER: 3000
             DATABASE_NAME: icmpDb
-            LOGIN_ENABLED: 'true'
+            LOGIN_ENABLED: "true"
             MONGO_USER: root
             MONGO_PASS: root
             MONGO_SERVER: mongo
             MONGO_PORT: 27017
             JWT_SECRET: thisisasecrettextforicmpprojectauth
+            SYSADMIN_USERNAME: miladbonak
+            SYSADMIN_PASSWORD: @dminPassw0rd
+            SYSADMIN_EMAIL: miladbonak@gmail.com
         ports:
             - 3000:3000
             - 9229:9229 # in dev
