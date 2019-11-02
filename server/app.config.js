@@ -7,7 +7,7 @@ const config = {
     mongoServer: process.env.MONGO_SERVER,
     mongoPort: Number(process.env.MONGO_PORT),
     jwt_secret: process.env.JWT_SECRET,
-    sysAdminUsername: process.env.JWT_SECRET,
+    sysAdminUsername: process.env.SYSADMIN_USERNAME,
     sysAdminPassword: process.env.SYSADMIN_PASSWORD,
     sysAdminEmail: process.env.SYSADMIN_EMAIL
 };
